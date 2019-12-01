@@ -1,6 +1,6 @@
 ﻿{
-	"name": "World clicker",
-	"short_name": "World clicker",
+	"name": "Factory",
+	"short_name": "Factory",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "any",
