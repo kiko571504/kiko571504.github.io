@@ -1,9 +1,9 @@
 ﻿{
-	"name": "Factory",
-	"short_name": "Factory",
+	"name": "MineBullet",
+	"short_name": "MineBullet",
 	"start_url": "index.html",
 	"display": "fullscreen",
-	"orientation": "any",
+	"orientation": "portrait",
 	"icons": [{
 		"src": "icon-16.png",
 		"sizes": "16x16",
