@@ -2,7 +2,7 @@
 
 	"lvl1_tries": 3,
 	"lvl2_tries": 2,
-	"lvl3_tries": 5,
+	"lvl3_tries": 2,
 	"lvl4_tries": 1,
 
 	"lvl5_tries": 2,
@@ -11,8 +11,8 @@
 	"lvl8_tries": 5,
 
 	"lvl9_tries": 2,
-	"lvl10_tries": 5,
-	"lvl11_tries": 5,
+	"lvl10_tries": 2,
+	"lvl11_tries": 10,
 	"lvl12_tries": 5
 
 }}

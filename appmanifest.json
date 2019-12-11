@@ -1,6 +1,6 @@
 ﻿{
-	"name": "MineBullet",
-	"short_name": "MineBullet",
+	"name": "BulletCraft",
+	"short_name": "BulletCraft",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",

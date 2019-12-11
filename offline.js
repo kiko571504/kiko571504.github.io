@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1575998568,
+	"version": 1576098712,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -38,11 +38,13 @@
 		"images/destroyableblock-sheet0.png",
 		"images/destroyableblockparticles-sheet0.png",
 		"images/destroyableblockparticles-sheet1.png",
-		"images/sprite-sheet0.png",
+		"images/water-sheet0.png",
 		"images/boat-sheet0.png",
 		"images/shopbutton-sheet0.png",
 		"images/buybutton-sheet0.png",
 		"images/fade.png",
+		"images/shopselector-sheet0.png",
+		"images/sprite-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
