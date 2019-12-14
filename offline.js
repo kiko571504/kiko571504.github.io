@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1576171895,
+	"version": 1576341709,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -45,6 +45,9 @@
 		"images/fade.png",
 		"images/shopselector-sheet0.png",
 		"images/gamenamelabel-sheet0.png",
+		"images/donatebutton-sheet0.png",
+		"images/donatebutton-sheet1.png",
+		"images/sprite-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
