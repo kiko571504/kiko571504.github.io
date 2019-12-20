@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1576844766,
+	"version": 1576849854,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -9,11 +9,16 @@
 		"images/menubutton-sheet1.png",
 		"images/modebutton-sheet0.png",
 		"images/scrollcenter-sheet0.png",
+		"images/playerscountbutton-sheet0.png",
+		"images/joystick-sheet0.png",
+		"images/joyback-sheet0.png",
+		"images/player-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
 		"icon-128.png",
 		"icon-256.png",
-		"loading-logo.png"
+		"loading-logo.png",
+		"pathfind.js"
 	]
 }
