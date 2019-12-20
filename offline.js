@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1576864809,
+	"version": 1576865852,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -25,6 +25,7 @@
 		"images/winbutton-sheet1.png",
 		"images/nightgrassback.png",
 		"images/block-sheet0.png",
+		"images/block-sheet1.png",
 		"images/blockshadow.png",
 		"pathfind.js"
 	]
