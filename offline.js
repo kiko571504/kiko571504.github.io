@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1576955937,
+	"version": 1576957121,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -24,7 +24,6 @@
 		"images/nightgrassback.png",
 		"images/block-sheet0.png",
 		"images/block-sheet1.png",
-		"images/blockshadow.png",
 		"images/sprite-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
