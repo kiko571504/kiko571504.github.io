@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1576865852,
+	"version": 1576954823,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -17,6 +17,7 @@
 		"images/zombieattack_zombiehand-sheet0.png",
 		"images/zombieattack_zombieleg-sheet0.png",
 		"images/playerbodyupper-sheet0.png",
+		"images/playerbodyupper-sheet1.png",
 		"images/playerarmnleg-sheet0.png",
 		"images/playerarmnleg-sheet1.png",
 		"images/playerarmnleg-sheet2.png",
@@ -27,6 +28,12 @@
 		"images/block-sheet0.png",
 		"images/block-sheet1.png",
 		"images/blockshadow.png",
+		"images/sprite-sheet0.png",
+		"icon-16.png",
+		"icon-32.png",
+		"icon-114.png",
+		"icon-128.png",
+		"icon-256.png",
 		"pathfind.js"
 	]
 }
