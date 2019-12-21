@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1576954823,
+	"version": 1576955747,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -13,9 +13,6 @@
 		"images/joystick-sheet0.png",
 		"images/joyback-sheet0.png",
 		"images/player-sheet0.png",
-		"images/zombieattack_zombie-sheet0.png",
-		"images/zombieattack_zombiehand-sheet0.png",
-		"images/zombieattack_zombieleg-sheet0.png",
 		"images/playerbodyupper-sheet0.png",
 		"images/playerbodyupper-sheet1.png",
 		"images/playerarmnleg-sheet0.png",
