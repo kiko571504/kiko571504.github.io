@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1577217708
+#1577304178
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -26,6 +26,7 @@ images/block-sheet0.png
 images/block-sheet1.png
 images/winblust-sheet0.png
 images/playercar-sheet0.png
+images/playercar-sheet1.png
 images/tsjoyback-sheet0.png
 images/tsjoyback-sheet1.png
 images/tsjoystick-sheet0.png
@@ -40,6 +41,7 @@ icon-32.png
 icon-114.png
 icon-128.png
 icon-256.png
+loading-logo.png
 pathfind.js
 NETWORK:
 *
