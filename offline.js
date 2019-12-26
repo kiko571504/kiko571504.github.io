@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1577365180,
+	"version": 1577365820,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -46,6 +46,7 @@
 		"images/controllerbutton-sheet0.png",
 		"images/tiledbackground.png",
 		"images/blockrun-sheet0.png",
+		"images/boost-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
