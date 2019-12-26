@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1577365820,
+	"version": 1577390999,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -34,6 +34,7 @@
 		"images/raceborder.png",
 		"images/vector-sheet0.png",
 		"images/vector-sheet1.png",
+		"images/vector-sheet2.png",
 		"images/finish.png",
 		"images/scoreback-sheet0.png",
 		"images/raceback-sheet0.png",
@@ -42,9 +43,8 @@
 		"images/homebutton-sheet2.png",
 		"images/backbutton-sheet0.png",
 		"images/playerrunner-sheet0.png",
-		"images/playerrunner-sheet1.png",
 		"images/controllerbutton-sheet0.png",
-		"images/tiledbackground.png",
+		"images/runborder.png",
 		"images/blockrun-sheet0.png",
 		"images/boost-sheet0.png",
 		"icon-16.png",

@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1577365820
+#1577390999
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -33,6 +33,7 @@ images/tsjoystick-sheet0.png
 images/raceborder.png
 images/vector-sheet0.png
 images/vector-sheet1.png
+images/vector-sheet2.png
 images/finish.png
 images/scoreback-sheet0.png
 images/raceback-sheet0.png
@@ -41,9 +42,8 @@ images/homebutton-sheet1.png
 images/homebutton-sheet2.png
 images/backbutton-sheet0.png
 images/playerrunner-sheet0.png
-images/playerrunner-sheet1.png
 images/controllerbutton-sheet0.png
-images/tiledbackground.png
+images/runborder.png
 images/blockrun-sheet0.png
 images/boost-sheet0.png
 icon-16.png
