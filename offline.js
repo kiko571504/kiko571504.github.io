@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1577360123,
+	"version": 1577365180,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -37,6 +37,15 @@
 		"images/finish.png",
 		"images/scoreback-sheet0.png",
 		"images/raceback-sheet0.png",
+		"images/homebutton-sheet0.png",
+		"images/homebutton-sheet1.png",
+		"images/homebutton-sheet2.png",
+		"images/backbutton-sheet0.png",
+		"images/playerrunner-sheet0.png",
+		"images/playerrunner-sheet1.png",
+		"images/controllerbutton-sheet0.png",
+		"images/tiledbackground.png",
+		"images/blockrun-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
