@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1577625787,
+	"version": 1577732079,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -13,7 +13,6 @@
 		"images/joystick-sheet0.png",
 		"images/playerarmnleg-sheet0.png",
 		"images/playerarmnleg-sheet1.png",
-		"images/playerarmnleg-sheet2.png",
 		"images/playerbodyupper-sheet0.png",
 		"images/playerbodyupper-sheet1.png",
 		"images/player-sheet0.png",
@@ -59,6 +58,10 @@
 		"images/robberysourcepoint-sheet0.png",
 		"images/robberybag-sheet0.png",
 		"images/robberysourcemain-sheet0.png",
+		"images/timerback-sheet0.png",
+		"images/moneyraineffect-sheet0.png",
+		"images/playermark-sheet0.png",
+		"images/playermark-sheet1.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
