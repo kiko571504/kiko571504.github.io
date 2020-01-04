@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1578087351,
+	"version": 1578172539,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -65,8 +65,14 @@
 		"images/playertank-sheet1.png",
 		"images/shoteffect-sheet0.png",
 		"images/tankbullet-sheet0.png",
-		"images/tanksbonus-sheet0.png",
+		"images/bonus-sheet0.png",
+		"images/bonus-sheet1.png",
 		"images/tankarmor-sheet0.png",
+		"images/snakeborder.png",
+		"images/playerwizard-sheet0.png",
+		"images/playerwizard-sheet1.png",
+		"images/broompart-sheet0.png",
+		"images/tiledbackground.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
