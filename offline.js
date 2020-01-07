@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1578391174,
+	"version": 1578400183,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -78,6 +78,10 @@
 		"images/tiledbackground.png",
 		"images/coinpot-sheet0.png",
 		"images/coinpot-sheet1.png",
+		"images/ball-sheet0.png",
+		"images/footballpost-sheet0.png",
+		"images/trigger-sheet0.png",
+		"images/trigger-sheet1.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
