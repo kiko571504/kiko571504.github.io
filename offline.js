@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1578400183,
+	"version": 1578427429,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -25,6 +25,8 @@
 		"images/playerwizard-sheet1.png",
 		"images/playercoinhand-sheet0.png",
 		"images/playercoinhand-sheet1.png",
+		"images/playerracket-sheet0.png",
+		"images/playershooter-sheet0.png",
 		"images/menubutton-sheet0.png",
 		"images/menubutton-sheet1.png",
 		"images/modebutton-sheet0.png",
@@ -81,7 +83,10 @@
 		"images/ball-sheet0.png",
 		"images/footballpost-sheet0.png",
 		"images/trigger-sheet0.png",
-		"images/trigger-sheet1.png",
+		"images/westbullet-sheet0.png",
+		"images/pongturret-sheet0.png",
+		"images/pongball-sheet0.png",
+		"images/pongwall-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
