@@ -1,4 +1,4 @@
-﻿// Pathfind.js
+// Pathfind.js
 // Written by Ashley Gullen
 // Copyright (c) 2013 Scirra Ltd.
 
@@ -74,6 +74,8 @@
 	var isInWebWorker = (typeof document === "undefined");		// no DOM in a worker
 	var myInstance = null;										// single pathfinder instance for worker
 	
+	var myPath = (isInWebWorker ? "" : document.currentScript.src);
+	
 	if (isInWebWorker)
 	{
 		self.addEventListener("message", function (e)
@@ -120,22 +122,23 @@
 		}, false);
 	}
 	
+	// Hack for Construct 3 cross-origin preview mode: the worker script is cross-origin to the preview, since it loads off
+	// the editor origin from the preview origin, but browsers currently don't support cross-origin workers. To work around
+	// this, if the origins don't match revert to fetching the script as a blob and create the worker from a blob URL of the
+	// script. This means worker creation is async though, so there is also a message queueing system to catch any messages
+	// that are sent while the worker is still creating.
 	function createWorker(url, callback)
 	{
-		// Create normally as a same-origin worker
-		try {
-			var worker = new Worker(url);
-			callback(worker);
-		}
-		catch (err)
+		if (window["resolveLocalFileSystemURL"])
 		{
-			// WKWebView throws because it treats this as cross-origin. We also can't fetch the script
-			// as a blob either for the same reason. So fall back to the Cordova file API.
+			// Another hack for WKWebView. If we have the Cordova file API available, load it with that, since there's no
+			// other way to create a worker.
 			var errorFunc = function (err) {
 				console.error("Error creating worker: ", err);
 			};
 			
-			var path = window["cordova"]["file"]["applicationDirectory"] + "www/" + url;
+			// Note: hard-code name pathfind.js
+			var path = window["cordova"]["file"]["applicationDirectory"] + "www/pathfind.js";
 			
 			window["resolveLocalFileSystemURL"](path, function (entry)
 			{
@@ -154,6 +157,44 @@
 					
 				}, errorFunc);
 			}, errorFunc);
+		}
+		else
+		{
+			var ok = false;
+			
+			// Feature-detect origin parsing with URL before trying to use it, to preserve compatibility with old browsers.
+			// If it's not supported ignore the workaround, since the workaround only applies to C3, which only supports
+			// modern browsers.
+			if (typeof URL !== "undefined" && new URL("http://example.com").origin && location.origin)
+			{
+				ok = (location.origin === new URL(url).origin);		// ok if same-origin
+			}
+			else
+			{
+				// No URL parsing support: create normally
+				ok = true;
+			}
+			
+			if (ok)
+			{
+				// Create normally as a same-origin worker
+				callback(new Worker(url));
+			}
+			else
+			{
+				// Create cross-origin worker by fetching first. Note it's safe to use fetch since the workaround
+				// is only used in C3 cross-origin preview mode, which itself only supports modern browsers.
+				fetch(url)
+				.then(function (response)
+				{
+					return response.blob();
+				})
+				.then(function (blob)
+				{
+					var blobUrl = URL.createObjectURL(blob);
+					callback(new Worker(blobUrl));
+				});
+			}
 		}
 	}
 		
@@ -187,7 +228,7 @@
 		if (workersSupported && !isInWebWorker)
 		{
 			// Create worker and receive results of pathfind jobs from it
-			createWorker("pathfind.js", function (worker)
+			createWorker(myPath, function (worker)
 			{
 				self.worker = worker;
 				
