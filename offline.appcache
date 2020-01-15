@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1578736193
+#1579116689
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -25,6 +25,9 @@ images/playerracket-sheet0.png
 images/playerracket-sheet1.png
 images/playershooter-sheet0.png
 images/playershooter-sheet1.png
+images/x1area.png
+images/x2area.png
+images/x3area.png
 images/menubutton-sheet0.png
 images/menubutton-sheet1.png
 images/modebutton-sheet0.png
@@ -92,9 +95,9 @@ images/ballbasket-sheet0.png
 images/avbody-sheet0.png
 images/avwalls.png
 images/topscreen-sheet0.png
-images/sprite3-sheet0.png
-images/sprite3-sheet1.png
-images/sprite4-sheet0.png
+images/avlamp-sheet0.png
+images/avlamp-sheet1.png
+images/blackbb-sheet0.png
 images/ripple.png
 images/adbutton-sheet0.png
 images/sandback.png
