@@ -1,10 +1,11 @@
 ﻿CACHE MANIFEST
-#1579116689
+#1579377086
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
 offlineClient.js
 images/tsjoyback-sheet0.png
+images/tsjoyback-sheet1.png
 images/tsjoystick-sheet0.png
 images/controllerbutton-sheet0.png
 images/joyback-sheet0.png
@@ -12,19 +13,21 @@ images/playerarmnleg-sheet0.png
 images/playerarmnleg-sheet1.png
 images/playerbodyupper-sheet0.png
 images/playerbodyupper-sheet1.png
+images/playerbodyupper-sheet2.png
 images/player-sheet0.png
 images/playercar-sheet0.png
-images/playercar-sheet1.png
 images/playerrunner-sheet0.png
+images/playerrunner-sheet1.png
 images/playertank-sheet0.png
+images/playertank-sheet1.png
 images/playerwizard-sheet0.png
 images/playerwizard-sheet1.png
+images/playerwizard-sheet2.png
 images/playercoinhand-sheet0.png
 images/playercoinhand-sheet1.png
+images/playercoinhand-sheet2.png
 images/playerracket-sheet0.png
-images/playerracket-sheet1.png
 images/playershooter-sheet0.png
-images/playershooter-sheet1.png
 images/x1area.png
 images/x2area.png
 images/x3area.png
@@ -64,7 +67,6 @@ images/truck-sheet0.png
 images/truck-sheet1.png
 images/rails.png
 images/robberystorage-sheet0.png
-images/robberystorage-sheet1.png
 images/robberysourcepoint-sheet0.png
 images/robberybag-sheet0.png
 images/robberysourcemain-sheet0.png
@@ -75,6 +77,7 @@ images/moneyraineffect-sheet2.png
 images/bulleticon-sheet0.png
 images/shoteffect-sheet0.png
 images/tankbullet-sheet0.png
+images/tankmark-sheet0.png
 images/bonus-sheet0.png
 images/bonus-sheet1.png
 images/tankarmor-sheet0.png
@@ -104,6 +107,9 @@ images/sandback.png
 images/debugbutton-sheet0.png
 images/debugbutton-sheet1.png
 images/debugbutton-sheet2.png
+images/skinbutton-sheet0.png
+images/skinbutton-sheet1.png
+images/changeskinbutton-sheet0.png
 icon-16.png
 icon-32.png
 icon-114.png
