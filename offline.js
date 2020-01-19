@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1579377086,
+	"version": 1579434332,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -111,6 +111,11 @@
 		"images/skinbutton-sheet0.png",
 		"images/skinbutton-sheet1.png",
 		"images/changeskinbutton-sheet0.png",
+		"images/coinicon-sheet0.png",
+		"images/lavaback.png",
+		"images/plate-sheet0.png",
+		"images/plate-sheet1.png",
+		"images/plate-sheet2.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
