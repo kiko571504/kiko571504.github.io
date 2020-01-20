@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1579434332,
+	"version": 1579518620,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -116,6 +116,16 @@
 		"images/plate-sheet0.png",
 		"images/plate-sheet1.png",
 		"images/plate-sheet2.png",
+		"images/chiken-sheet0.png",
+		"images/chikenpost-sheet0.png",
+		"images/chikenpost-sheet1.png",
+		"images/colorplate-sheet0.png",
+		"images/colorplate-sheet1.png",
+		"images/colorplate-sheet2.png",
+		"images/paintbonus-sheet0.png",
+		"images/paintbonus-sheet1.png",
+		"images/sprite-sheet0.png",
+		"images/paintbullet-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
