@@ -1,5 +1,9 @@
 ﻿{
+<<<<<<< HEAD
 	"version": 1581849081,
+=======
+	"version": 1581847235,
+>>>>>>> parent of 5b1c0ad... awd
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
