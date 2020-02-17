@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1581934081,
+	"version": 1581947827,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -14,6 +14,7 @@
 		"images/interactbutton-sheet1.png",
 		"images/interactbutton-sheet2.png",
 		"images/enemy-sheet0.png",
+		"images/enemy-sheet1.png",
 		"images/blood-sheet0.png",
 		"images/blood-sheet1.png",
 		"images/blood-sheet2.png",
@@ -31,6 +32,8 @@
 		"images/sceneshade-sheet0.png",
 		"images/enemyhealthbarback-sheet0.png",
 		"images/enemyhealthbar.png",
+		"images/physblock-sheet0.png",
+		"images/drop-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
