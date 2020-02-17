@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1581889329,
+	"version": 1581934081,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -27,8 +27,10 @@
 		"images/pausebutton-sheet1.png",
 		"images/pausebutton-sheet2.png",
 		"images/shotflash-sheet0.png",
-		"images/sprite-sheet0.png",
-		"images/tiledbackground.png",
+		"images/wallblock-sheet0.png",
+		"images/sceneshade-sheet0.png",
+		"images/enemyhealthbarback-sheet0.png",
+		"images/enemyhealthbar.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
