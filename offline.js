@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1581948141,
+	"version": 1582053392,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -14,7 +14,6 @@
 		"images/interactbutton-sheet1.png",
 		"images/interactbutton-sheet2.png",
 		"images/enemy-sheet0.png",
-		"images/enemy-sheet1.png",
 		"images/blood-sheet0.png",
 		"images/blood-sheet1.png",
 		"images/blood-sheet2.png",
@@ -34,11 +33,19 @@
 		"images/enemyhealthbar.png",
 		"images/physblock-sheet0.png",
 		"images/drop-sheet0.png",
+		"images/enemybody-sheet0.png",
+		"images/enemybody-sheet1.png",
+		"images/shadecorner-sheet0.png",
+		"images/bloodfountain-sheet0.png",
+		"images/healthbar.png",
+		"images/healthbar2.png",
+		"images/damagemask-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
 		"icon-128.png",
 		"icon-256.png",
-		"loading-logo.png"
+		"loading-logo.png",
+		"pathfind.js"
 	]
 }
