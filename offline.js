@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1582053392,
+	"version": 1582146841,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -40,6 +40,13 @@
 		"images/healthbar.png",
 		"images/healthbar2.png",
 		"images/damagemask-sheet0.png",
+		"images/roomzone-sheet0.png",
+		"images/roomzone-sheet1.png",
+		"images/mapsection-sheet0.png",
+		"images/mapsection-sheet1.png",
+		"images/mapsection-sheet2.png",
+		"images/roomicon-sheet0.png",
+		"images/roomicon-sheet1.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
