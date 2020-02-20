@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1582147544,
+	"version": 1582198195,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -31,7 +31,6 @@
 		"images/sceneshade-sheet0.png",
 		"images/enemyhealthbarback-sheet0.png",
 		"images/enemyhealthbar.png",
-		"images/physblock-sheet0.png",
 		"images/drop-sheet0.png",
 		"images/enemybody-sheet0.png",
 		"images/enemybody-sheet1.png",
