@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1582198195,
+	"version": 1582205721,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -33,7 +33,6 @@
 		"images/enemyhealthbar.png",
 		"images/drop-sheet0.png",
 		"images/enemybody-sheet0.png",
-		"images/enemybody-sheet1.png",
 		"images/shadecorner-sheet0.png",
 		"images/bloodfountain-sheet0.png",
 		"images/healthbar.png",
@@ -44,12 +43,16 @@
 		"images/mapsection-sheet0.png",
 		"images/roomicon-sheet0.png",
 		"images/roomicon-sheet1.png",
+		"images/eliteenemyhealthbar.png",
+		"images/chest-sheet0.png",
+		"images/chest-sheet1.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
 		"icon-128.png",
 		"icon-256.png",
 		"loading-logo.png",
+		"enemyinfo.json",
 		"pathfind.js"
 	]
 }
