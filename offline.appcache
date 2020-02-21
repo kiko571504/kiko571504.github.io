@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1582227282
+#1582318560
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -45,6 +45,8 @@ images/roomicon-sheet1.png
 images/eliteenemyhealthbar.png
 images/chest-sheet0.png
 images/chest-sheet1.png
+images/minibossenemyhealthbar.png
+images/enemyproj-sheet0.png
 icon-16.png
 icon-32.png
 icon-114.png

@@ -7,6 +7,10 @@
 
 	"el_zombie_max_health": 30,
 	"el_zombie_attack_rate": 0.5,
-	"el_zombie_attack_value": 2
+	"el_zombie_attack_value": 2,
+
+	"pirate_max_health": 100,
+	"pirate_attack_rate": 3,
+	"pirate_attack_value": 5
 
 }}

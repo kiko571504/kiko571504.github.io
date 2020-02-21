@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1582227282,
+	"version": 1582318560,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -46,6 +46,8 @@
 		"images/eliteenemyhealthbar.png",
 		"images/chest-sheet0.png",
 		"images/chest-sheet1.png",
+		"images/minibossenemyhealthbar.png",
+		"images/enemyproj-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
