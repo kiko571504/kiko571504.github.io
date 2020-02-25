@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1582566837
+#1582632143
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -49,6 +49,10 @@ images/minibossenemyhealthbar.png
 images/enemyproj-sheet0.png
 images/border-sheet0.png
 images/border-sheet1.png
+images/underhealthicon-sheet0.png
+images/underhealthicon-sheet1.png
+images/messageicon-sheet0.png
+images/playerbody-sheet0.png
 icon-16.png
 icon-32.png
 icon-114.png
