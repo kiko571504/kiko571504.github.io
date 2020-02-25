@@ -1,0 +1,23 @@
+{"c2dictionary":true,"data":
+	{
+
+	"weapon_thompson_name": "Thompson",
+	"weapon_thompson_weight": 5,
+	"weapon_thompson_price": 10,
+
+	"bullet_name": "Bullet",
+	"bullet_weight": 0,
+
+	"kit_name": "Med kit",
+	"kit_weight": 1,
+
+	"rune_name": "Rune",
+	"rune_weight": 1,
+
+	"statuette_name": "Statuette",
+	"statuette_weight": 2,
+
+	"book_name": "Book",
+	"book_weight": 1
+
+}}
