@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1582665659,
+	"version": 1582746281,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -10,6 +10,7 @@
 		"images/joystick-sheet0.png",
 		"images/brickfloor.png",
 		"images/weapon-sheet0.png",
+		"images/weapon-sheet1.png",
 		"images/interactbutton-sheet0.png",
 		"images/interactbutton-sheet1.png",
 		"images/interactbutton-sheet2.png",
@@ -55,6 +56,8 @@
 		"images/messageicon-sheet0.png",
 		"images/playerbody-sheet0.png",
 		"images/invitem-sheet0.png",
+		"images/interactsubbutton-sheet0.png",
+		"images/interactsubbutton-sheet1.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
