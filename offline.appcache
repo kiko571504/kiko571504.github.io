@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1582746281
+#1582926342
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -21,6 +21,7 @@ images/shottail-sheet0.png
 images/joyzone-sheet0.png
 images/topbutton-sheet0.png
 images/topbutton-sheet1.png
+images/topbutton-sheet2.png
 images/black-sheet0.png
 images/topbackbutton-sheet0.png
 images/pausebutton-sheet0.png
@@ -32,6 +33,8 @@ images/sceneshade-sheet0.png
 images/enemyhealthbarback-sheet0.png
 images/enemyhealthbar.png
 images/drop-sheet0.png
+images/drop-sheet1.png
+images/drop-sheet2.png
 images/enemybody-sheet0.png
 images/shadecorner-sheet0.png
 images/bloodfountain-sheet0.png
@@ -51,12 +54,13 @@ images/enemyproj-sheet0.png
 images/border-sheet0.png
 images/border-sheet1.png
 images/underhealthicon-sheet0.png
-images/underhealthicon-sheet1.png
 images/messageicon-sheet0.png
 images/playerbody-sheet0.png
 images/invitem-sheet0.png
 images/interactsubbutton-sheet0.png
 images/interactsubbutton-sheet1.png
+images/spawneffect-sheet0.png
+images/particles.png
 icon-16.png
 icon-32.png
 icon-114.png
