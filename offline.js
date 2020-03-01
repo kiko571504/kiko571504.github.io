@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1583008241,
+	"version": 1583063946,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -48,6 +48,7 @@
 		"images/eliteenemyhealthbar.png",
 		"images/chest-sheet0.png",
 		"images/chest-sheet1.png",
+		"images/chest-sheet2.png",
 		"images/minibossenemyhealthbar.png",
 		"images/enemyproj-sheet0.png",
 		"images/border-sheet0.png",
@@ -61,6 +62,11 @@
 		"images/spawneffect-sheet0.png",
 		"images/particles.png",
 		"images/coineffect-sheet0.png",
+		"images/runestand-sheet0.png",
+		"images/runekeeper-sheet0.png",
+		"images/runebutton-sheet0.png",
+		"images/runebutton-sheet1.png",
+		"images/bigbackbutton-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
