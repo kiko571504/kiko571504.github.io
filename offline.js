@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1583063946,
+	"version": 1583094888,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -12,8 +12,6 @@
 		"images/weapon-sheet0.png",
 		"images/weapon-sheet1.png",
 		"images/interactbutton-sheet0.png",
-		"images/interactbutton-sheet1.png",
-		"images/interactbutton-sheet2.png",
 		"images/enemy-sheet0.png",
 		"images/blood-sheet0.png",
 		"images/shottail-sheet0.png",
@@ -57,6 +55,7 @@
 		"images/messageicon-sheet0.png",
 		"images/playerbody-sheet0.png",
 		"images/invitem-sheet0.png",
+		"images/invitem-sheet1.png",
 		"images/interactsubbutton-sheet0.png",
 		"images/interactsubbutton-sheet1.png",
 		"images/spawneffect-sheet0.png",
@@ -67,6 +66,9 @@
 		"images/runebutton-sheet0.png",
 		"images/runebutton-sheet1.png",
 		"images/bigbackbutton-sheet0.png",
+		"images/itemback-sheet0.png",
+		"images/healeffect-sheet0.png",
+		"images/healeffect2-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",

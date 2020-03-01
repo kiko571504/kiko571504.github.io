@@ -7,20 +7,26 @@
 
 	"bullet_name": "Bullet",
 	"bullet_weight": 0,
+	"bullet_type": "bullet",
 
 	"kit_name": "Med kit",
 	"kit_weight": 1,
+	"kit_type": "kit",
 
 	"big_rune_name": "Big Rune",
 	"big_rune_weight": 2,
+	"big_rune_type": "rune",
 
 	"small_rune_name": "Small Rune",
 	"small_rune_weight": 1,
+	"small_rune_type": "rune",
 
 	"statuette_name": "Statuette",
 	"statuette_weight": 2,
+	"statuette_type": "statuette",
 
 	"book_name": "Book",
-	"book_weight": 1
+	"book_weight": 1,
+	"book_type": "trash"
 
 }}
