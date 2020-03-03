@@ -21,12 +21,20 @@
 	"small_rune_weight": 1,
 	"small_rune_type": "rune",
 
-	"statuette_name": "Statuette",
-	"statuette_weight": 2,
-	"statuette_type": "statuette",
-
 	"book_name": "Book",
 	"book_weight": 1,
-	"book_type": "trash"
+	"book_type": "trash",
+
+	"st_banana_name": "Banana statuette",
+	"st_banana_weight": 10,
+	"st_banana_type": "statuette",
+
+	"st_triangle_name": "Saint Triangle statuette",
+	"st_triangle_weight": 10,
+	"st_triangle_type": "statuette",
+
+	"st_apple_name": "Apple statuette",
+	"st_apple_weight": 10,
+	"st_apple_type": "statuette"
 
 }}
