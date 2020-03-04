@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1583270581,
+	"version": 1583325583,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -67,6 +67,12 @@
 		"images/healeffect-sheet0.png",
 		"images/healeffect2-sheet0.png",
 		"images/runestandshadow-sheet0.png",
+		"images/boss_catbody-sheet0.png",
+		"images/boss_catbody-sheet1.png",
+		"images/boss_catcollision-sheet0.png",
+		"images/bossblock.png",
+		"images/bossbarback.png",
+		"images/bossbar.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",

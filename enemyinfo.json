@@ -11,6 +11,8 @@
 
 	"pirate_max_health": 100,
 	"pirate_attack_rate": 3,
-	"pirate_attack_value": 5
+	"pirate_attack_value": 5,
+
+	"boss_cat_health": 500
 
 }}
