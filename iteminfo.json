@@ -4,37 +4,50 @@
 	"weapon_thompson_name": "Thompson",
 	"weapon_thompson_weight": 5,
 	"weapon_thompson_price": 10,
+	"weapon_thompson_animname": "weapon_thompson",
 
 	"bullet_name": "Bullet",
 	"bullet_weight": 0,
-	"bullet_type": "bullet",
+	"bullet_animname": "bullet",
 
 	"kit_name": "Med kit",
 	"kit_weight": 1,
-	"kit_type": "kit",
+	"kit_animname": "kit",
 
 	"big_rune_name": "Big Rune",
 	"big_rune_weight": 2,
-	"big_rune_type": "rune",
+	"big_rune_animname": "big_rune",
 
 	"small_rune_name": "Small Rune",
 	"small_rune_weight": 1,
-	"small_rune_type": "rune",
+	"small_rune_animname": "small_rune",
+
+	"token_weapon_rare_name": "Rare weapon token",
+	"token_weapon_rare_weight": 1,
+	"token_weapon_rare_animname": "token_weapon_rare",
+
+	"token_weapon_epic_name": "Epic weapon token",
+	"token_weapon_epic_weight": 2,
+	"token_weapon_epic_animname": "token_weapon_epic",
+
+	"token_weapon_golden_name": "Golden weapon token",
+	"token_weapon_golden_weight": 3,
+	"token_weapon_golden_animname": "token_weapon_golden",
 
 	"book_name": "Book",
 	"book_weight": 1,
-	"book_type": "trash",
+	"book_animname": "book",
 
 	"st_banana_name": "Banana statuette",
 	"st_banana_weight": 10,
-	"st_banana_type": "statuette",
+	"st_banana_animname": "statuette_banana",
 
 	"st_triangle_name": "Saint Triangle statuette",
 	"st_triangle_weight": 10,
-	"st_triangle_type": "statuette",
+	"st_triangle_animname": "statuette_triangle",
 
-	"st_apple_name": "Apple statuette",
+	"st_apple_name": "Apple statuette_apple",
 	"st_apple_weight": 10,
-	"st_apple_type": "statuette"
+	"st_apple_animname": "statuette"
 
 }}

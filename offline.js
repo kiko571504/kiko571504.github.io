@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1583325583,
+	"version": 1583492078,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -53,6 +53,7 @@
 		"images/messageicon-sheet0.png",
 		"images/playerbody-sheet0.png",
 		"images/invitem-sheet0.png",
+		"images/invitem-sheet1.png",
 		"images/interactsubbutton-sheet0.png",
 		"images/interactsubbutton-sheet1.png",
 		"images/spawneffect-sheet0.png",
@@ -69,10 +70,12 @@
 		"images/runestandshadow-sheet0.png",
 		"images/boss_catbody-sheet0.png",
 		"images/boss_catbody-sheet1.png",
-		"images/boss_catcollision-sheet0.png",
+		"images/boss_cat-sheet0.png",
 		"images/bossblock.png",
 		"images/bossbarback.png",
 		"images/bossbar.png",
+		"images/bossshieldeffect-sheet0.png",
+		"images/boss_cathand-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
