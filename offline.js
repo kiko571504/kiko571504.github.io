@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1583528453,
+	"version": 1583778653,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -81,6 +81,7 @@
 		"images/bossbarparts.png",
 		"images/winpart.png",
 		"images/wincharatercard-sheet0.png",
+		"images/carpet-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
