@@ -1,12 +1,23 @@
 {"c2dictionary":true,"data":
 	{
 
-	"////////////weapons": 0, 
+	"////////////weapons": 0,
+
+	"weapon_ar15_name": "Ar15",
+	"weapon_ar15_weight": 4,
+	"weapon_ar15_animname": "weapon_ar15",
 
 	"weapon_thompson_name": "Thompson",
-	"weapon_thompson_weight": 5,
-	"weapon_thompson_price": 10,
+	"weapon_thompson_weight": 16,
 	"weapon_thompson_animname": "weapon_thompson",
+
+	"weapon_ak47_name": "Ak47",
+	"weapon_ak47_weight": 10,
+	"weapon_ak47_animname": "weapon_ak47",
+
+	"weapon_uzi_name": "Uzi",
+	"weapon_uzi_weight": 8,
+	"weapon_uzi_animname": "weapon_uzi",
 
 	"////////////items": 0, 
 
@@ -66,7 +77,7 @@
 	"token_weapon_golden_weight": 3,
 	"token_weapon_golden_animname": "token_weapon_golden",
 
-	"////////////plans": 0, 
+	"////////////plans": 0,
 
 	"plan_weapon_thompson_name": "Thompson plan",
 	"plan_weapon_thompson_weight": 1,

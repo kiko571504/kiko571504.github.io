@@ -1,0 +1,51 @@
+{"c2dictionary":true,"data":
+	{
+
+	"1_weapon_mp5_firerate": 0.15,
+	"1_weapon_mp5_shake": 3,
+	"1_weapon_mp5_damage": 4,
+	"1_weapon_mp5_bulletsk": 3,
+	"1_weapon_mp5_uprice": 100,
+
+	"2_weapon_mp5_firerate": 0.15,
+	"2_weapon_mp5_shake": 3,
+	"2_weapon_mp5_damage": 6,
+	"2_weapon_mp5_bulletsk": 3,
+	"2_weapon_mp5_uprice": 250,
+
+	"3_weapon_mp5_firerate": 0.12,
+	"3_weapon_mp5_shake": 2,
+	"3_weapon_mp5_damage": 10,
+	"3_weapon_mp5_bulletsk": 2,
+	"3_weapon_mp5_uprice": 1500,
+
+	"4_weapon_mp5_firerate": 0.1,
+	"4_weapon_mp5_shake": 2,
+	"4_weapon_mp5_damage": 12,
+	"4_weapon_mp5_bulletsk": 2,
+
+
+	"1_weapon_ar15_firerate": 0.3,
+	"1_weapon_ar15_shake": 6,
+	"1_weapon_ar15_damage": 8,
+	"1_weapon_ar15_bulletsk": 2,
+	"1_weapon_ar15_uprice": 600,
+
+	"2_weapon_ar15_firerate": 0.3,
+	"2_weapon_ar15_shake": 6,
+	"2_weapon_ar15_damage": 12,
+	"2_weapon_ar15_bulletsk": 2,
+	"2_weapon_ar15_uprice": 1800,
+
+	"3_weapon_ar15_firerate": 0.3,
+	"3_weapon_ar15_shake": 6,
+	"3_weapon_ar15_damage": 16,
+	"3_weapon_ar15_bulletsk": 2,
+	"3_weapon_ar15_uprice": 5000,
+
+	"4_weapon_ar15_firerate": 0.25,
+	"4_weapon_ar15_shake": 6,
+	"4_weapon_ar15_damage": 18,
+	"4_weapon_ar15_bulletsk": 2
+
+}}

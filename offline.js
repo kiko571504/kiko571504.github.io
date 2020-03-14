@@ -1,5 +1,5 @@
 ﻿{
-	"version": 1583957034,
+	"version": 1584217775,
 	"fileList": [
 		"data.js",
 		"c2runtime.js",
@@ -84,6 +84,14 @@
 		"images/carpet-sheet0.png",
 		"images/building-sheet0.png",
 		"images/stagebutton-sheet0.png",
+		"images/weaponcard-sheet0.png",
+		"images/weaponcard-sheet1.png",
+		"images/weaponcardbutton-sheet0.png",
+		"images/weaponcardbutton-sheet1.png",
+		"images/tokenicon-sheet0.png",
+		"images/tokenicon-sheet1.png",
+		"images/tokenicon-sheet2.png",
+		"images/weaponselector-sheet0.png",
 		"icon-16.png",
 		"icon-32.png",
 		"icon-114.png",
@@ -92,6 +100,7 @@
 		"loading-logo.png",
 		"enemyinfo.json",
 		"iteminfo.json",
+		"weaponinfo.json",
 		"pathfind.js"
 	]
 }
