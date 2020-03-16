@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-#1584217775
+#1584385887
 data.js
 c2runtime.js
 jquery-2.1.1.min.js
@@ -10,6 +10,7 @@ images/joystick-sheet0.png
 images/brickfloor.png
 images/weapon-sheet0.png
 images/weapon-sheet1.png
+images/weapon-sheet2.png
 images/interactbutton-sheet0.png
 images/enemy-sheet0.png
 images/blood-sheet0.png
@@ -84,13 +85,13 @@ images/carpet-sheet0.png
 images/building-sheet0.png
 images/stagebutton-sheet0.png
 images/weaponcard-sheet0.png
-images/weaponcard-sheet1.png
 images/weaponcardbutton-sheet0.png
 images/weaponcardbutton-sheet1.png
 images/tokenicon-sheet0.png
 images/tokenicon-sheet1.png
 images/tokenicon-sheet2.png
 images/weaponselector-sheet0.png
+images/scrollcenter-sheet0.png
 icon-16.png
 icon-32.png
 icon-114.png
