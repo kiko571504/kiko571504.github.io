@@ -3,8 +3,12 @@
 
 	"////////////weapons": 0,
 
+	"weapon_mp5_name": "MP5",
+	"weapon_mp5_weight": 4,
+	"weapon_mp5_animname": "weapon_mp5",
+
 	"weapon_ar15_name": "Ar15",
-	"weapon_ar15_weight": 4,
+	"weapon_ar15_weight": 10,
 	"weapon_ar15_animname": "weapon_ar15",
 
 	"weapon_thompson_name": "Thompson",
@@ -18,6 +22,14 @@
 	"weapon_uzi_name": "Uzi",
 	"weapon_uzi_weight": 8,
 	"weapon_uzi_animname": "weapon_uzi",
+
+	"weapon_psg1_name": "PSG1",
+	"weapon_psg1_weight": 25,
+	"weapon_psg1_animname": "weapon_psg1",
+
+	"weapon_minigun_name": "Minigun",
+	"weapon_minigun_weight": 40,
+	"weapon_minigun_animname": "weapon_minigun",
 
 	"////////////items": 0, 
 
