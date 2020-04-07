@@ -37,3 +37,8 @@ html, body, canvas {
 }
 
 
+@font-face {
+	font-family: 'fixedsys';
+	src: url('fonts/fixedsys.ttf') format('truetype');
+}
+
