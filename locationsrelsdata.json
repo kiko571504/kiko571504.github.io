@@ -2,64 +2,28 @@
     "c2array": true,
     "size": [
         4,
-        4,
+        1,
         1
     ],
     "data": [
         [
             [
                 "kitchen"
-            ],
-            [
-                "shop"
-            ],
-            [
-                "empty"
-            ],
-            [
-                "minigames"
             ]
         ],
         [
             [
-                "workshop"
-            ],
-            [
-                "shop"
-            ],
-            [
-                "minigames"
-            ],
-            [
-                "shop"
+                "bedroom"
             ]
         ],
         [
             [
                 "bathroom"
-            ],
-            [
-                "shop"
-            ],
-            [
-                "shop"
-            ],
-            [
-                "minigames"
             ]
         ],
         [
             [
                 "mine"
-            ],
-            [
-                "minigames"
-            ],
-            [
-                "shop"
-            ],
-            [
-                "shop"
             ]
         ]
     ]
