@@ -1,7 +1,7 @@
 {
     "c2array": true,
     "size": [
-        4,
+        5,
         1,
         1
     ],
@@ -19,6 +19,11 @@
         [
             [
                 "bathroom"
+            ]
+        ],
+        [
+            [
+                "playroom"
             ]
         ],
         [
