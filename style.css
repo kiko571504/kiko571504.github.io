@@ -42,3 +42,13 @@ html, body, canvas {
 	src: url('fonts/fixedsys.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: 'comixheavy';
+	src: url('fonts/comixheavy.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'echo';
+	src: url('fonts/echo.otf') format('opentype');
+}
+
