@@ -1,0 +1,29 @@
+{
+    "c2dictionary": true,
+    "data": {
+        "apple_name": "Apple",
+        "apple_price": 1,
+        "apple_reqlvl": 1,
+        "apple_cal": 10,
+        "bread_name": "Bread",
+        "bread_price": 2,
+        "bread_reqlvl": 2,
+        "bread_cal": 20,
+        "cake_name": "Cake",
+        "cake_price": 6,
+        "cake_reqlvl": 5,
+        "cake_cal": 70,
+        "carrot_name": "Carrot",
+        "carrot_price": 1,
+        "carrot_reqlvl": 1,
+        "carrot_cal": 10,
+        "chiken_name": "Cooked chiken",
+        "chiken_price": 99,
+        "chiken_reqlvl": 2,
+        "chiken_cal": 100,
+        "pork_name": "Cooked porkchop",
+        "pork_price": 9,
+        "pork_reqlvl": 10,
+        "pork_cal": 50
+    }
+}
