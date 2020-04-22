@@ -787,6 +787,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.DragnDrop.Cnds.OnDrop,
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
+		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
 		C3.Behaviors.DragnDrop.Cnds.OnDragStart,
 		C3.Behaviors.DragnDrop.Cnds.IsDragging,
 		C3.Plugins.System.Cnds.CompareBetween,
@@ -845,26 +846,33 @@ self.C3_JsPropNameTable = [
 	{parent: 0},
 	{LimbBorder: 0},
 	{ShopDataFood: 0},
+	{ShopDataPotions: 0},
 	{LocationsRels: 0},
 	{Stats: 0},
 	{Freezer: 0},
+	{Potions: 0},
 	{HealthBar: 0},
 	{HungerBar: 0},
 	{JoyBar: 0},
 	{TirednessBar: 0},
 	{DataFood: 0},
+	{DataPotions: 0},
 	{sty: 0},
+	{name: 0},
+	{GoodsFoodButton: 0},
+	{GoodsFoodButtonCount: 0},
+	{GoodsFoodCal: 0},
+	{GoodsPotionButton: 0},
+	{GoodsPotionButtonCount: 0},
+	{GoodsPotionInfo: 0},
 	{GoodsLevelreq: 0},
 	{GoodsName: 0},
 	{GoodsPrice: 0},
 	{GoodsBack: 0},
 	{GoodsIcon: 0},
-	{type: 0},
 	{price: 0},
+	{type: 0},
 	{GoodsBuyButton: 0},
-	{name: 0},
-	{GoodsFoodButton: 0},
-	{GoodsFoodButtonCount: 0},
 	{Timeline: 0},
 	{face: 0},
 	{Fade: 0},
@@ -910,7 +918,9 @@ self.C3_JsPropNameTable = [
 	{top: 0},
 	{ScrollEdge: 0},
 	{FoodCount: 0},
-	{GoodsFoodCal: 0},
+	{Index: 0},
+	{PotionButton: 0},
+	{PotionCount: 0},
 	{ScaleEffect: 0},
 	{Borders: 0},
 	{UItoHide: 0},
@@ -927,6 +937,7 @@ self.C3_JsPropNameTable = [
 	{Experience: 0},
 	{ExperienceToReach: 0},
 	{CurrentFood: 0},
+	{CurrentPotion: 0},
 	{sec: 0},
 	{timelineName: 0},
 	{stopAll: 0},
@@ -1102,6 +1113,7 @@ self.C3_JsPropNameTable = [
 		},
 		() => "curloc",
 		() => "kitchen",
+		() => "lab",
 		() => "bedroom",
 		() => "bathroom",
 		() => "mine",
@@ -1235,6 +1247,12 @@ self.C3_JsPropNameTable = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (and("+", n0.ExpObject((v1.GetValue() + "_cal"))) + "%");
 		},
+		() => "potions",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => (and("+", n0.ExpObject((v1.GetValue() + "_val"))) + "%");
+		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (180 + (180 * v0.GetValue()));
@@ -1311,7 +1329,18 @@ self.C3_JsPropNameTable = [
 			const n1 = p._GetNode(1);
 			return () => and("x", n0.ExpObject(n1.ExpObject(), 1));
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject((v1.GetValue() + "_stat"));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject((v1.GetValue() + "_val"));
+		},
 		() => "curfood",
+		() => "curpotion",
 		() => "Controlls",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1332,6 +1361,7 @@ self.C3_JsPropNameTable = [
 		},
 		() => 360,
 		() => 1136,
+		() => -1,
 		() => 1120,
 		p => {
 			const n0 = p._GetNode(0);
@@ -1360,7 +1390,6 @@ self.C3_JsPropNameTable = [
 			return () => (-n0.ExpInstVar());
 		},
 		() => "StatTimers",
-		() => -1,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => ((-1) + (2 * v0.GetValue()));
@@ -1410,6 +1439,8 @@ self.C3_JsPropNameTable = [
 		() => "locreldata",
 		() => "data_food",
 		() => "s_data_food",
+		() => "data_potions",
+		() => "s_data_potions",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (5 - n0.ExpObject());
