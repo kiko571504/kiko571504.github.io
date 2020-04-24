@@ -715,6 +715,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Timer,
 		C3.Behaviors.Pin,
 		C3.Plugins.System.Cnds.IsGroupActive,
+		C3.Plugins.Sprite.Acts.SetAnim,
+		C3.Plugins.Arr.Exps.At,
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
 		C3.Plugins.Sprite.Acts.SetVisible,
@@ -729,7 +731,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Timeline.Acts.PlayTimelineByName,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Text.Acts.SetText,
-		C3.Plugins.Arr.Exps.At,
 		C3.Behaviors.Fade.Acts.RestartFade,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Behaviors.DragnDrop.Acts.SetEnabled,
@@ -744,7 +745,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.Particles.Acts.SetSpraying,
-		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.Sprite.Acts.SetY,
 		C3.Plugins.System.Cnds.ForEach,
 		C3.Plugins.Sprite.Cnds.PickByUID,
@@ -756,6 +756,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.Compare,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.System.Cnds.While,
+		C3.Plugins.TiledBg.Acts.SetWidth,
 		C3.Plugins.System.Acts.CreateObject,
 		C3.Plugins.Sprite.Exps.Height,
 		C3.Plugins.System.Exps.originalviewportheight,
@@ -774,13 +775,16 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Cnds.CompareXY,
 		C3.Plugins.Arr.Acts.Delete,
 		C3.Plugins.Arr.Cnds.IsEmpty,
+		C3.Plugins.Arr.Cnds.CompareXYZ,
+		C3.Plugins.Text.Acts.SetFontColor,
+		C3.Plugins.Text.Acts.SetFontSize,
 		C3.Plugins.Touch.Cnds.OnTouchEnd,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
-		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
-		C3.Plugins.Sprite.Cnds.IsVisible,
 		C3.Plugins.System.Cnds.LayerVisible,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
+		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Plugins.Sprite.Exps.AnimationFrame,
+		C3.Plugins.Sprite.Cnds.IsVisible,
 		C3.Behaviors.Timer.Acts.StartTimer,
 		C3.Plugins.Sprite.Exps.AnimationName,
 		C3.Behaviors.Timer.Cnds.OnTimer,
@@ -788,6 +792,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
 		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
+		C3.Plugins.System.Exps.random,
 		C3.Behaviors.DragnDrop.Cnds.OnDragStart,
 		C3.Behaviors.DragnDrop.Cnds.IsDragging,
 		C3.Plugins.System.Cnds.CompareBetween,
@@ -800,6 +805,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Text.Exps.Y,
 		C3.Plugins.Touch.Cnds.IsInTouch,
 		C3.Plugins.Text.Acts.SetY,
+		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.Touch.Cnds.CompareTouchSpeed,
 		C3.Plugins.Touch.Exps.TouchIndex,
 		C3.Plugins.System.Cnds.OnLayoutStart,
@@ -812,6 +818,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Timeline.Cnds.OnTimelineStartedByTags,
 		C3.Plugins.Timeline.Cnds.OnTimelineFinishedByTags,
 		C3.Behaviors.Fade.Cnds.OnFadeInEnd,
+		C3.Behaviors.Fade.Cnds.OnFadeOutEnd,
 		C3.Behaviors.Pin.Acts.Pin,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
 		C3.Plugins.Sprite.Acts.SetWidth,
@@ -819,9 +826,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.MoveToTop,
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.System.Cnds.OnSuspend,
-		C3.Plugins.Keyboard.Cnds.OnKey,
 		C3.Plugins.Button.Cnds.OnClicked,
 		C3.Plugins.Button.Cnds.CompareInstanceVar,
+		C3.Plugins.LocalStorage.Acts.ClearStorage,
+		C3.Plugins.Browser.Acts.Reload,
 		C3.Plugins.LocalStorage.Cnds.OnAllGetsComplete,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.AJAX.Acts.RequestFile,
@@ -851,6 +859,9 @@ self.C3_JsPropNameTable = [
 	{Stats: 0},
 	{Freezer: 0},
 	{Potions: 0},
+	{LocSkinsInfo: 0},
+	{LocSkins: 0},
+	{LocSkinsOpened: 0},
 	{HealthBar: 0},
 	{HungerBar: 0},
 	{JoyBar: 0},
@@ -873,12 +884,19 @@ self.C3_JsPropNameTable = [
 	{price: 0},
 	{type: 0},
 	{GoodsBuyButton: 0},
+	{next: 0},
+	{SwitchButton: 0},
+	{index: 0},
+	{levelReached: 0},
+	{alreadyBought: 0},
+	{SwitcherBuyButton: 0},
+	{SwitcherPriceText: 0},
+	{SwitherPriceBack: 0},
 	{Timeline: 0},
 	{face: 0},
 	{Fade: 0},
 	{Back: 0},
 	{Enabled: 0},
-	{next: 0},
 	{LocationController: 0},
 	{Touch: 0},
 	{Rotate: 0},
@@ -909,6 +927,7 @@ self.C3_JsPropNameTable = [
 	{Timer: 0},
 	{OreButton: 0},
 	{OreParticles: 0},
+	{CanGetPrize: 0},
 	{ShowerButton: 0},
 	{Pin: 0},
 	{WaterParticles: 0},
@@ -921,6 +940,15 @@ self.C3_JsPropNameTable = [
 	{Index: 0},
 	{PotionButton: 0},
 	{PotionCount: 0},
+	{MoneyTopBar: 0},
+	{BackButtonSwitcher: 0},
+	{CategoryName: 0},
+	{moving: 0},
+	{speed: 0},
+	{PotionEffect: 0},
+	{ExpBarBack: 0},
+	{ExpBar: 0},
+	{LevelText: 0},
 	{ScaleEffect: 0},
 	{Borders: 0},
 	{UItoHide: 0},
@@ -943,12 +971,12 @@ self.C3_JsPropNameTable = [
 	{stopAll: 0},
 	{n: 0},
 	{location: 0},
-	{index: 0},
 	{value: 0},
 	{hide: 0},
 	{layerName: 0},
 	{close: 0},
 	{showBackButton: 0},
+	{showMoneyBar: 0},
 	{wakeUp: 0},
 	{stagePrefix: 0},
 	{skinName: 0},
@@ -959,6 +987,8 @@ self.C3_JsPropNameTable = [
 	{row: 0},
 	{count: 0},
 	{exist: 0},
+	{locationIndex: 0},
+	{skinIndex: 0},
 	{LOCATION_COUNT: 0},
 	{STATS_COUNT: 0},
 	{TEEN_LEVEL: 0},
@@ -1074,8 +1104,9 @@ self.C3_JsPropNameTable = [
 		() => "Functions",
 		() => "Triggers",
 		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => v0.GetValue();
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue());
 		},
 		() => 2,
 		() => 8,
@@ -1083,8 +1114,8 @@ self.C3_JsPropNameTable = [
 		() => -4,
 		() => 4,
 		() => -2,
-		() => "emerald",
 		() => 1,
+		() => "emerald",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (and("\n", v0.GetValue()) + "s since last visit");
@@ -1107,9 +1138,8 @@ self.C3_JsPropNameTable = [
 			return () => Math.ceil((f0() / 1000));
 		},
 		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			return () => n0.ExpObject(v1.GetValue());
+			const v0 = p._GetNode(0).GetVar();
+			return () => v0.GetValue();
 		},
 		() => "curloc",
 		() => "kitchen",
@@ -1139,11 +1169,11 @@ self.C3_JsPropNameTable = [
 			return () => multiply(1.64, n0.ExpObject(v1.GetValue()));
 		},
 		() => "HA_Category",
-		() => "HA_Freezer",
 		() => "HA_Grid",
 		() => "HA_Info",
 		() => "HA_Black",
 		() => "HA_BackButton",
+		() => "HA_TopMoneyBar",
 		() => "",
 		() => "idle",
 		() => "sleep",
@@ -1207,6 +1237,11 @@ self.C3_JsPropNameTable = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (v0.GetValue() - v1.GetValue());
 		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => (548 * (v0.GetValue() / v1.GetValue()));
+		},
 		() => "lvl",
 		() => "exp",
 		() => 48,
@@ -1267,11 +1302,11 @@ self.C3_JsPropNameTable = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => ((240 * n0.ExpObject()) + 250);
+			return () => ((240 * n0.ExpObject()) + 350);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => (48 + (240 * n0.ExpObject()));
+			return () => (120 + (240 * n0.ExpObject()));
 		},
 		() => "freezer",
 		p => {
@@ -1329,6 +1364,7 @@ self.C3_JsPropNameTable = [
 			const n1 = p._GetNode(1);
 			return () => and("x", n0.ExpObject(n1.ExpObject(), 1));
 		},
+		() => "no potions",
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
@@ -1341,27 +1377,51 @@ self.C3_JsPropNameTable = [
 		},
 		() => "curfood",
 		() => "curpotion",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => and("Lvl ", n0.ExpObject(v1.GetValue(), v2.GetValue(), 1));
+		},
+		() => 6579300,
+		() => 24,
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), v2.GetValue(), 0);
+		},
+		() => 9172355,
+		() => 32,
+		() => "AHA_Switcher",
 		() => "Controlls",
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() + 1);
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() - 1);
-		},
-		() => "shop",
-		() => "info",
-		() => "UI",
-		() => "wait",
-		() => "eating",
+		() => "Locskins",
+		() => "locskins",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (-n0.ExpInstVar());
+		},
+		() => "locskinsopened",
+		() => "Bottom buttons",
+		() => "UI",
+		() => "wait",
+		() => "eating",
 		() => 360,
 		() => 1136,
 		() => -1,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => Math.floor(f0(n1.ExpObject()));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(3, 7);
+		},
 		() => 1120,
 		p => {
 			const n0 = p._GetNode(0);
@@ -1371,6 +1431,7 @@ self.C3_JsPropNameTable = [
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 120);
 		},
+		() => "Scroll",
 		p => {
 			const n0 = p._GetNode(0);
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -1386,9 +1447,16 @@ self.C3_JsPropNameTable = [
 			return () => (n0.ExpObject() + 10);
 		},
 		p => {
-			const n0 = p._GetNode(0);
-			return () => (-n0.ExpInstVar());
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() + 1);
 		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() - 1);
+		},
+		() => "shop",
+		() => "info",
+		() => "locskin",
 		() => "StatTimers",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1404,6 +1472,11 @@ self.C3_JsPropNameTable = [
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
+			return () => (n0.ExpObject() - n1.ExpInstVar());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			const n3 = p._GetNode(3);
 			const n4 = p._GetNode(4);
@@ -1412,6 +1485,7 @@ self.C3_JsPropNameTable = [
 			const v7 = p._GetNode(7).GetVar();
 			return () => (and((and((and(((and(((and(((and(((and(((and("+: ", n0.ExpObject(0)) + "\n") + "hunger: "), n1.ExpObject(1)) + "\n") + "joy: "), n2.ExpObject(2)) + "\n") + "clean: "), n3.ExpObject(3)) + "\n") + "tiredness: "), n4.ExpObject(4)) + "\n") + "level: "), v5.GetValue()) + " ("), v6.GetValue()) + "/"), v7.GetValue()) + ")");
 		},
+		() => "Debug",
 		() => 100,
 		() => "stats50",
 		() => 50,
@@ -1435,8 +1509,10 @@ self.C3_JsPropNameTable = [
 		() => "mon1000",
 		() => 1000,
 		() => "mon1m",
+		() => "resall",
 		() => "Background loading",
 		() => "locreldata",
+		() => "data_locskins",
 		() => "data_food",
 		() => "s_data_food",
 		() => "data_potions",
