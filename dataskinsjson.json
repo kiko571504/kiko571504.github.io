@@ -1,0 +1,11 @@
+{
+    "c2dictionary": true,
+    "data": {
+        "def_price": 0,
+        "def_reqlvl": 0,
+        "green_price": 100,
+        "green_reqlvl": 5,
+        "punk_price": 150,
+        "punk_reqlvl": 5
+    }
+}
