@@ -949,17 +949,20 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Timeline.Acts.SetTimelineTimeByTags,
 		C3.Behaviors.Platform.Cnds.OnLand,
 		C3.Behaviors.Platform.Cnds.IsMoving,
+		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Behaviors.Pin.Acts.Unpin,
 		C3.Plugins.Sprite.Acts.SetX,
 		C3.Plugins.Sprite.Cnds.IsMirrored,
 		C3.Plugins.Sprite.Acts.SetMirrored,
 		C3.Plugins.Sprite.Cnds.OnCollision,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
+		C3.Plugins.System.Acts.RestartLayout,
+		C3.Plugins.Text.Cnds.IsBoolInstanceVarSet,
 		C3.Plugins.Sprite.Cnds.IsOnScreen,
 		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.System.Cnds.PickNth,
-		C3.Plugins.System.Acts.RestartLayout
+		C3.Behaviors.Platform.Acts.SimulateControl
 	];
 };
 self.C3_JsPropNameTable = [
@@ -1090,8 +1093,12 @@ self.C3_JsPropNameTable = [
 	{MinigameButton: 0},
 	{LifeIcon: 0},
 	{WinButton: 0},
-	{Sprite2: 0},
+	{Flare: 0},
+	{counter: 0},
 	{WinText: 0},
+	{TiledBackground: 0},
+	{StaticIcon: 0},
+	{Controller: 0},
 	{ScaleEffect: 0},
 	{Borders: 0},
 	{UItoHide: 0},
@@ -1150,7 +1157,8 @@ self.C3_JsPropNameTable = [
 	{OFFLINE_SPEED_CLEANLINESS: 0},
 	{ONLINE_SPEED_TIREDNESS: 0},
 	{OFFLINE_SPEED_TIREDNESS_DOWN: 0},
-	{OFFLINE_SPEED_TIREDNESS_UP: 0}
+	{OFFLINE_SPEED_TIREDNESS_UP: 0},
+	{prize: 0}
 ];
 
 "use strict";
@@ -1722,6 +1730,10 @@ self.C3_JsPropNameTable = [
 			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => (n0.ExpObject() + (2 * (n1.ExpObject() - n2.ExpObject())));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => Math.round(f0(4, 8));
 		},
 		p => {
 			const n0 = p._GetNode(0);
