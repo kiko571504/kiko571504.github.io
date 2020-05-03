@@ -860,20 +860,21 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.LocalStorage.Acts.SetItem,
 		C3.Plugins.System.Exps.unixtime,
 		C3.Plugins.Timeline.Acts.StopAllTimelines,
+		C3.Plugins.Sprite.Acts.SetPos,
+		C3.Plugins.Sprite.Exps.X,
+		C3.Plugins.Sprite.Exps.BBoxTop,
 		C3.Plugins.Timeline.Acts.PlayTimelineByName,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Behaviors.Fade.Acts.RestartFade,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Plugins.Text.Acts.SetVisible,
-		C3.Plugins.Sprite.Acts.SetPos,
+		C3.Behaviors.DragnDrop.Acts.SetEnabled,
 		C3.Plugins.Timeline.Acts.PauseTimelineByTags,
 		C3.Behaviors.Timer.Acts.StartTimer,
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.Timeline.Acts.ResumeTimelineByTags,
 		C3.Behaviors.Timer.Acts.StopTimer,
-		C3.Plugins.Sprite.Exps.X,
-		C3.Plugins.Sprite.Exps.BBoxTop,
 		C3.Plugins.Sprite.Acts.SetAngle,
 		C3.Plugins.Arr.Acts.SetX,
 		C3.Plugins.System.Exps.max,
@@ -885,6 +886,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.Particles.Acts.SetSpraying,
+		C3.Plugins.Timeline.Acts.SetTimelineTimeByTags,
 		C3.Plugins.Sprite.Acts.SetY,
 		C3.Plugins.System.Cnds.ForEach,
 		C3.Plugins.Sprite.Cnds.PickByUID,
@@ -895,6 +897,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.Compare,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.System.Cnds.While,
+		C3.Plugins.Arr.Exps.Width,
 		C3.Plugins.TiledBg.Acts.SetWidth,
 		C3.Plugins.System.Acts.CreateObject,
 		C3.Plugins.Sprite.Exps.Height,
@@ -902,7 +905,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Dictionary.Exps.Get,
 		C3.Plugins.Sprite.Acts.Spawn,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
-		C3.Plugins.Arr.Exps.Width,
 		C3.Plugins.Arr.Cnds.ArrForEach,
 		C3.Plugins.Arr.Exps.CurX,
 		C3.Plugins.Arr.Exps.CurValue,
@@ -914,7 +916,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Cnds.CompareXY,
 		C3.Plugins.Arr.Acts.Delete,
 		C3.Plugins.Arr.Cnds.IsEmpty,
-		C3.Behaviors.DragnDrop.Acts.SetEnabled,
 		C3.Plugins.Arr.Cnds.CompareXYZ,
 		C3.Plugins.Text.Acts.SetFontColor,
 		C3.Plugins.Text.Acts.SetFontSize,
@@ -946,6 +947,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Text.Exps.Y,
 		C3.Plugins.Touch.Cnds.IsInTouch,
 		C3.Plugins.Text.Acts.SetY,
+		C3.Plugins.Timeline.Cnds.IsPlayingByTags,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.Keyboard.Cnds.OnKey,
 		C3.Plugins.System.Acts.GoToLayoutByName,
@@ -984,7 +986,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.CompareX,
 		C3.Plugins.LocalStorage.Cnds.OnAllGetsComplete,
 		C3.Plugins.System.Acts.GoToLayout,
-		C3.Plugins.AJAX.Acts.RequestFile,
 		C3.Plugins.AJAX.Cnds.OnComplete,
 		C3.Plugins.Arr.Acts.JSONLoad,
 		C3.Plugins.AJAX.Exps.LastData,
@@ -993,6 +994,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.For,
 		C3.Plugins.System.Exps.loopindex,
 		C3.Plugins.LocalStorage.Cnds.CompareValue,
+		C3.Plugins.AJAX.Acts.RequestFile,
 		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Plugins.System.Acts.SetGroupActive,
 		C3.Plugins.System.Exps.layoutname,
@@ -1003,7 +1005,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Platform.Cnds.OnJump,
 		C3.Behaviors.Platform.Cnds.OnStop,
 		C3.Plugins.Timeline.Acts.StopTimelineByTags,
-		C3.Plugins.Timeline.Acts.SetTimelineTimeByTags,
 		C3.Behaviors.Platform.Cnds.OnLand,
 		C3.Behaviors.Platform.Cnds.IsMoving,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
@@ -1039,7 +1040,7 @@ self.C3_JsPropNameTable = [
 	{LimbBorder: 0},
 	{ShopDataFood: 0},
 	{ShopDataPotions: 0},
-	{SwitcherDataSkins: 0},
+	{SkinsEnum: 0},
 	{LocationsRels: 0},
 	{Stats: 0},
 	{Freezer: 0},
@@ -1179,6 +1180,9 @@ self.C3_JsPropNameTable = [
 	{PBBall: 0},
 	{PBBlot: 0},
 	{PBShotConfParts: 0},
+	{NextStageButton: 0},
+	{NextStageText: 0},
+	{Button: 0},
 	{ScaleEffect: 0},
 	{Borders: 0},
 	{UItoHide: 0},
@@ -1229,6 +1233,7 @@ self.C3_JsPropNameTable = [
 	{STATS_COUNT: 0},
 	{TEEN_LEVEL: 0},
 	{ADULT_LEVEL: 0},
+	{NEXT_STAGE_LEVEL: 0},
 	{HEALTH_SPEED: 0},
 	{ONLINE_SPEED_HUNGER: 0},
 	{OFFLINE_SPEED_HUNGER: 0},
@@ -1375,6 +1380,10 @@ self.C3_JsPropNameTable = [
 			return () => Math.ceil((f0() / 1000));
 		},
 		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject();
+		},
+		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
 		},
@@ -1385,17 +1394,12 @@ self.C3_JsPropNameTable = [
 		() => "bathroom",
 		() => "mine",
 		() => "playroom",
-		() => -100,
 		() => "idle",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(1, 3);
 		},
 		() => "a",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject();
-		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -1433,22 +1437,22 @@ self.C3_JsPropNameTable = [
 			return () => (v0.GetValue() + v1.GetValue());
 		},
 		() => 632,
-		() => 688,
-		() => 336,
+		() => 696,
+		() => 328,
 		() => 768,
-		() => 400,
+		() => 392,
 		() => 6,
 		() => 280,
-		() => 624,
 		() => 7,
-		() => 448,
-		() => 592,
-		() => 752,
-		() => 288,
-		() => 528,
-		() => 720,
-		() => 272,
-		() => 464,
+		() => 440,
+		() => 584,
+		() => 680,
+		() => 744,
+		() => 520,
+		() => 616,
+		() => 712,
+		() => 264,
+		() => 456,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 64);
@@ -1484,6 +1488,12 @@ self.C3_JsPropNameTable = [
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
 			return () => (v0.GetValue() - v1.GetValue());
+		},
+		() => 25,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => n0.ExpObject((n1.ExpObject() - 1));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1664,11 +1674,6 @@ self.C3_JsPropNameTable = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => n0.ExpObject((n1.ExpObject() - 1));
-		},
-		p => {
-			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
 			return () => n0.ExpObject((v1.GetValue() - 1));
 		},
@@ -1743,6 +1748,16 @@ self.C3_JsPropNameTable = [
 		},
 		() => "shop",
 		() => "minigames",
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			return () => n0.ExpObject((n1.ExpObject(v2.GetValue()) + 1));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (-v0.GetValue());
+		},
 		() => "StatTimers",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -1811,15 +1826,12 @@ self.C3_JsPropNameTable = [
 		() => 1000000,
 		() => "reslvl",
 		() => "mon0",
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => (-v0.GetValue());
-		},
 		() => "mon1",
 		() => "mon1000",
 		() => 1000,
 		() => "mon1m",
 		() => "resall",
+		() => "ha_info",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("t", "l");
@@ -1843,6 +1855,11 @@ self.C3_JsPropNameTable = [
 			return () => f0(360);
 		},
 		() => "Background loading",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => Math.floor(f0(0, n1.ExpObject()));
+		},
 		() => "locreldata",
 		() => "data_locskins",
 		() => "data_skins",
@@ -1851,6 +1868,7 @@ self.C3_JsPropNameTable = [
 		() => "s_data_food",
 		() => "data_potions",
 		() => "s_data_potions",
+		() => "noob",
 		() => "def",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1890,6 +1908,7 @@ self.C3_JsPropNameTable = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(1, 5);
 		},
+		() => -100,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 300);
