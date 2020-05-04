@@ -1,0 +1,109 @@
+{
+    "c2array": true,
+    "size": [
+        9,
+        3,
+        1
+    ],
+    "data": [
+        [
+            [
+                "Hi!"
+            ],
+            [
+                "I'm Steve. I like to eat and I'm fond of playing games"
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                "Kitchen"
+            ],
+            [
+                "Please drag me some food when i'm hungry"
+            ],
+            [
+                1
+            ]
+        ],
+        [
+            [
+                "Lab"
+            ],
+            [
+                "If my lifes runs out, restore them with potions"
+            ],
+            [
+                1
+            ]
+        ],
+        [
+            [
+                "Bedroom"
+            ],
+            [
+                "Turn off the light to give me a break"
+            ],
+            [
+                2
+            ]
+        ],
+        [
+            [
+                "Bathroom"
+            ],
+            [
+                "You can wash me with a shower and get some goodies"
+            ],
+            [
+                1
+            ]
+        ],
+        [
+            [
+                "Playroom"
+            ],
+            [
+                "Do not forget to play with me!"
+            ],
+            [
+                1
+            ]
+        ],
+        [
+            [
+                "Mine"
+            ],
+            [
+                "And if you want to get more emeralds, dig a mine"
+            ],
+            [
+                2
+            ]
+        ],
+        [
+            [
+                "..."
+            ],
+            [
+                "I will grow in time, the main thing is do not leave me alone"
+            ],
+            [
+                0
+            ]
+        ],
+        [
+            [
+                "..."
+            ],
+            [
+                "Hope we will have a great time"
+            ],
+            [
+                0
+            ]
+        ]
+    ]
+}

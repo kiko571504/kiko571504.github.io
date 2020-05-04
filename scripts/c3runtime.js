@@ -882,6 +882,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Arr.Exps.AsJSON,
 		C3.Plugins.Arr.Cnds.CompareX,
 		C3.Plugins.System.Acts.SetBoolVar,
+		C3.Behaviors.Sin.Acts.SetEnabled,
+		C3.Plugins.Sprite.Cnds.PickByUID,
 		C3.Plugins.TiledBg.Acts.SetHeight,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
@@ -889,7 +891,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Timeline.Acts.SetTimelineTimeByTags,
 		C3.Plugins.Sprite.Acts.SetY,
 		C3.Plugins.System.Cnds.ForEach,
-		C3.Plugins.Sprite.Cnds.PickByUID,
 		C3.Plugins.Particles.Acts.SetY,
 		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.System.Acts.Wait,
@@ -953,6 +954,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.GoToLayoutByName,
 		C3.Plugins.Touch.Cnds.CompareTouchSpeed,
 		C3.Plugins.Touch.Exps.TouchIndex,
+		C3.Plugins.LocalStorage.Acts.ClearStorage,
+		C3.Plugins.Browser.Acts.Reload,
+		C3.Behaviors.Sin.Acts.SetPhase,
+		C3.Behaviors.Sin.Acts.SetMovement,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.LocalStorage.Acts.CheckItemExists,
 		C3.Plugins.LocalStorage.Cnds.OnItemExists,
@@ -973,15 +978,13 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.CompareWidth,
 		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Behaviors.Pin.Acts.Pin,
+		C3.Behaviors.Pin.Acts.PinByProperties,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
 		C3.Plugins.Sprite.Acts.SetWidth,
-		C3.Plugins.Sprite.Acts.MoveToTop,
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.System.Cnds.OnSuspend,
 		C3.Plugins.Button.Cnds.OnClicked,
 		C3.Plugins.Button.Cnds.CompareInstanceVar,
-		C3.Plugins.LocalStorage.Acts.ClearStorage,
-		C3.Plugins.Browser.Acts.Reload,
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Plugins.Sprite.Cnds.CompareX,
 		C3.Plugins.LocalStorage.Cnds.OnAllGetsComplete,
@@ -998,8 +1001,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Plugins.System.Acts.SetGroupActive,
 		C3.Plugins.System.Exps.layoutname,
-		C3.Behaviors.Pin.Acts.PinByProperties,
-		C3.Behaviors.Sin.Acts.SetPhase,
 		C3.Plugins.Timeline.Acts.PlayTimeline,
 		C3.Behaviors.Platform.Cnds.OnMove,
 		C3.Behaviors.Platform.Cnds.OnJump,
@@ -1022,7 +1023,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.TiledBg.Acts.SetImageOffsetX,
 		C3.Plugins.TiledBg.Exps.ImageOffsetX,
 		C3.Plugins.System.Acts.CreateObjectByName,
-		C3.Behaviors.Sin.Acts.SetEnabled,
 		C3.Plugins.System.Cnds.OnLayoutEnd
 	];
 };
@@ -1049,6 +1049,7 @@ self.C3_JsPropNameTable = [
 	{LocSkins: 0},
 	{LocSkinsOpened: 0},
 	{SkinsOpened: 0},
+	{Instruction: 0},
 	{HealthBar: 0},
 	{HungerBar: 0},
 	{JoyBar: 0},
@@ -1071,6 +1072,7 @@ self.C3_JsPropNameTable = [
 	{GoodsIcon: 0},
 	{price: 0},
 	{type: 0},
+	{Enabled: 0},
 	{GoodsBuyButton: 0},
 	{next: 0},
 	{SwitchButton: 0},
@@ -1109,7 +1111,6 @@ self.C3_JsPropNameTable = [
 	{Timeline: 0},
 	{face: 0},
 	{Back: 0},
-	{Enabled: 0},
 	{LocationController: 0},
 	{Touch: 0},
 	{Rotate: 0},
@@ -1163,11 +1164,11 @@ self.C3_JsPropNameTable = [
 	{BackButtonMinigame: 0},
 	{MinigameButton: 0},
 	{LifeIcon: 0},
-	{WinButton: 0},
+	{WindowButton: 0},
 	{Flare: 0},
 	{counter: 0},
 	{WinText: 0},
-	{WinBack: 0},
+	{WindowBack: 0},
 	{StaticIcon: 0},
 	{Controller: 0},
 	{StaminaBar: 0},
@@ -1183,6 +1184,15 @@ self.C3_JsPropNameTable = [
 	{NextStageButton: 0},
 	{NextStageText: 0},
 	{Button: 0},
+	{HungerCloud: 0},
+	{BackBox: 0},
+	{PB_ShotFlash: 0},
+	{NewGameBanner: 0},
+	{NewGameConfirmButton: 0},
+	{InstTitleText: 0},
+	{InstText: 0},
+	{curStep: 0},
+	{InstIcon: 0},
 	{ScaleEffect: 0},
 	{Borders: 0},
 	{UItoHide: 0},
@@ -1228,7 +1238,9 @@ self.C3_JsPropNameTable = [
 	{skin: 0},
 	{curindex: 0},
 	{sskin: 0},
+	{stepIndex: 0},
 	{r: 0},
+	{InstructionPased: 0},
 	{LOCATION_COUNT: 0},
 	{STATS_COUNT: 0},
 	{TEEN_LEVEL: 0},
@@ -1412,12 +1424,19 @@ self.C3_JsPropNameTable = [
 		() => 10,
 		() => 35,
 		() => 60,
+		() => 15,
+		() => 6,
+		() => 335,
+		() => 7,
+		() => 25,
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
 			return () => multiply(1.64, n0.ExpObject(v1.GetValue()));
 		},
 		() => "HA_Category",
+		() => "HA_Confirm",
+		() => "HA_Instruction",
 		() => "HA_Minigames",
 		() => "HA_Grid",
 		() => "HA_Info",
@@ -1441,9 +1460,7 @@ self.C3_JsPropNameTable = [
 		() => 328,
 		() => 768,
 		() => 392,
-		() => 6,
 		() => 280,
-		() => 7,
 		() => 440,
 		() => 584,
 		() => 680,
@@ -1489,7 +1506,6 @@ self.C3_JsPropNameTable = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (v0.GetValue() - v1.GetValue());
 		},
-		() => 25,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -1723,6 +1739,7 @@ self.C3_JsPropNameTable = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(180, 360);
 		},
+		() => 0.05,
 		() => "Scroll",
 		p => {
 			const n0 = p._GetNode(0);
@@ -1748,6 +1765,7 @@ self.C3_JsPropNameTable = [
 		},
 		() => "shop",
 		() => "minigames",
+		() => "newgame",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -1757,6 +1775,25 @@ self.C3_JsPropNameTable = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (-v0.GetValue());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 0);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue(), 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() - 1);
+		},
+		() => "inst",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpInstVar() + 1);
 		},
 		() => "StatTimers",
 		p => {
@@ -1799,6 +1836,7 @@ self.C3_JsPropNameTable = [
 		},
 		() => 200,
 		() => "ui",
+		() => "ha_instruction",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
