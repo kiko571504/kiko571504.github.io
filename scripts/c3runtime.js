@@ -854,6 +854,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Text.Acts.SetText,
 		C3.Behaviors.Fade.Acts.RestartFade,
+		C3.Plugins.System.Cnds.ForEach,
+		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Plugins.Text.Acts.SetVisible,
 		C3.Behaviors.DragnDrop.Acts.SetEnabled,
@@ -878,7 +880,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Particles.Acts.SetSpraying,
 		C3.Plugins.Timeline.Acts.SetTimelineTimeByTags,
 		C3.Plugins.Sprite.Acts.SetY,
-		C3.Plugins.System.Cnds.ForEach,
 		C3.Plugins.Particles.Acts.SetY,
 		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.System.Acts.Wait,
@@ -911,7 +912,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Touch.Cnds.OnTouchEnd,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
 		C3.Plugins.System.Cnds.LayerVisible,
-		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Plugins.Sprite.Exps.AnimationFrame,
@@ -1191,6 +1191,9 @@ self.C3_JsPropNameTable = [
 	{Sprite2: 0},
 	{Sprite3: 0},
 	{Sprite4: 0},
+	{Point: 0},
+	{loc: 0},
+	{INT_Table: 0},
 	{ScaleEffect: 0},
 	{Borders: 0},
 	{UItoHide: 0},
@@ -1734,11 +1737,11 @@ self.C3_JsPropNameTable = [
 		() => "effects",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(40, 200);
+			return () => f0(140, 240);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(180, 360);
+			return () => f0(250, 290);
 		},
 		() => 0.05,
 		() => 400,
