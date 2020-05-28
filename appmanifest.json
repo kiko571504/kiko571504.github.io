@@ -1,10 +1,10 @@
 {
-	"name": "Stuo",
-	"short_name": "Stuo",
+	"name": "Griseo",
+	"short_name": "Griseo",
 	"description": "",
 	"start_url": "index.html",
 	"display": "fullscreen",
-	"orientation": "portrait",
+	"orientation": "landscape",
 	"background_color": "#ffffff",
 	"icons": [
 		{
