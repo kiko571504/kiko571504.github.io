@@ -37,3 +37,8 @@ html, body, canvas {
 }
 
 
+@font-face {
+	font-family: 'chelseamarket-regular';
+	src: url('fonts/chelseamarket-regular.ttf') format('truetype');
+}
+
