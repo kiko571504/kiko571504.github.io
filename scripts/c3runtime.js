@@ -754,6 +754,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Particles.Acts.Destroy,
 		C3.Plugins.LocalStorage.Acts.SetItem,
 		C3.Plugins.Sprite.Acts.SetVisible,
+		C3.Plugins.System.Acts.SaveState,
 		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.Audio.Acts.Play,
 		C3.Behaviors.Physics.Cnds.IsSleeping,
@@ -815,7 +816,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Plugins.System.Exps.layoutname,
 		C3.Plugins.System.Acts.WaitForSignal,
-		C3.Plugins.System.Acts.SaveState,
 		C3.Behaviors.Fade.Cnds.OnFadeInEnd,
 		C3.Plugins.System.Acts.Signal,
 		C3.Plugins.Dictionary.Cnds.CompareValue,
@@ -842,6 +842,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.ResetPersisted,
 		C3.Plugins.Dictionary.Acts.Clear,
 		C3.Plugins.System.Acts.LoadState,
+		C3.Plugins.LocalStorage.Acts.ClearStorage,
 		C3.Plugins.LocalStorage.Acts.GetItem,
 		C3.Plugins.System.Cnds.OnLoadFailed,
 		C3.Plugins.LocalStorage.Cnds.OnItemGet,
@@ -925,6 +926,7 @@ self.C3_JsPropNameTable = [
 	{PassedIcon: 0},
 	{NotBackButton: 0},
 	{NotText: 0},
+	{RestartButton: 0},
 	{ScaleEffect: 0},
 	{Givers: 0},
 	{Exclamation: 0},
@@ -932,6 +934,7 @@ self.C3_JsPropNameTable = [
 	{SeedRight: 0},
 	{name: 0},
 	{f: 0},
+	{RestartMode: 0},
 	{passed: 0}
 ];
 
@@ -1034,6 +1037,7 @@ self.C3_JsPropNameTable = [
 		() => 30,
 		() => 0,
 		() => "passed",
+		() => "mysave",
 		() => 1.15,
 		() => -30,
 		() => "",
@@ -1084,7 +1088,6 @@ self.C3_JsPropNameTable = [
 			return () => f0();
 		},
 		() => "fade_end",
-		() => "mysave",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
@@ -1114,7 +1117,8 @@ self.C3_JsPropNameTable = [
 			const n0 = p._GetNode(0);
 			return () => (180 * n0.ExpInstVar());
 		},
-		() => "menu"
+		() => "menu",
+		() => "Reset progress"
 	];
 }
 
