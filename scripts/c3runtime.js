@@ -795,6 +795,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Dictionary.Exps.CurrentKey,
 		C3.Plugins.Sprite.Acts.SetDefaultColor,
 		C3.Plugins.System.Cnds.Else,
+		C3.Plugins.advert.Acts.CreateInterstitial,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Plugins.Touch.Cnds.OnTouchEnd,
@@ -835,10 +836,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Plugins.System.Exps.layoutname,
 		C3.Plugins.System.Acts.WaitForSignal,
-		C3.Plugins.advert.Acts.CreateInterstitial,
+		C3.Plugins.advert.Cnds.IsInterstitialLoaded,
+		C3.Plugins.advert.Acts.ShowInterstitial,
+		C3.Plugins.advert.Cnds.OnInterstitialComplete,
 		C3.Behaviors.Fade.Cnds.OnFadeInEnd,
 		C3.Plugins.System.Acts.Signal,
-		C3.Plugins.advert.Acts.ShowInterstitial,
 		C3.Plugins.Dictionary.Cnds.CompareValue,
 		C3.Plugins.Dictionary.Cnds.HasKey,
 		C3.Plugins.Dictionary.Acts.SetKey,
@@ -954,6 +956,7 @@ self.C3_JsPropNameTable = [
 	{Exclamation: 0},
 	{Mute: 0},
 	{SeedRight: 0},
+	{AdCounter: 0},
 	{name: 0},
 	{f: 0},
 	{RestartMode: 0},
@@ -1075,6 +1078,7 @@ self.C3_JsPropNameTable = [
 		},
 		() => -140746078815231,
 		() => -281492157629439,
+		() => "ca-app-pub-8599044896095164/8779533879",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar_Family();
@@ -1110,7 +1114,6 @@ self.C3_JsPropNameTable = [
 			return () => f0();
 		},
 		() => "fade_end",
-		() => "ca-app-pub-8599044896095164/8779533879",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
