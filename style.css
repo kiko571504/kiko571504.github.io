@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #000000;
+	background: #1a1a1a;
 	color: white;
 }
 
@@ -38,7 +38,12 @@ html, body, canvas {
 
 
 @font-face {
-	font-family: 'chelseamarket-regular';
-	src: url('fonts/chelseamarket-regular.ttf') format('truetype');
+	font-family: 'josefinsans-bold';
+	src: url('fonts/josefinsans-bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'josefinsans-medium';
+	src: url('fonts/josefinsans-medium.ttf') format('truetype');
 }
 

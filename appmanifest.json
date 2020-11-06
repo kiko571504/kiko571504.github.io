@@ -1,11 +1,11 @@
 {
-	"name": "Griseo",
-	"short_name": "Griseo",
-	"description": "just relax",
+	"name": "Cube jump",
+	"short_name": "Cube jump",
+	"description": "Cube jump geometry impossible game dash quality",
 	"start_url": "index.html",
 	"display": "fullscreen",
-	"orientation": "portrait",
-	"background_color": "#ffffff",
+	"orientation": "landscape",
+	"background_color": "#000000",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",
