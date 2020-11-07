@@ -3956,6 +3956,13 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.Audio,
 		C3.Plugins.Date,
 		C3.Plugins.ValerypopoffTouchPlusPlugin,
+		C3.Plugins.System.Acts.CreateObject,
+		C3.Plugins.TiledBg.Exps.X,
+		C3.Plugins.TiledBg.Exps.Y,
+		C3.Plugins.TiledBg.Exps.Width,
+		C3.Plugins.System.Acts.Wait,
+		C3.Plugins.System.Cnds.PickAll,
+		C3.Plugins.Particles.Acts.SetSpraying,
 		C3.Plugins.Audio.Acts.Play,
 		C3.Plugins.Timeline.Acts.PlayTimeline,
 		C3.Plugins.System.Acts.SetVar,
@@ -3976,6 +3983,8 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Sprite.Acts.SetWidth,
 		C3.Behaviors.Sin.Exps.Value,
+		C3.Plugins.System.Cnds.OnLayoutStart,
+		C3.Plugins.Particles.Acts.Destroy,
 		C3.Behaviors.Physics.Cnds.IsSleeping,
 		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
@@ -3983,9 +3992,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.Sprite.Cnds.IsOverlappingOffset,
 		C3.Plugins.System.Cnds.CompareBetween,
 		C3.Plugins.Sprite.Exps.X,
-		C3.Plugins.TiledBg.Exps.X,
-		C3.Plugins.TiledBg.Exps.Width,
-		C3.Plugins.System.Acts.Wait,
+		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.Touch.Cnds.OnTouchStart,
 		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
@@ -3994,17 +4001,8 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Behaviors.Physics.Acts.ApplyImpulseAtAngle,
 		C3.Behaviors.Physics.Acts.ApplyTorque,
 		C3.Plugins.System.Acts.AddVar,
-		C3.Plugins.System.Cnds.OnLayoutStart,
-		C3.Plugins.Particles.Acts.Destroy,
-		C3.Plugins.Sprite.Acts.Spawn,
-		C3.Behaviors.Rotate.Acts.SetEnabled,
-		C3.Plugins.Sprite.Acts.MoveToBottom,
-		C3.Plugins.Sprite.Acts.SetSize,
-		C3.Plugins.Sprite.Exps.Width,
-		C3.Plugins.Sprite.Exps.Height,
-		C3.Plugins.Sprite.Acts.AddChild,
-		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.Sprite.Cnds.OnCollision,
+		C3.Plugins.Sprite.Acts.Spawn,
 		C3.Plugins.Sprite.Acts.Destroy,
 		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.System.Cnds.CompareBoolVar,
@@ -4012,36 +4010,31 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.advert.Acts.ShowInterstitial,
 		C3.Plugins.advert.Acts.CreateInterstitial,
 		C3.Behaviors.Timer.Acts.StartTimer,
-		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
-		C3.Plugins.advert.Acts.CreateVideo,
+		C3.Behaviors.Rotate.Acts.SetEnabled,
 		C3.Plugins.Sprite.Acts.SetVisible,
+		C3.Plugins.advert.Acts.CreateVideo,
 		C3.Plugins.Audio.Acts.Stop,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.Arr.Exps.Width,
 		C3.Plugins.System.Acts.NextPrevLayout,
-		C3.Plugins.Text.Cnds.IsVisible,
-		C3.Plugins.Text.Acts.SetVisible,
-		C3.Plugins.System.Cnds.Every,
-		C3.Plugins.Sprite.Cnds.IsOnScreen,
-		C3.Behaviors.Physics.Cnds.CompareVelocity,
-		C3.Plugins.Sprite.Acts.RotateClockwise,
-		C3.Plugins.System.Exps.random,
-		C3.Plugins.Sprite.Acts.SetAnim,
-		C3.Plugins.Sprite.Exps.AnimationName,
 		C3.Plugins.advert.Cnds.OnVideoComplete,
 		C3.Plugins.advert.Exps.RewardType,
 		C3.Plugins.Text.Exps.Text,
 		C3.Plugins.Text.Acts.SetFontColor,
 		C3.Plugins.advert.Cnds.OnVideoFailedToLoad,
 		C3.Plugins.advert.Cnds.OnVideoCancelled,
+		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.Sprite.Cnds.PickByUID,
+		C3.Plugins.Sprite.Acts.SetAnimFrame,
+		C3.Plugins.System.Exps.random,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Plugins.Browser.Acts.GoToURL,
 		C3.Plugins.Arr.Acts.SetX,
 		C3.Behaviors.Timer.Cnds.OnTimer,
+		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Behaviors.Timer.Cnds.IsTimerRunning,
 		C3.Behaviors.Timer.Exps.Duration,
@@ -4053,16 +4046,18 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Behaviors.Fade.Acts.SetFadeInTime,
 		C3.Behaviors.Fade.Acts.SetFadeOutTime,
 		C3.Behaviors.Fade.Acts.RestartFade,
+		C3.Plugins.System.Acts.SetCanvasSize,
+		C3.Plugins.System.Exps.originalviewportwidth,
+		C3.Plugins.System.Exps.originalviewportheight,
+		C3.Plugins.System.Acts.Scroll,
+		C3.Plugins.System.Exps.scrollx,
+		C3.Plugins.System.Exps.scrolly,
+		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.Sprite.Acts.SetEffectEnabled,
 		C3.Plugins.System.Exps.projectversion,
 		C3.Behaviors.Sin.Acts.SetPhase,
-		C3.Plugins.Arr.Cnds.ArrForEach,
-		C3.Plugins.Arr.Exps.CurX,
-		C3.Plugins.System.Cnds.PickNth,
 		C3.Plugins.Audio.Cnds.IsTagPlaying,
 		C3.Plugins.System.Acts.WaitForSignal,
-		C3.Plugins.System.Acts.GoToLayoutByName,
-		C3.Plugins.Sprite.Exps.IID,
 		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
 		C3.Plugins.CORDOVAIAP.Acts.PurchaseProduct,
 		C3.Plugins.CORDOVAIAP.Cnds.OnPurchaseSuccess,
@@ -4079,6 +4074,18 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Behaviors.Fade.Cnds.OnFadeInEnd,
 		C3.Plugins.System.Acts.Signal,
+		C3.Plugins.Sprite.Cnds.IsOnScreen,
+		C3.Behaviors.Physics.Cnds.CompareVelocity,
+		C3.Plugins.Sprite.Acts.RotateClockwise,
+		C3.Plugins.Sprite.Acts.SetAnim,
+		C3.Plugins.Sprite.Exps.AnimationName,
+		C3.Plugins.Sprite.Acts.AddChild,
+		C3.Plugins.Sprite.Cnds.HasParent,
+		C3.Plugins.Sprite.Acts.MoveToBottom,
+		C3.Plugins.Sprite.Acts.SetSize,
+		C3.Plugins.Sprite.Exps.Width,
+		C3.Plugins.Sprite.Exps.Height,
+		C3.Plugins.Text.Cnds.IsVisible,
 		C3.Plugins.LocalStorage.Acts.CheckItemExists,
 		C3.Plugins.CORDOVAIAP.Acts.RegisterProduct,
 		C3.Plugins.CORDOVAIAP.Acts.CompleteRegistration,
@@ -4087,6 +4094,8 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.LocalStorage.Cnds.OnItemGet,
 		C3.Plugins.Arr.Acts.JSONLoad,
 		C3.Plugins.LocalStorage.Exps.ItemValue,
+		C3.Plugins.Arr.Cnds.CompareSize,
+		C3.Plugins.Arr.Acts.SetSize,
 		C3.Plugins.LocalStorage.Cnds.OnItemMissing,
 		C3.Plugins.LocalStorage.Cnds.CompareValue,
 		C3.Plugins.LocalStorage.Cnds.IsProcessingSets,
@@ -4097,27 +4106,35 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Sprite.Acts.SetAngle,
 		C3.Plugins.CORDOVAIAP.Exps.ProductPrice,
+		C3.Plugins.Arr.Cnds.ArrForEach,
+		C3.Plugins.Arr.Exps.CurX,
 		C3.Plugins.Arr.Cnds.CompareCurrent,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.Sprite.Exps.UID,
 		C3.Plugins.System.Acts.ScrollX,
-		C3.Plugins.System.Exps.scrollx,
 		C3.Plugins.Text.Cnds.IsBoolInstanceVarSet,
 		C3.Plugins.Text.Acts.ToggleBoolInstanceVar,
 		C3.Plugins.System.Cnds.Repeat,
-		C3.Plugins.System.Cnds.PickAll,
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Plugins.System.Exps.loopindex,
 		C3.Plugins.Sprite.Acts.SetPos,
-		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.System.Cnds.PickLastCreated,
-		C3.Plugins.System.Acts.CreateObject,
 		C3.Plugins.Sprite.Exps.BBoxTop,
 		C3.Plugins.Sprite.Cnds.CompareY,
 		C3.Plugins.advert.Cnds.OnInterstitialComplete,
 		C3.Plugins.advert.Cnds.OnInterstitialFailedToLoad,
 		C3.Plugins.System.Exps.layoutwidth,
-		C3.Plugins.Sprite.Cnds.PickDistance
+		C3.Plugins.Sprite.Cnds.PickDistance,
+		C3.Plugins.System.Acts.GoToLayoutByName,
+		C3.Plugins.Touch.Exps.X,
+		C3.Behaviors.Physics.Acts.ApplyImpulse,
+		C3.Plugins.System.Cnds.ObjectUIDExists,
+		C3.Plugins.System.Acts.ScrollY,
+		C3.Behaviors.Physics.Exps.VelocityX,
+		C3.Behaviors.Physics.Acts.SetVelocity,
+		C3.Behaviors.Physics.Exps.VelocityY,
+		C3.Behaviors.Physics.Acts.SetAngularVelocity,
+		C3.Behaviors.Physics.Exps.AngularVelocity
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -4147,6 +4164,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		{MenuButton: 0},
 		{PlayBtnText: 0},
 		{locked: 0},
+		{lvl: 0},
 		{LevelBtn: 0},
 		{BackBtnText: 0},
 		{Locker: 0},
@@ -4185,7 +4203,9 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		{Switcher: 0},
 		{CoinIco2: 0},
 		{TicketsText: 0},
-		{ShopCam: 0},
+		{cur: 0},
+		{max: 0},
+		{Cam: 0},
 		{parent: 0},
 		{Sprite: 0},
 		{Skins: 0},
@@ -4206,7 +4226,20 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		{ValerypopoffTouchPlus: 0},
 		{SkipBack: 0},
 		{SkipBtn: 0},
-		{Sprite2: 0},
+		{Tut: 0},
+		{Loader: 0},
+		{AirBtnText: 0},
+		{next: 0},
+		{LCpageswitcher: 0},
+		{LCbottom: 0},
+		{Platform: 0},
+		{Particles2: 0},
+		{AirBester: 0},
+		{AirCounter: 0},
+		{AirBorder: 0},
+		{AirTrigger: 0},
+		{DeathCam: 0},
+		{AirFlooe: 0},
 		{TextScaleEffect: 0},
 		{SpriteScaleEffect: 0},
 		{Deaths: 0},
@@ -4215,7 +4248,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		{Jumps: 0},
 		{ShowRateUs: 0},
 		{RateUsAvaliable: 0},
-		{lvl: 0},
+		{duration: 0},
 		{rew: 0},
 		{Ads: 0},
 		{Coins: 0},
@@ -4226,13 +4259,18 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		{tag: 0},
 		{value: 0},
 		{in: 0},
-		{duration: 0},
+		{leng: 0},
 		{LotMode: 0},
 		{res: 0},
 		{CurrentBoundWidth: 0},
 		{Score: 0},
 		{BestScore: 0},
-		{ScoreBeat: 0}
+		{ScoreBeat: 0},
+		{AirScore: 0},
+		{BestAirScore: 0},
+		{AirFinish: 0},
+		{AirTutPassed: 0},
+		{y: 0}
 	];
 }
 
@@ -4334,6 +4372,20 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 	}
 
 	self.C3_ExpressionFuncs = [
+		() => "Effects",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpObject();
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => (n0.ExpObject() + n1.ExpObject());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => v0.GetValue();
+		},
 		() => -10,
 		() => "",
 		p => {
@@ -4341,10 +4393,6 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			const f1 = p._GetNode(1).GetBoundMethod();
 			const f2 = p._GetNode(2).GetBoundMethod();
 			return () => f0(f1(f2(), 1, "Level "));
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => v0.GetValue();
 		},
 		() => 0,
 		() => 1,
@@ -4358,13 +4406,9 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => and("+ ", v0.GetValue());
+			return () => and("+", v0.GetValue());
 		},
 		() => "lvlinfo",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject();
-		},
 		() => "time",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4398,12 +4442,13 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			const n0 = p._GetNode(0);
 			return () => ((n0.ExpBehavior() + 50) * 4);
 		},
-		() => 5,
 		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => (n0.ExpObject() + n1.ExpObject());
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0();
 		},
+		() => 5,
+		() => 3,
+		() => 4,
 		() => "Next",
 		() => "RateUs",
 		() => "Skip",
@@ -4413,12 +4458,6 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		},
 		() => -70,
 		() => 2000,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0();
-		},
-		() => "Cube",
-		() => "Effects",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
@@ -4431,22 +4470,9 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		() => "ca-app-pub-9729235676746816/6217055881",
 		() => "game",
 		() => 2,
-		() => 3,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => and("Level ", n0.ExpObject());
-		},
-		() => "res",
-		() => 0.5,
-		() => 4,
-		() => "menu",
-		() => "skip",
-		() => "ca-app-pub-9729235676746816/1922587654",
-		() => 0.1,
-		() => 100,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(360);
 		},
 		() => "SkipLevel",
 		() => "Reward",
@@ -4463,6 +4489,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			return () => and("+", (2 * f0(f1(n2.ExpObject(), 1, "+"))));
 		},
 		() => -267198506415103,
+		() => 0.5,
 		() => 392,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4470,16 +4497,35 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			return () => Math.ceil(f0(n1.ExpObject()));
 		},
 		() => "https://play.google.com/store/apps/details?id=com.contemplatestudio.cube.jump.dash.jelly.physics.geometry&write_review=true",
+		() => "rate",
 		() => 14,
 		() => "skins",
-		() => "rate",
 		() => "Grayscale",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			return () => and(Math.ceil((n0.ExpBehavior("delay") - n1.ExpBehavior("delay"))), "s");
 		},
+		() => "ca-app-pub-9729235676746816/1922587654",
 		() => "Tutorial",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => C3.lerp(f0(), 640, 0.05);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => C3.lerp(f0(), 360, 0.05);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => C3.lerp(f0(), n1.ExpObject(), 0.05);
+		},
+		() => 1280,
+		() => 720,
+		() => 640,
+		() => 360,
+		() => "menu",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => ("version: " + f0());
@@ -4488,21 +4534,15 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0, 1);
 		},
-		() => "Level chooser",
-		() => "Lock",
 		() => "fade_ended",
 		() => "inf",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => and("Level ", (n0.ExpObject() + 1));
-		},
+		() => "air",
 		() => "ads",
 		() => 0.2,
 		() => "no_ads",
 		() => "shop",
 		() => "Debug",
 		() => "Music",
-		() => "air",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
@@ -4522,10 +4562,20 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			return () => (n0.ExpObject() + (n1.ExpObject() / 10));
 		},
 		() => 0.95,
+		() => 0.1,
+		() => 100,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(360);
+		},
+		() => "Cube",
+		() => "res",
+		() => "skip",
 		() => "wayers",
 		() => "curwayer",
 		() => "curskin",
 		() => "best",
+		() => "bestair",
 		() => "5_tickets",
 		() => "end",
 		() => "track",
@@ -4567,7 +4617,6 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		},
 		() => 1920,
 		() => "<--- SKINS",
-		() => 640,
 		() => "TRACKS --->",
 		() => -1,
 		() => 40,
@@ -4609,6 +4658,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(720, 500);
 		},
+		() => "Animation 4",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
@@ -4623,7 +4673,112 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => ((v0.GetValue() / 7) - Math.ceil((v1.GetValue() / 7)));
+			return () => ((v0.GetValue() / 5) - Math.ceil((v1.GetValue() / 5)));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (Math.ceil((f0() / 1280)) - 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => and(and(n0.ExpInstVar(), "/"), n1.ExpInstVar());
+		},
+		() => "Lock",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => and("Level ", n0.ExpInstVar());
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpInstVar(), f2(0, (n3.ExpInstVar() + 1)));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (640 + (1280 * n0.ExpInstVar()));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			const n3 = p._GetNode(3);
+			return () => f0(n1.ExpInstVar(), f2(0, (n3.ExpInstVar() - 1)));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => and(and((n0.ExpInstVar() + 1), "/"), (n1.ExpInstVar() + 1));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => C3.lerp(f0(), n1.ExpObject(), 0.08);
+		},
+		() => "Borders",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0((-720), 0);
+		},
+		() => 30,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => ((n0.ExpObject() + n1.ExpObject()) + 200);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(200, 520);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 166);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 333);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() / 2);
+		},
+		() => -7,
+		() => -15,
+		() => -1500,
+		() => 7,
+		() => 1500,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (200 - (500 * f0()));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => C3.lerp(f0(), (n1.ExpObject() - 100), 0.08);
+		},
+		() => -500,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => Math.abs(n0.ExpBehavior());
+		},
+		() => 300,
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => ((-1900) - (500 * v0.GetValue()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => C3.clamp(n0.ExpBehavior(), (-200), 200);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => C3.clamp(n0.ExpBehavior(), (-600), 600);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => C3.clamp(n0.ExpBehavior(), (-3000), 3000);
 		}
 	];
 }
