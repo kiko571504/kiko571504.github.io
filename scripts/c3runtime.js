@@ -4260,6 +4260,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		{value: 0},
 		{in: 0},
 		{leng: 0},
+		{last: 0},
 		{LotMode: 0},
 		{res: 0},
 		{CurrentBoundWidth: 0},
@@ -4578,6 +4579,11 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		() => "bestair",
 		() => "5_tickets",
 		() => "end",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 1);
+		},
+		() => -1,
 		() => "track",
 		p => {
 			const n0 = p._GetNode(0);
@@ -4618,7 +4624,6 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		() => 1920,
 		() => "<--- SKINS",
 		() => "TRACKS --->",
-		() => -1,
 		() => 40,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4682,7 +4687,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
-			return () => and(and(n0.ExpInstVar(), "/"), n1.ExpInstVar());
+			return () => and(and((n0.ExpInstVar() + 1), "/"), (n1.ExpInstVar() + 1));
 		},
 		() => "Lock",
 		p => {
@@ -4706,11 +4711,6 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 			const f2 = p._GetNode(2).GetBoundMethod();
 			const n3 = p._GetNode(3);
 			return () => f0(n1.ExpInstVar(), f2(0, (n3.ExpInstVar() - 1)));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => and(and((n0.ExpInstVar() + 1), "/"), (n1.ExpInstVar() + 1));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4766,7 +4766,7 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		() => 300,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => ((-1900) - (500 * v0.GetValue()));
+			return () => ((-1800) - (500 * v0.GetValue()));
 		},
 		p => {
 			const n0 = p._GetNode(0);
