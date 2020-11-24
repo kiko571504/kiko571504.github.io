@@ -4287,7 +4287,8 @@ value:this._waitTime,onedit:v=>this._waitTime=v},{name:prefix+".properties.fade-
 		() => "fadeWhite",
 		() => "win",
 		() => "backboss",
-		() => "reg"
+		() => "reg",
+		() => 6
 	];
 }
 
