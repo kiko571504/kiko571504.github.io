@@ -1,0 +1,16 @@
+{
+    "c2dictionary": true,
+    "data": {
+        "oak_logs": 0,
+        "birch_logs": 0,
+        "pine_logs": 0,
+        "dark_logs": 0,
+        "gold": 0,
+        "iron": 0,
+        "copper": 0,
+        "glass": 0,
+        "scheme": 0,
+        "details": 0,
+        "fuel": 0
+    }
+}

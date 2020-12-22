@@ -1,11 +1,11 @@
 {
-	"name": "Feller",
-	"short_name": "Feller",
-	"description": "Chop trees",
+	"name": "Space lumberjack",
+	"short_name": "Space lumberjack",
+	"description": "Space",
 	"start_url": "index.html",
 	"display": "fullscreen",
-	"orientation": "portrait",
-	"background_color": "#000000",
+	"orientation": "landscape",
+	"background_color": "#ffffff",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",
@@ -18,8 +18,8 @@
 			"type": "image/png"
 		},
 		{
-			"src": "icons/icon-114.png",
-			"sizes": "114x114",
+			"src": "icons/icon-64.png",
+			"sizes": "64x64",
 			"type": "image/png"
 		},
 		{
@@ -30,6 +30,11 @@
 		{
 			"src": "icons/icon-256.png",
 			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/icon-512.png",
+			"sizes": "512x512",
 			"type": "image/png"
 		}
 	]

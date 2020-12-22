@@ -42,8 +42,3 @@ html, body, canvas {
 	src: url('fonts/19888.ttf') format('truetype');
 }
 
-@font-face {
-	font-family: 'comixheavy';
-	src: url('fonts/comixheavy.otf') format('opentype');
-}
-

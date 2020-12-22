@@ -1,0 +1,11 @@
+{
+    "c2dictionary": true,
+    "data": {
+        "gold": 6,
+        "iron": 10,
+        "copper": 18,
+        "glass": 6,
+        "scheme": 4,
+        "details": 8
+    }
+}
