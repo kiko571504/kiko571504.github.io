@@ -4496,6 +4496,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.Date.Exps.ToTotalSeconds,
 		C3.Plugins.System.Cnds.OnLayoutEnd,
+		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Plugins.LocalStorage.Acts.CheckItemExists,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.Dictionary.Cnds.IsEmpty,
