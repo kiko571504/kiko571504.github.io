@@ -3868,6 +3868,34 @@ milliseconds){return setters.get("universal").get("milliseconds")(timeStamp,mill
 1E3},ToTotalHours(milliseconds){return milliseconds/(1E3*60*60)},ToTotalMinutes(milliseconds){return milliseconds/(1E3*60)},ToTotalSeconds(milliseconds){return milliseconds/1E3}}};
 
 
+'use strict';{const C3=self.C3;C3.Plugins.TiledBg=class TiledBgPlugin extends C3.SDKPluginBase{constructor(opts){super(opts)}Release(){super.Release()}}};
+
+
+'use strict';{const C3=self.C3;function WrapModeToStr(wrapMode){switch(wrapMode){case 0:return"clamp-to-edge";case 1:return"repeat";case 2:return"mirror-repeat"}return"repeat"}C3.Plugins.TiledBg.Type=class TiledBgType extends C3.SDKTypeBase{constructor(objectClass,exportData){super(objectClass);this._wrapX="repeat";this._wrapY="repeat";if(exportData){this._wrapX=WrapModeToStr(exportData[0]);this._wrapY=WrapModeToStr(exportData[1])}}Release(){super.Release()}OnCreate(){this.GetImageInfo().LoadAsset(this._runtime)}LoadTextures(renderer){return this.GetImageInfo().LoadStaticTexture(renderer,
+{sampling:this._runtime.GetSampling(),wrapX:this._wrapX,wrapY:this._wrapY})}ReleaseTextures(){this.GetImageInfo().ReleaseTexture()}}};
+
+
+'use strict';{const C3=self.C3;const INITIALLY_VISIBLE=0;const ORIGIN=1;const IMAGE_OFFSET_X=4;const IMAGE_OFFSET_Y=5;const IMAGE_SCALE_X=6;const IMAGE_SCALE_Y=7;const IMAGE_ANGLE=8;const tempRect=C3.New(C3.Rect);const tempQuad=C3.New(C3.Quad);const rcTex=C3.New(C3.Rect);const qTex=C3.New(C3.Quad);C3.Plugins.TiledBg.Instance=class TiledBgInstance extends C3.SDKWorldInstanceBase{constructor(inst,properties){super(inst);this._imageOffsetX=0;this._imageOffsetY=0;this._imageScaleX=1;this._imageScaleY=
+1;this._imageAngle=0;this._ownImageInfo=null;if(properties){this.GetWorldInfo().SetVisible(!!properties[INITIALLY_VISIBLE]);this._imageOffsetX=properties[IMAGE_OFFSET_X];this._imageOffsetY=properties[IMAGE_OFFSET_Y];this._imageScaleX=properties[IMAGE_SCALE_X];this._imageScaleY=properties[IMAGE_SCALE_Y];this._imageAngle=C3.toRadians(properties[IMAGE_ANGLE])}}Release(){this._ReleaseOwnImage();super.Release()}_ReleaseOwnImage(){if(this._ownImageInfo){this._ownImageInfo.Release();this._ownImageInfo=null}}Draw(renderer){const imageInfo=
+this.GetCurrentImageInfo();const texture=imageInfo.GetTexture();if(texture===null)return;renderer.SetTexture(texture);const imageWidth=imageInfo.GetWidth();const imageHeight=imageInfo.GetHeight();const imageOffsetX=this._imageOffsetX/imageWidth;const imageOffsetY=this._imageOffsetY/imageHeight;const wi=this.GetWorldInfo();rcTex.set(0,0,wi.GetWidth()/(imageWidth*this._imageScaleX),wi.GetHeight()/(imageHeight*this._imageScaleY));rcTex.offset(-imageOffsetX,-imageOffsetY);if(wi.HasMesh())this._DrawMesh(wi,
+renderer);else this._DrawStandard(wi,renderer)}_DrawStandard(wi,renderer){let quad=wi.GetBoundingQuad();if(this._runtime.IsPixelRoundingEnabled())quad=wi.PixelRoundQuad(quad);if(this._imageAngle===0)renderer.Quad3(quad,rcTex);else{qTex.setFromRotatedRect(rcTex,-this._imageAngle);renderer.Quad4(quad,qTex)}}_DrawMesh(wi,renderer){const transformedMesh=wi.GetTransformedMesh();if(wi.IsMeshChanged()){wi.CalculateBbox(tempRect,tempQuad,false);let quad=tempQuad;if(this._runtime.IsPixelRoundingEnabled())quad=
+wi.PixelRoundQuad(quad);let texCoords=rcTex;if(this._imageAngle!==0){qTex.setFromRotatedRect(rcTex,-this._imageAngle);texCoords=qTex}transformedMesh.CalculateTransformedMesh(wi.GetSourceMesh(),quad,texCoords);wi.SetMeshChanged(false)}transformedMesh.Draw(renderer)}GetCurrentImageInfo(){return this._ownImageInfo||this._objectClass.GetImageInfo()}_SetMeshChanged(){this.GetWorldInfo().SetMeshChanged(true)}_SetImageOffsetX(x){if(this._imageOffsetX===x)return;this._imageOffsetX=x;this._runtime.UpdateRender();
+this._SetMeshChanged()}_GetImageOffsetX(){return this._imageOffsetX}_SetImageOffsetY(y){if(this._imageOffsetY===y)return;this._imageOffsetY=y;this._runtime.UpdateRender();this._SetMeshChanged()}_GetImageOffsetY(){return this._imageOffsetY}_SetImageScaleX(x){if(this._imageScaleX===x)return;this._imageScaleX=x;this._runtime.UpdateRender();this._SetMeshChanged()}_GetImageScaleX(){return this._imageScaleX}_SetImageScaleY(y){if(this._imageScaleY===y)return;this._imageScaleY=y;this._runtime.UpdateRender();
+this._SetMeshChanged()}_GetImageScaleY(){return this._imageScaleY}_SetImageAngle(a){if(this._imageAngle===a)return;this._imageAngle=a;this._runtime.UpdateRender();this._SetMeshChanged()}_GetImageAngle(){return this._imageAngle}GetPropertyValueByIndex(index){switch(index){case IMAGE_OFFSET_X:return this._GetImageOffsetX();case IMAGE_OFFSET_Y:return this._GetImageOffsetY();case IMAGE_SCALE_X:return this._GetImageScaleX();case IMAGE_SCALE_Y:return this._GetImageScaleY();case IMAGE_ANGLE:return this._GetImageAngle()}}SetPropertyValueByIndex(index,
+value){switch(index){case IMAGE_OFFSET_X:this._SetImageOffsetX(value);break;case IMAGE_OFFSET_Y:this._SetImageOffsetY(value);break;case IMAGE_SCALE_X:this._SetImageScaleX(value);break;case IMAGE_SCALE_Y:this._SetImageScaleY(value);break;case IMAGE_ANGLE:this._SetImageAngle(value);break}}GetScriptInterfaceClass(){return self.ITiledBackgroundInstance}};const map=new WeakMap;self.ITiledBackgroundInstance=class ITiledBackgroundInstance extends self.IWorldInstance{constructor(){super();map.set(this,self.IInstance._GetInitInst().GetSdkInstance())}set imageOffsetX(x){map.get(this)._SetImageOffsetX(x)}get imageOffsetX(){return map.get(this)._GetImageOffsetX()}set imageOffsetY(y){map.get(this)._SetImageOffsetY(y)}get imageOffsetY(){return map.get(this)._GetImageOffsetY()}set imageScaleX(x){map.get(this)._SetImageScaleX(x)}get imageScaleX(){return map.get(this)._GetImageScaleX()}set imageScaleY(y){map.get(this)._SetImageScaleY(y)}get imageScaleY(){return map.get(this)._GetImageScaleY()}set imageAngle(a){map.get(this)._SetImageAngle(a)}get imageAngle(){return map.get(this)._GetImageAngle()}set imageAngleDegrees(a){map.get(this)._SetImageAngle(C3.toRadians(a))}get imageAngleDegrees(){return C3.toDegrees(map.get(this)._GetImageAngle())}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TiledBg.Cnds={OnURLLoaded(){return true},OnURLFailed(){return true}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TiledBg.Acts={SetImageOffsetX(x){this._SetImageOffsetX(x)},SetImageOffsetY(y){this._SetImageOffsetY(y)},SetImageScaleX(x){this._SetImageScaleX(x/100)},SetImageScaleY(y){this._SetImageScaleY(y/100)},SetImageAngle(a){this._SetImageAngle(C3.toRadians(a))},SetEffect(effect){this.GetWorldInfo().SetBlendMode(effect);this._runtime.UpdateRender()},async LoadURL(url,crossOrigin){if(this._ownImageInfo&&this._ownImageInfo.GetURL()===url)return;const runtime=this._runtime;
+const imageInfo=C3.New(C3.ImageInfo);await imageInfo.LoadDynamicAsset(runtime,url);if(!imageInfo.IsLoaded()){this.Trigger(C3.Plugins.TiledBg.Cnds.OnURLFailed);return}if(this.WasReleased()){imageInfo.Release();return null}const texture=await imageInfo.LoadStaticTexture(runtime.GetWebGLRenderer(),{sampling:this._runtime.GetSampling(),wrapX:"repeat",wrapY:"repeat"});if(!texture)return;if(this.WasReleased()){imageInfo.Release();return}this._ReleaseOwnImage();this._ownImageInfo=imageInfo;runtime.UpdateRender();
+await this.TriggerAsync(C3.Plugins.TiledBg.Cnds.OnURLLoaded)}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TiledBg.Exps={ImageWidth(){return this.GetCurrentImageInfo().GetWidth()},ImageHeight(){return this.GetCurrentImageInfo().GetHeight()},ImageOffsetX(){return this._imageOffsetX},ImageOffsetY(){return this._imageOffsetY},ImageScaleX(){return this._imageScaleX*100},ImageScaleY(){return this._imageScaleY*100},ImageAngle(){return C3.toDegrees(this._imageAngle)}}};
+
+
 'use strict';{const C3=self.C3;C3.Behaviors.Fade=class FadeBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}};
 
 
@@ -4341,6 +4369,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Behaviors.EightDir,
 		C3.Behaviors.Rotate,
 		C3.Behaviors.destroy,
+		C3.Plugins.TiledBg,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Sprite.Acts.StopAnim,
 		C3.Plugins.AJAX.Acts.RequestFile,
@@ -4400,12 +4429,25 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.System.Exps.max,
+		C3.Plugins.LocalStorage.Acts.SetItem,
 		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Sprite.Acts.SetMirrored,
+		C3.Plugins.System.Acts.CreateObject,
+		C3.Plugins.Sprite.Acts.SetEffectEnabled,
+		C3.Behaviors.Rotate.Acts.SetEnabled,
+		C3.Behaviors.Fade.Acts.SetFadeOutTime,
+		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
+		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
+		C3.Plugins.Sprite.Cnds.CompareFrame,
+		C3.Plugins.Sprite.Acts.SetPos,
+		C3.Plugins.System.Exps.scrollx,
+		C3.Plugins.Sprite.Exps.Y,
+		C3.Plugins.System.Exps.scrolly,
+		C3.Plugins.Sprite.Exps.Height,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Cnds.For,
 		C3.Plugins.System.Exps.layerindex,
@@ -4413,7 +4455,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Sprite.Cnds.IsVisible,
 		C3.Plugins.NinePatch.Acts.SetVisible,
 		C3.Behaviors.Sin.Acts.SetEnabled,
-		C3.Plugins.LocalStorage.Acts.SetItem,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
 		C3.Behaviors.Fade.Cnds.OnFadeOutEnd,
 		C3.Plugins.Sprite.Cnds.OnCollision,
@@ -4421,12 +4462,8 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.Touch.Exps.TouchID,
 		C3.Plugins.Touch.Cnds.OnTouchEnd,
-		C3.Plugins.Sprite.Acts.SetPos,
-		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.Touch.Exps.XForID,
-		C3.Plugins.System.Exps.scrollx,
 		C3.Plugins.Touch.Exps.YForID,
-		C3.Plugins.System.Exps.scrolly,
 		C3.Plugins.System.Exps.min,
 		C3.Plugins.System.Acts.Scroll,
 		C3.Plugins.System.Cnds.TriggerOnce,
@@ -4436,20 +4473,24 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
 		C3.Behaviors.Platform.Acts.SetGravity,
 		C3.Behaviors.Platform.Acts.SetVectorY,
-		C3.Plugins.Sprite.Cnds.CompareFrame,
+		C3.Plugins.Timeline.Acts.PlayTimeline,
+		C3.Plugins.Timeline.Cnds.OnTimelineFinishedByTags,
+		C3.Plugins.Sprite.Acts.AddChild,
 		C3.Plugins.Sprite.Acts.SetEffectParam,
 		C3.Plugins.Dictionary.Acts.SetKey,
 		C3.Plugins.Dictionary.Exps.Get,
 		C3.Plugins.Dictionary.Exps.AsJSON,
 		C3.Plugins.Dictionary.Cnds.HasKey,
 		C3.Plugins.System.Acts.SetFunctionReturnValue,
+		C3.Plugins.System.Cnds.ForEach,
+		C3.Plugins.Dictionary.Cnds.CompareValue,
+		C3.Plugins.Text.Acts.SetFontColor,
+		C3.Plugins.Sprite.Acts.SetOpacity,
 		C3.Plugins.Sprite.Cnds.CompareX,
 		C3.Plugins.Sprite.Cnds.IsMirrored,
-		C3.Plugins.Timeline.Acts.PlayTimeline,
 		C3.Plugins.Timeline.Acts.SetInstance,
 		C3.Plugins.Sprite.Cnds.PickByUID,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
-		C3.Plugins.System.Acts.CreateObject,
 		C3.Behaviors.Physics.Acts.ApplyImpulseAtAngle,
 		C3.Behaviors.Physics.Acts.ApplyTorque,
 		C3.Plugins.System.Cnds.Repeat,
@@ -4470,17 +4511,18 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Tilemap.Exps.TileToPositionY,
 		C3.Plugins.Arr.Acts.SetXY,
 		C3.Plugins.Arr.Exps.AsJSON,
-		C3.Plugins.Sprite.Acts.SetOpacity,
 		C3.Plugins.Tilemap.Cnds.CompareTileAt,
+		C3.Behaviors.Platform.Cnds.OnMove,
+		C3.Behaviors.Platform.Cnds.OnStop,
+		C3.Behaviors.Platform.Cnds.OnJump,
+		C3.Behaviors.Platform.Cnds.OnLand,
+		C3.Behaviors.Platform.Cnds.IsMoving,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
-		C3.Plugins.Sprite.Acts.AddChild,
-		C3.Plugins.Timeline.Cnds.OnTimelineFinishedByTags,
-		C3.Plugins.Dictionary.Cnds.CompareValue,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
 		C3.Behaviors.MoveTo.Acts.SetMaxSpeed,
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
 		C3.Plugins.Sprite.Acts.ToggleBoolInstanceVar,
-		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
+		C3.Plugins.Sprite.Cnds.IsOnScreen,
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Button.Cnds.OnClicked,
@@ -4488,15 +4530,25 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Behaviors.Timer.Acts.StartTimer,
 		C3.Behaviors.Timer.Cnds.OnTimer,
 		C3.Behaviors.Timer.Cnds.IsTimerRunning,
-		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
-		C3.Plugins.Sprite.Exps.Height,
 		C3.Behaviors.Bullet.Acts.SetSpeed,
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Plugins.Date.Exps.Now,
 		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.Date.Exps.ToTotalSeconds,
+		C3.Plugins.TiledBg.Acts.SetVisible,
+		C3.Plugins.TiledBg.Exps.X,
+		C3.Plugins.TiledBg.Exps.Y,
+		C3.Plugins.Sprite.Acts.MoveToTop,
+		C3.Behaviors.Timer.Exps.Duration,
+		C3.Behaviors.Timer.Exps.CurrentTime,
+		C3.Plugins.System.Exps.dt,
+		C3.Plugins.TiledBg.Acts.SetX,
+		C3.Plugins.Sprite.Acts.Spawn,
+		C3.Plugins.Sprite.Cnds.PickChildren,
+		C3.Plugins.System.Exps.int,
+		C3.Plugins.Text.Exps.Text,
+		C3.Plugins.Text.Acts.Destroy,
 		C3.Plugins.System.Cnds.OnLayoutEnd,
-		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Plugins.LocalStorage.Acts.CheckItemExists,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.Dictionary.Cnds.IsEmpty,
@@ -4507,17 +4559,13 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.LocalStorage.Exps.ItemValue,
 		C3.Plugins.LocalStorage.Cnds.OnItemMissing,
 		C3.Behaviors.Timer.Acts.StopTimer,
-		C3.Plugins.Sprite.Acts.Spawn,
-		C3.Plugins.System.Cnds.ForEach,
 		C3.Behaviors.EightDir.Acts.SimulateControl,
 		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.System.Acts.RestartLayout,
-		C3.Plugins.Sprite.Cnds.IsOnScreen,
 		C3.Plugins.Sprite.Exps.Count,
 		C3.Plugins.Sprite.Acts.SetTowardPosition,
 		C3.Plugins.Sprite.Cnds.PickDistance,
-		C3.Plugins.Sprite.Exps.ImagePointCount,
-		C3.Behaviors.Timer.Exps.CurrentTime
+		C3.Plugins.Sprite.Exps.ImagePointCount
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -4631,7 +4679,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{UPS_Health: 0},
 		{MaskTilemap: 0},
 		{Ladder: 0},
-		{UIMapButton: 0},
+		{UITopButton: 0},
 		{MapButton: 0},
 		{debugText2: 0},
 		{LocalStorage: 0},
@@ -4660,14 +4708,38 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{BossDebugText: 0},
 		{Text: 0},
 		{BossTurret: 0},
+		{Tab: 0},
+		{Inv_ItemBack: 0},
+		{effect: 0},
+		{giftItem: 0},
+		{Inv_ItemIcon: 0},
+		{Inv_ItemCountText: 0},
+		{UICurrencyBack: 0},
+		{CurrencyCountText: 0},
+		{TabNameText: 0},
+		{VillageBuilding: 0},
+		{TiledBackground: 0},
+		{CurrentUID: 0},
+		{GiftSelector: 0},
+		{GiftParts: 0},
+		{TiledBackground2: 0},
+		{GiftMIcon: 0},
+		{GiftMText: 0},
+		{GiftSelector2: 0},
+		{TabSprites: 0},
+		{TabTexts: 0},
 		{PrologTyping: 0},
 		{PrologStep: 0},
 		{SelectedTool: 0},
 		{Coins: 0},
 		{CurrentHealth: 0},
 		{ShovelBlocksLeft: 0},
+		{TabOpened: 0},
 		{count: 0},
 		{toright: 0},
+		{posX: 0},
+		{posY: 0},
+		{itemName: 0},
 		{backButton: 0},
 		{TutStep: 0},
 		{SofiaLastIndex: 0},
@@ -4696,8 +4768,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{r: 0},
 		{LastVisit: 0},
 		{TimeToGift: 0},
-		{item_count: 0},
-		{coins_count: 0},
 		{MovingSide: 0},
 		{MovingTouchID: 0},
 		{EnemyShipsSpawned: 0},
@@ -4810,7 +4880,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => 8,
 		() => "SPACE LUMBERJACK",
 		() => 60,
-		() => 30,
+		() => 24,
 		() => "Somewhere in the galaxy...",
 		() => "- I would destroy them!",
 		() => "- A little bit left",
@@ -4885,6 +4955,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const n1 = p._GetNode(1);
 			return () => (and((n0.ExpObject() + " - "), n1.ExpObject()) + "\n");
 		},
+		() => "H_inventory",
 		() => "Functions",
 		() => "chop",
 		() => "dig",
@@ -4899,6 +4970,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v2 = p._GetNode(2).GetVar();
 			return () => f0(0, (v1.GetValue() + v2.GetValue()));
 		},
+		() => "coins",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("gold", "iron", "copper");
@@ -4929,6 +5001,24 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (30 - (60 * v0.GetValue()));
+		},
+		() => "Effects",
+		() => "Grayscale",
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			return () => C3.lerp(n0.ExpObject(), ((n1.ExpObject() + f2()) - 640), 0.05);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const f2 = p._GetNode(2).GetBoundMethod();
+			return () => C3.lerp(n0.ExpObject(), ((n1.ExpObject() + f2()) - 320), 0.05);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => C3.lerp(n0.ExpObject(), 0, 0.03);
 		},
 		() => "Layers",
 		() => "H_black",
@@ -5014,7 +5104,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
-			return () => C3.lerp(f0(), (n1.ExpObject() - 50), 0.08);
+			return () => C3.lerp(f0(), (n1.ExpObject() - 100), 0.08);
 		},
 		() => "UI",
 		() => "FuncButton",
@@ -5029,11 +5119,13 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => "H_ship_fuel",
 		() => -200,
 		() => 1500,
+		() => "Tab",
+		() => "te",
+		() => "to",
 		() => "Forest",
 		() => "Village",
 		() => "H_map",
 		() => "Map",
-		() => "Grayscale",
 		() => "Inventory",
 		p => {
 			const n0 = p._GetNode(0);
@@ -5055,6 +5147,15 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v2 = p._GetNode(2).GetVar();
 			return () => ((n0.ExpObject(v1.GetValue())) >= (v2.GetValue()) ? 1 : 0);
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => n0.ExpObject(n1.ExpInstVar());
+		},
+		() => -56078515778559,
+		() => -253178005055487,
+		() => "grayscale",
+		() => 50,
 		() => "Character",
 		() => "Movement",
 		() => "Chopping",
@@ -5148,6 +5249,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v1 = p._GetNode(1).GetVar();
 			return () => f0(0, (v1.GetValue() - 1));
 		},
+		() => "shovel_bl",
 		() => "ground_memory",
 		p => {
 			const n0 = p._GetNode(0);
@@ -5176,6 +5278,10 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v0 = p._GetNode(0).GetVar();
 			return () => Math.floor((v0.GetValue() / 9));
 		},
+		() => "Animations",
+		() => "run",
+		() => "idle",
+		() => "jump",
 		() => "Ship",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5197,7 +5303,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("fuel", 1);
 		},
-		() => 50,
 		() => "Slime",
 		() => "Miner",
 		p => {
@@ -5290,7 +5395,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("oak_logs", "birch_logs", "pine_logs", "iron", "gold", "copper");
 		},
-		() => 20,
+		() => 120,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0, 1);
@@ -5308,25 +5413,52 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v5 = p._GetNode(5).GetVar();
 			return () => and((and((and((and("Now: ", f0()) + " LV: "), v1.GetValue()) + " Diff: "), Math.floor(f2((f3() - v4.GetValue())))) + " Time left: "), v5.GetValue());
 		},
-		() => 300,
 		() => "H_gift",
+		() => 2.9,
+		() => "a",
+		() => 30,
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => Math.floor(f0(10, 51));
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => ((n0.ExpObject() + 110) + (224 * f1()));
 		},
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => Math.floor(f0(1, 3));
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() + 110);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("gold", "iron", "copper", "glass", "scheme", "details");
 		},
 		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			const v2 = p._GetNode(2).GetVar();
-			return () => and(((and((("Item: " + v0.GetValue()) + " x"), v1.GetValue()) + "\n") + "Coins: "), v2.GetValue());
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(0, 0, 0, 1);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 50, 50, 1000);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 100);
+		},
+		() => -281480127631359,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const f3 = p._GetNode(3).GetBoundMethod();
+			return () => (n0.ExpObject() - ((1000 * (n1.ExpBehavior("a") - n2.ExpBehavior("a"))) * f3()));
+		},
+		() => 0.7,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() * 2);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => f0(n1.ExpObject());
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -5369,7 +5501,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => 1060,
 		() => "d",
 		() => 7,
-		() => "a",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 150);
@@ -5437,6 +5568,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => 1000,
 		() => 10000,
 		() => 0.6,
+		() => 20,
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
