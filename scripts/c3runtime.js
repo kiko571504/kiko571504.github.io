@@ -4405,6 +4405,9 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.System.Cnds.Compare,
 		C3.Plugins.System.Exps.layoutname,
 		C3.Plugins.System.Acts.SetGroupActive,
+		C3.Plugins.System.Cnds.ForEach,
+		C3.Plugins.Text.Cnds.CompareInstanceVar,
+		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.System.Cnds.IsGroupActive,
 		C3.Plugins.System.Cnds.IsPreview,
 		C3.Plugins.Keyboard.Cnds.IsKeyDown,
@@ -4413,7 +4416,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Timeline.Cnds.IsPlayingByTags,
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Sprite.Exps.UID,
-		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.LocalStorage.Acts.ClearStorage,
 		C3.Plugins.LocalStorage.Cnds.OnCleared,
 		C3.Plugins.Browser.Acts.Reload,
@@ -4482,7 +4484,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Dictionary.Exps.AsJSON,
 		C3.Plugins.Dictionary.Cnds.HasKey,
 		C3.Plugins.System.Acts.SetFunctionReturnValue,
-		C3.Plugins.System.Cnds.ForEach,
 		C3.Plugins.Dictionary.Cnds.CompareValue,
 		C3.Plugins.Text.Acts.SetFontColor,
 		C3.Plugins.Sprite.Acts.SetOpacity,
@@ -4524,7 +4525,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Sprite.Acts.ToggleBoolInstanceVar,
 		C3.Plugins.Sprite.Cnds.IsOnScreen,
 		C3.Plugins.System.Cnds.Every,
-		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.Button.Cnds.OnClicked,
 		C3.Plugins.Tilemap.Exps.Y,
 		C3.Behaviors.Timer.Acts.StartTimer,
@@ -4687,7 +4687,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{enabled: 0},
 		{GiftButton: 0},
 		{Gift: 0},
-		{GiftText: 0},
 		{GroundMemory: 0},
 		{LoaderText: 0},
 		{Rage: 0},
@@ -4732,6 +4731,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{PrologStep: 0},
 		{SelectedTool: 0},
 		{Coins: 0},
+		{Rubies: 0},
 		{CurrentHealth: 0},
 		{ShovelBlocksLeft: 0},
 		{TabOpened: 0},
@@ -4928,6 +4928,8 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => (f0("ui") + 20);
 		},
 		() => "DarkForest",
+		() => "coins",
+		() => "rubies",
 		() => "=debug=",
 		() => "shot",
 		() => "axe",
@@ -4970,7 +4972,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v2 = p._GetNode(2).GetVar();
 			return () => f0(0, (v1.GetValue() + v2.GetValue()));
 		},
-		() => "coins",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("gold", "iron", "copper");
