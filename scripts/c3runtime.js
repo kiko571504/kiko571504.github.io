@@ -4398,6 +4398,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Sprite.Acts.SetSize,
 		C3.Plugins.System.Exps.viewportwidth,
 		C3.Plugins.System.Exps.viewportheight,
+		C3.Plugins.Sprite.Acts.MoveToTop,
 		C3.Plugins.System.Acts.ScrollX,
 		C3.Plugins.System.Exps.layoutwidth,
 		C3.Plugins.Sprite.Acts.SetX,
@@ -4434,26 +4435,31 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.LocalStorage.Acts.SetItem,
 		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Sprite.Cnds.CompareInstanceVar,
+		C3.Plugins.Sprite.Acts.SetEffectEnabled,
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Sprite.Acts.SetMirrored,
 		C3.Plugins.System.Acts.CreateObject,
-		C3.Plugins.Sprite.Acts.SetEffectEnabled,
+		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Behaviors.Rotate.Acts.SetEnabled,
 		C3.Behaviors.Fade.Acts.SetFadeOutTime,
-		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
 		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
 		C3.Plugins.Sprite.Acts.SetPos,
 		C3.Plugins.System.Exps.scrollx,
+		C3.Plugins.System.Exps.layerparallaxx,
+		C3.Plugins.Sprite.Exps.LayerName,
 		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.System.Exps.scrolly,
+		C3.Plugins.System.Exps.layerparallaxy,
 		C3.Plugins.Sprite.Exps.Height,
+		C3.Plugins.System.Cnds.Repeat,
+		C3.Plugins.System.Exps.loopindex,
+		C3.Plugins.Sprite.Exps.AnimationFrame,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Cnds.For,
 		C3.Plugins.System.Exps.layerindex,
-		C3.Plugins.System.Exps.loopindex,
 		C3.Plugins.Sprite.Cnds.IsVisible,
 		C3.Plugins.NinePatch.Acts.SetVisible,
 		C3.Behaviors.Sin.Acts.SetEnabled,
@@ -4494,7 +4500,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
 		C3.Behaviors.Physics.Acts.ApplyImpulseAtAngle,
 		C3.Behaviors.Physics.Acts.ApplyTorque,
-		C3.Plugins.System.Cnds.Repeat,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Plugins.Arr.Cnds.CompareSize,
 		C3.Plugins.Tilemap.Exps.Width,
@@ -4519,6 +4524,10 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Behaviors.Platform.Cnds.OnLand,
 		C3.Behaviors.Platform.Cnds.IsMoving,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
+		C3.Plugins.Dictionary.Cnds.CompareCurrentValue,
+		C3.Plugins.Particles.Cnds.CompareInstanceVar,
+		C3.Plugins.Particles.Acts.SetVisible,
+		C3.Plugins.Sprite.Acts.Spawn,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
 		C3.Behaviors.MoveTo.Acts.SetMaxSpeed,
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
@@ -4534,16 +4543,14 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Plugins.Date.Exps.Now,
 		C3.Plugins.System.Acts.SubVar,
-		C3.Plugins.Date.Exps.ToTotalSeconds,
+		C3.Plugins.Date.Exps.ToTimerHours,
 		C3.Plugins.TiledBg.Acts.SetVisible,
 		C3.Plugins.TiledBg.Exps.X,
 		C3.Plugins.TiledBg.Exps.Y,
-		C3.Plugins.Sprite.Acts.MoveToTop,
 		C3.Behaviors.Timer.Exps.Duration,
 		C3.Behaviors.Timer.Exps.CurrentTime,
 		C3.Plugins.System.Exps.dt,
 		C3.Plugins.TiledBg.Acts.SetX,
-		C3.Plugins.Sprite.Acts.Spawn,
 		C3.Plugins.Sprite.Cnds.PickChildren,
 		C3.Plugins.System.Exps.int,
 		C3.Plugins.Text.Exps.Text,
@@ -4557,7 +4564,9 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.LocalStorage.Acts.GetItem,
 		C3.Plugins.LocalStorage.Cnds.OnItemGet,
 		C3.Plugins.LocalStorage.Exps.ItemValue,
+		C3.Plugins.Date.Exps.ToTotalSeconds,
 		C3.Plugins.LocalStorage.Cnds.OnItemMissing,
+		C3.Plugins.Dictionary.Acts.AddKey,
 		C3.Behaviors.Timer.Acts.StopTimer,
 		C3.Behaviors.EightDir.Acts.SimulateControl,
 		C3.Plugins.Sprite.Acts.SubInstanceVar,
@@ -4634,12 +4643,15 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{MinerBuyButton: 0},
 		{MinerDescription: 0},
 		{name: 0},
+		{bought: 0},
+		{tree_price: 0},
 		{strength: 0},
 		{occ: 0},
 		{log_name: 0},
 		{TreeCollision: 0},
 		{ZombieTimer: 0},
 		{Bullet: 0},
+		{tree: 0},
 		{TreeSkin: 0},
 		{Ship: 0},
 		{ShovelInfo: 0},
@@ -4681,7 +4693,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{Ladder: 0},
 		{UITopButton: 0},
 		{MapButton: 0},
-		{debugText2: 0},
+		{GiftTimerText: 0},
 		{LocalStorage: 0},
 		{Date: 0},
 		{enabled: 0},
@@ -4711,6 +4723,8 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{Inv_ItemBack: 0},
 		{effect: 0},
 		{giftItem: 0},
+		{trader: 0},
+		{trader_n: 0},
 		{Inv_ItemIcon: 0},
 		{Inv_ItemCountText: 0},
 		{UICurrencyBack: 0},
@@ -4725,6 +4739,18 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{GiftMIcon: 0},
 		{GiftMText: 0},
 		{GiftSelector2: 0},
+		{TraderButton: 0},
+		{TraderPriceText: 0},
+		{TradeBack: 0},
+		{TradeBtnText: 0},
+		{Inv_TradeIcon: 0},
+		{CoinEffect: 0},
+		{TreeSeller: 0},
+		{TreeHologram: 0},
+		{Trees: 0},
+		{TreePricer: 0},
+		{TreePricerText: 0},
+		{Particles2: 0},
 		{TabSprites: 0},
 		{TabTexts: 0},
 		{PrologTyping: 0},
@@ -4735,11 +4761,14 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{CurrentHealth: 0},
 		{ShovelBlocksLeft: 0},
 		{TabOpened: 0},
+		{Loaded: 0},
 		{count: 0},
 		{toright: 0},
 		{posX: 0},
 		{posY: 0},
 		{itemName: 0},
+		{layer: 0},
+		{ruby: 0},
 		{backButton: 0},
 		{TutStep: 0},
 		{SofiaLastIndex: 0},
@@ -4765,6 +4794,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{ZombieDelay: 0},
 		{value: 0},
 		{BonusChestAvaliable: 0},
+		{coins_count: 0},
 		{r: 0},
 		{LastVisit: 0},
 		{TimeToGift: 0},
@@ -4958,6 +4988,8 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => (and((n0.ExpObject() + " - "), n1.ExpObject()) + "\n");
 		},
 		() => "H_inventory",
+		() => 1000,
+		() => 100,
 		() => "Functions",
 		() => "chop",
 		() => "dig",
@@ -4980,6 +5012,16 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("glass", "scheme", "details");
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => n0.ExpInstVar();
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
+			return () => f0(n1.ExpInstVar(), 1);
+		},
+		() => "Grayscale",
 		() => "gold",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -4996,30 +5038,32 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => Math.ceil(f0(10, 50));
 		},
 		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpInstVar();
-		},
-		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (30 - (60 * v0.GetValue()));
 		},
-		() => "Effects",
-		() => "Grayscale",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const f2 = p._GetNode(2).GetBoundMethod();
-			return () => C3.lerp(n0.ExpObject(), ((n1.ExpObject() + f2()) - 640), 0.05);
+			const f3 = p._GetNode(3).GetBoundMethod();
+			const n4 = p._GetNode(4);
+			return () => C3.lerp(n0.ExpObject(), (n1.ExpObject() + ((f2() - 640) * (f3(n4.ExpObject()) / 100))), 0.05);
 		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const f2 = p._GetNode(2).GetBoundMethod();
-			return () => C3.lerp(n0.ExpObject(), ((n1.ExpObject() + f2()) - 320), 0.05);
+			const f3 = p._GetNode(3).GetBoundMethod();
+			const n4 = p._GetNode(4);
+			return () => C3.lerp(n0.ExpObject(), (n1.ExpObject() + ((f2() - 320) * (f3(n4.ExpObject()) / 100))), 0.05);
 		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => C3.lerp(n0.ExpObject(), 0, 0.03);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (0.1 + (0.1 * f0()));
 		},
 		() => "Layers",
 		() => "H_black",
@@ -5109,7 +5153,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		},
 		() => "UI",
 		() => "FuncButton",
-		() => 100,
 		() => 0.1,
 		p => {
 			const n0 = p._GetNode(0);
@@ -5283,12 +5326,13 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => "run",
 		() => "idle",
 		() => "jump",
-		() => "Ship",
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const n1 = p._GetNode(1);
-			return () => f0(n1.ExpInstVar(), 1);
+			const v0 = p._GetNode(0).GetVar();
+			return () => (-v0.GetValue());
 		},
+		() => "trees",
+		() => "Effects",
+		() => "Ship",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
@@ -5323,6 +5367,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => f0("oak_logs", 1);
 		},
 		() => "oak_logs",
+		() => "H_trader",
+		() => "birch_logs",
+		() => "pine_logs",
+		() => 200,
+		() => 300,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 1);
@@ -5390,7 +5439,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => "BonusChest",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => Math.floor(f0(5, 25));
+			return () => Math.floor(f0(10, 100));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5408,12 +5457,9 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
-			const f2 = p._GetNode(2).GetBoundMethod();
-			const f3 = p._GetNode(3).GetBoundMethod();
-			const v4 = p._GetNode(4).GetVar();
-			const v5 = p._GetNode(5).GetVar();
-			return () => and((and((and((and("Now: ", f0()) + " LV: "), v1.GetValue()) + " Diff: "), Math.floor(f2((f3() - v4.GetValue())))) + " Time left: "), v5.GetValue());
+			return () => and((f0((v1.GetValue() * 1000)) + 1), "h");
 		},
+		() => 86400,
 		() => "H_gift",
 		() => 2.9,
 		() => "a",
@@ -5479,6 +5525,9 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v2 = p._GetNode(2).GetVar();
 			return () => Math.floor(f0((f1() - v2.GetValue())));
 		},
+		() => "oak",
+		() => "birch",
+		() => "pine",
 		() => "sofia_last_index",
 		() => "be",
 		() => 0.3,
@@ -5497,7 +5546,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => "bo",
 		() => "Boss",
 		() => 220,
-		() => 200,
 		() => 640,
 		() => 1060,
 		() => "d",
@@ -5566,7 +5614,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const n0 = p._GetNode(0);
 			return () => (0.6 - (0.5 * n0.ExpInstVar()));
 		},
-		() => 1000,
 		() => 10000,
 		() => 0.6,
 		() => 20,
