@@ -11,6 +11,7 @@
         "glass": 0,
         "scheme": 0,
         "details": 0,
-        "fuel": 0
+        "fuel": 0,
+        "key": 0
     }
 }

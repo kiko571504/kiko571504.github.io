@@ -591,7 +591,7 @@ this._releaseResultCallback(rasterizedResult)}SetRedrawCallback(f){this._redrawC
 0;this._rasterSurfaceHeight=0;this._rasterImageWidth=0;this._rasterImageHeight=0;this._isRasterizing=false;this._rasterizedResult=null;this._forceRaster=false;this._hadError=false}Release(){if(this._refCount<=0)throw new Error("already released");this._refCount--;if(this._refCount===0)this._Release()}_Release(){if(this._rasterizedResult){this._manager.ReleaseResult(this._rasterizedResult);this._rasterizedResult=null}this._manager._RemoveImage(this);this._manager=null}GetDataSource(){return this._dataSource}IncReference(){this._refCount++}HasReferences(){return this._refCount>
 0}GetRasterizedResult(){return this._rasterizedResult}ForceRasterAgain(){this._forceRaster=true}async StartRasterForSize(context,width,height){if(width===0||height===0||this._hadError)return;if(this._isRasterizing)return;let rasterSurfaceWidth=C3.nextHighestPowerOfTwo(Math.ceil(width));let rasterSurfaceHeight=C3.nextHighestPowerOfTwo(Math.ceil(height));const maxDim=Math.max(rasterSurfaceWidth,rasterSurfaceHeight);if(maxDim>MAX_SURFACE_SIZE){const scale=MAX_SURFACE_SIZE/maxDim;width*=scale;height*=
 scale;rasterSurfaceWidth=Math.min(Math.ceil(rasterSurfaceWidth*scale),MAX_SURFACE_SIZE);rasterSurfaceHeight=Math.min(Math.ceil(rasterSurfaceHeight*scale),MAX_SURFACE_SIZE)}if(width<rasterSurfaceWidth&&height<rasterSurfaceHeight){const imageAspectRatio=width/height;const surfaceAspectRatio=rasterSurfaceWidth/rasterSurfaceHeight;if(surfaceAspectRatio>imageAspectRatio){width=rasterSurfaceHeight*imageAspectRatio;height=rasterSurfaceHeight}else{width=rasterSurfaceWidth;height=rasterSurfaceWidth/imageAspectRatio}}if(this._manager.IsNpotSurfaceAllowed()){rasterSurfaceWidth=
-Math.ceil(width);rasterSurfaceHeight=Math.ceil(height)}if(rasterSurfaceWidth<=this._rasterSurfaceWidth&&rasterSurfaceHeight<=this._rasterSurfaceHeight&&!this._forceRaster)return;this._isRasterizing=true;this._rasterSurfaceWidth=rasterSurfaceWidth;this._rasterSurfaceHeight=rasterSurfaceHeight;const newRasterizedResult=await this._manager.RasterAtSize(this._dataSource,context,this._rasterSurfaceWidth,this._rasterSurfaceHeight,width,height);if(this._rasterizedResult)this._manager.ReleaseResult(this._rasterizedResult);
+Math.ceil(width);rasterSurfaceHeight=Math.ceil(height)}if(rasterSurfaceWidth<=this._rasterSurfaceWidth&&rasterSurfaceHeight<=this._rasterSurfaceHeight&&!this._forceRaster)return;this._isRasterizing=true;this._rasterSurfaceWidth=rasterSurfaceWidth;this._rasterSurfaceHeight=rasterSurfaceHeight;const newRasterizedResult=await this._manager.RasterAtSize(this._dataSource,context,this._rasterSurfaceWidth,this._rasterSurfaceHeight,width,height);if(!this._manager)return;if(this._rasterizedResult)this._manager.ReleaseResult(this._rasterizedResult);
 this._rasterizedResult=newRasterizedResult;this._rasterImageWidth=width;this._rasterImageHeight=height;this._isRasterizing=false;this._forceRaster=false;this._manager.Redraw()}WhenBaseSizeReady(){return this._getBaseSizePromise}GetBaseWidth(){return this._baseWidth}GetBaseHeight(){return this._baseHeight}GetRasterWidth(){return this._rasterImageWidth}GetRasterHeight(){return this._rasterImageHeight}HadError(){return this._hadError}}};
 
 
@@ -1632,7 +1632,7 @@ this._asyncActionPromises=[];return ret}_SaveToJson(){return{"groups":this._Save
 group.IsGroupActive();return o}_LoadGroupsFromJson(o){for(const [sidStr,data]of Object.entries(o)){const sid=parseInt(sidStr,10);const group=this.GetEventGroupBySID(sid);if(group)group.SetGroupActive(data)}}_SaveCndsToJson(){const o={};for(const [sid,cnd]of this._cndsBySid){const data=cnd._SaveToJson();if(data)o[sid.toString()]=data}return o}_LoadCndsFromJson(o){const map=new Map;for(const [sidStr,data]of Object.entries(o))map.set(parseInt(sidStr,10),data);for(const [sid,cnd]of this._cndsBySid)cnd._LoadFromJson(map.get(sid)||
 null)}_SaveActsToJson(){const o={};for(const [sid,act]of this._actsBySid){const data=act._SaveToJson();if(data)o[sid.toString()]=data}return o}_LoadActsFromJson(o){const map=new Map;for(const [sidStr,data]of Object.entries(o))map.set(parseInt(sidStr,10),data);for(const [sid,act]of this._actsBySid)act._LoadFromJson(map.get(sid)||null)}_SaveVarsToJson(){const o={};for(const [sid,eventVar]of this._eventVarsBySid)if(!eventVar.IsConstant()&&(eventVar.IsGlobal()||eventVar.IsStatic()))o[sid.toString()]=
 eventVar.GetValue();return o}_LoadVarsFromJson(o){for(const [sidStr,data]of Object.entries(o)){const sid=parseInt(sidStr,10);const eventVar=this.GetEventVariableBySID(sid);if(eventVar)eventVar.SetValue(data)}}_SaveScheduledWaitsToJson(){return this._scheduledWaits.filter(w=>!w.IsPromise()).map(w=>w._SaveToJson())}_LoadScheduledWaitsFromJson(arr){this.ClearAllScheduledWaits();for(const data of arr){const sw=C3.ScheduledWait._CreateFromJson(this,data);if(sw)this._scheduledWaits.push(sw)}}_GetPerfRecords(){return[...this._runtime.GetLayoutManager().runningLayouts()].map(l=>
-l.GetEventSheet()).filter(eventSheet=>eventSheet).map(e=>e._GetPerfRecord())}FindFirstFunctionBlockParent(eventRow){while(eventRow){const scopeParent=eventRow.GetScopeParent();if(scopeParent instanceof C3.FunctionBlock)return scopeParent;eventRow=eventRow.GetParent()}return null}_InvokeFunctionFromJS(name,params){if(!Array.isArray(params))params=[];const functionBlock=this.GetFunctionBlockByName(name.toLowerCase());if(!functionBlock)return null;if(!functionBlock.IsEnabled())return functionBlock.GetDefaultReturnValue();
+l.GetEventSheet()).filter(eventSheet=>eventSheet).map(e=>e._GetPerfRecord())}FindFirstFunctionBlockParent(parent){while(parent){const scopeParent=parent.GetScopeParent();if(scopeParent instanceof C3.FunctionBlock)return scopeParent;parent=scopeParent}return null}_InvokeFunctionFromJS(name,params){if(!Array.isArray(params))params=[];const functionBlock=this.GetFunctionBlockByName(name.toLowerCase());if(!functionBlock)return null;if(!functionBlock.IsEnabled())return functionBlock.GetDefaultReturnValue();
 const functionParameters=functionBlock.GetFunctionParameters();if(params.length<functionParameters.length){params=params.slice(0);do params.push(functionParameters[params.length].GetInitialValue());while(params.length<functionParameters.length)}const callEventBlock=functionBlock.GetEventBlock();return callEventBlock.RunAsExpressionFunctionCall(callEventBlock.GetSolModifiersIncludingParents(),functionBlock.GetReturnType(),functionBlock.GetDefaultReturnValue(),...params)}}};
 
 
@@ -1718,8 +1718,8 @@ this._debugData.isBreakable}IsDebugBreakpoint(){return this.IsDebugBreakable()&&
 
 
 // c3/events/functionBlock.js
-'use strict';{const C3=self.C3;const assert=self.assert;C3.FunctionBlock=class FunctionBlock extends C3.DefendedBase{constructor(eventSheet,parent,data){super();this._eventSheet=eventSheet;this._runtime=eventSheet.GetRuntime();this._parent=parent;const funcData=data[1];this._functionName=funcData[0];this._returnType=funcData[1];this._functionParameters=funcData[2].map(paramData=>C3.EventVariable.Create(eventSheet,this,paramData));this._isEnabled=funcData[3];this._isAsync=funcData[4];this._nextAsyncId=
-0;this._currentAsyncId=-1;this._asyncMap=new Map;this._eventBlock=C3.EventBlock.Create(eventSheet,parent,data);this._eventBlock._SetScopeParent(this)}static Create(eventSheet,parent,data){return C3.New(C3.FunctionBlock,eventSheet,parent,data)}_PostInit(){for(const fp of this._functionParameters)fp._PostInit();this._eventBlock._PostInit(false)}_GetAllLocalVariablesInScope(){return this._functionParameters}GetFunctionParameters(){return this._functionParameters}GetFunctionParameterCount(){return this._functionParameters.length}EvaluateFunctionParameters(parameters){const functionParameters=
+'use strict';{const C3=self.C3;const assert=self.assert;C3.FunctionBlock=class FunctionBlock extends C3.DefendedBase{constructor(eventSheet,parent,data){super();this._eventSheet=eventSheet;this._runtime=eventSheet.GetRuntime();this._parent=parent;const funcData=data[1];this._functionName=funcData[0];this._returnType=funcData[1];this._functionParameters=funcData[2].map(paramData=>C3.EventVariable.Create(eventSheet,this,paramData));this._isEnabled=funcData[3];this._innerLocalVariables=[];this._isAsync=
+funcData[4];this._nextAsyncId=0;this._currentAsyncId=-1;this._asyncMap=new Map;this._eventBlock=C3.EventBlock.Create(eventSheet,parent,data);this._eventBlock._SetScopeParent(this)}static Create(eventSheet,parent,data){return C3.New(C3.FunctionBlock,eventSheet,parent,data)}_PostInit(){for(const fp of this._functionParameters)fp._PostInit();this._eventBlock._PostInit(false)}_GetAllLocalVariablesInScope(){return this._functionParameters}GetFunctionParameters(){return this._functionParameters}GetFunctionParameterCount(){return this._functionParameters.length}_RegisterLocalVariable(localVariable){this._innerLocalVariables.push(localVariable)}_GetAllInnerLocalVariables(){return this._innerLocalVariables}EvaluateFunctionParameters(parameters){const functionParameters=
 this._functionParameters;for(let i=0,len=functionParameters.length;i<len;++i)functionParameters[i].SetValue(parameters[i].Get(0))}SetFunctionParameters(paramResults){const functionParameters=this._functionParameters;for(let i=0,len=functionParameters.length;i<len;++i)functionParameters[i].SetValue(paramResults[i])}CaptureFunctionParameters(){return this._functionParameters.map(p=>p.GetValue())}GetParent(){return this._parent}GetScopeParent(){return this._parent}GetFunctionName(){return this._functionName}GetReturnType(){return this._returnType}IsEnabled(){return this._isEnabled}GetDefaultReturnValue(){switch(this._returnType){case 0:return null;
 case 2:return"";default:return 0}}GetEventBlock(){return this._eventBlock}IsAsync(){return this._isAsync}StartAsyncFunctionCall(){const asyncId=this._nextAsyncId++;this._currentAsyncId=asyncId;let resolve;const promise=new Promise(r=>resolve=r);this._asyncMap.set(asyncId,{resolve,pauseCount:0});return[asyncId,promise]}MaybeFinishAsyncFunctionCall(asyncId){const info=this._asyncMap.get(asyncId);if(info.pauseCount===0){info.resolve();this._asyncMap.delete(asyncId)}this._currentAsyncId=-1}PauseCurrentAsyncFunction(){const info=
 this._asyncMap.get(this._currentAsyncId);info.pauseCount++;return this._currentAsyncId}ResumeAsyncFunction(asyncId){this._currentAsyncId=asyncId;const info=this._asyncMap.get(asyncId);info.pauseCount--}}};
@@ -1728,8 +1728,8 @@ this._asyncMap.get(this._currentAsyncId);info.pauseCount++;return this._currentA
 // c3/events/eventVariable.js
 'use strict';{const C3=self.C3;const EMPTY_SOL_MODIFIERS=[];C3.EventVariable=class EventVariable extends C3.DefendedBase{constructor(eventSheet,parent,data){super();const eventSheetManager=eventSheet.GetEventSheetManager();this._eventSheet=eventSheet;this._eventSheetManager=eventSheetManager;this._runtime=eventSheet.GetRuntime();this._parent=parent;this._localVarStack=eventSheetManager.GetLocalVarStack();this._name=data[1];this._type=data[2];this._initialValue=data[3];this._isStatic=!!data[4];this._isConstant=
 !!data[5];this._isFunctionParameter=parent instanceof C3.FunctionBlock;this._sid=data[6];this._jsPropName=this._runtime.GetJsPropName(data[8]);this._scriptSetter=v=>this.SetValue(v);this._scriptGetter=()=>this.GetValue();this._hasSingleValue=!this._parent||this._isStatic||this._isConstant;this._value=this._initialValue;this._localIndex=-1;if(this.IsBoolean())this._value=this._value?1:0;if(this.IsLocal()&&!this.IsStatic()&&!this.IsConstant())this._localIndex=eventSheetManager._GetNextLocalVarIndex(this);
-eventSheetManager._RegisterEventVariable(this)}static Create(eventSheet,parent,data){return C3.New(C3.EventVariable,eventSheet,parent,data)}_PostInit(){}GetName(){return this._name}GetJsPropName(){return this._jsPropName}GetParent(){return this._parent}IsGlobal(){return!this.GetParent()}IsLocal(){return!this.IsGlobal()}IsFunctionParameter(){return this._isFunctionParameter}IsStatic(){return this._isStatic}IsConstant(){return this._isConstant}IsNumber(){return this._type===0}IsString(){return this._type===
-1}IsBoolean(){return this._type===2}IsElseBlock(){return false}GetSID(){return this._sid}GetInitialValue(){return this._initialValue}GetSolModifiers(){return EMPTY_SOL_MODIFIERS}Run(frame){if(this.IsLocal()&&!this.IsStatic()&&!this.IsConstant())this.SetValue(this.GetInitialValue())}DebugCanRunFast(){return true}*DebugRun(frame){this.Run(frame)}SetValue(v){if(this.IsNumber()){if(typeof v!=="number")v=parseFloat(v)}else if(this.IsString()){if(typeof v!=="string")v=v.toString()}else if(this.IsBoolean())v=
+eventSheetManager._RegisterEventVariable(this)}static Create(eventSheet,parent,data){return C3.New(C3.EventVariable,eventSheet,parent,data)}_PostInit(){if(this.IsLocal()&&!this.IsStatic()&&!this.IsConstant()&&!this.IsFunctionParameter()){const functionBlock=this._eventSheetManager.FindFirstFunctionBlockParent(this);if(functionBlock)functionBlock._RegisterLocalVariable(this)}}GetName(){return this._name}GetJsPropName(){return this._jsPropName}GetParent(){return this._parent}GetScopeParent(){return this.GetParent()}IsGlobal(){return!this.GetParent()}IsLocal(){return!this.IsGlobal()}IsFunctionParameter(){return this._isFunctionParameter}IsStatic(){return this._isStatic}IsConstant(){return this._isConstant}IsNumber(){return this._type===
+0}IsString(){return this._type===1}IsBoolean(){return this._type===2}IsElseBlock(){return false}GetSID(){return this._sid}GetInitialValue(){return this._initialValue}GetSolModifiers(){return EMPTY_SOL_MODIFIERS}Run(frame){if(this.IsLocal()&&!this.IsStatic()&&!this.IsConstant())this.SetValue(this.GetInitialValue())}DebugCanRunFast(){return true}*DebugRun(frame){this.Run(frame)}SetValue(v){if(this.IsNumber()){if(typeof v!=="number")v=parseFloat(v)}else if(this.IsString()){if(typeof v!=="string")v=v.toString()}else if(this.IsBoolean())v=
 v?1:0;if(this._hasSingleValue)this._value=v;else this._localVarStack.GetCurrent()[this._localIndex]=v}GetValue(){return this._hasSingleValue?this._value:this._localVarStack.GetCurrent()[this._localIndex]}GetTypedValue(){let ret=this.GetValue();if(this.IsBoolean())ret=!!ret;return ret}ResetToInitialValue(){this._value=this._initialValue}_GetScriptInterfaceDescriptor(){return{configurable:false,enumerable:true,get:this._scriptGetter,set:this._scriptSetter}}}};
 
 
@@ -1884,15 +1884,16 @@ Acts.SetBoolInstanceVar=SetBoolInstanceVar;Acts.ToggleBoolInstanceVar=ToggleBool
 
 
 // c3/events/scheduledWait.js
-'use strict';{const C3=self.C3;C3.ScheduledWait=class ScheduledWait extends C3.DefendedBase{constructor(eventSheetManager){super();this._eventSheetManager=eventSheetManager;this._type="";this._time=-1;this._signalTag="";this._isSignalled=false;this._event=null;this._actIndex=0;this._solModifiers=[];this._sols=new Map;this._callingFunctionBlock=null;this._asyncId=-1;this._functionParameters=null;this._shouldRelease=false}Release(){this._type="";this._time=-1;this._signalTag="";this._event=null;this._callingFunctionBlock=
-null;this._functionParameters=null;this._asyncId=-1;C3.clearArray(this._solModifiers);for(const s of this._sols.values())s.Release();this._sols.clear()}_Init(){const eventSheetManager=this._eventSheetManager;const allObjectClasses=eventSheetManager.GetRuntime().GetAllObjectClasses();const frame=eventSheetManager.GetCurrentEventStackFrame();this._event=frame.GetCurrentEvent();this._actIndex=frame.GetActionIndex()+1;const functionBlock=eventSheetManager.FindFirstFunctionBlockParent(this._event);if(functionBlock){this._callingFunctionBlock=
-functionBlock;this._functionParameters=functionBlock.CaptureFunctionParameters();if(functionBlock.IsAsync())this._asyncId=functionBlock.PauseCurrentAsyncFunction()}for(const objectClass of allObjectClasses){const sol=objectClass.GetCurrentSol();if(sol.IsSelectAll()&&!this._event.HasSolModifier(objectClass))continue;this._solModifiers.push(objectClass);this._sols.set(objectClass,C3.New(C3.SolState,sol))}}InitTimer(seconds){this._type="timer";this._Init();this._time=this._eventSheetManager.GetRuntime().GetGameTime()+
-seconds}InitSignal(tag){this._type="signal";this._Init();this._signalTag=tag.toLowerCase()}InitPromise(p){this._type="promise";this._Init();p.then(()=>this.SetSignalled()).catch(err=>{console.warn("[C3 runtime] Promise rejected in 'Wait for previous actions to complete': ",err);this.SetSignalled()})}IsTimer(){return this._type==="timer"}IsSignal(){return this._type==="signal"}IsPromise(){return this._type==="promise"}GetSignalTag(){return this._signalTag}IsSignalled(){return this._isSignalled}SetSignalled(){this._isSignalled=
-true}_ShouldRun(){if(this.IsTimer())return this._time<=this._eventSheetManager.GetRuntime().GetGameTime();else return this.IsSignalled()}_RestoreState(frame){frame._Restore(this._event,this._actIndex);for(const [objectClass,solState]of this._sols.entries()){const sol=objectClass.GetCurrentSol();solState._Restore(sol)}const callingFunctionBlock=this._callingFunctionBlock;if(callingFunctionBlock){callingFunctionBlock.SetFunctionParameters(this._functionParameters);if(callingFunctionBlock.IsAsync())callingFunctionBlock.ResumeAsyncFunction(this._asyncId)}}_Run(frame){this._RestoreState(frame);
-this._event._ResumeActionsAndSubEvents(frame);if(this._callingFunctionBlock&&this._callingFunctionBlock.IsAsync())this._callingFunctionBlock.MaybeFinishAsyncFunctionCall(this._asyncId);this._eventSheetManager.ClearSol(this._solModifiers);this._shouldRelease=true}async _DebugRun(frame){this._RestoreState(frame);for(const breakEventObject of this._event._DebugResumeActionsAndSubEvents(frame))await this._eventSheetManager.GetRuntime().DebugBreak(breakEventObject);if(this._callingFunctionBlock&&this._callingFunctionBlock.IsAsync())this._callingFunctionBlock.MaybeFinishAsyncFunctionCall(this._asyncId);
-this._eventSheetManager.ClearSol(this._solModifiers);this._shouldRelease=true}ShouldRelease(){return this._shouldRelease}RemoveInstances(s){for(const solState of this._sols.values())solState.RemoveInstances(s)}_SaveToJson(){const sols={};const o={"t":this._time,"st":this._signalTag,"s":this._isSignalled,"ev":this._event.GetSID(),"sm":this._solModifiers.map(oc=>oc.GetSID()),"sols":sols};if(this._event._HasActionIndex(this._actIndex))o["act"]=this._event.GetActionAt(this._actIndex).GetSID();for(const [objectClass,
-solState]of this._sols)sols[objectClass.GetSID().toString()]=solState._SaveToJson();return o}static _CreateFromJson(eventSheetManager,o){const runtime=eventSheetManager.GetRuntime();const event=eventSheetManager.GetEventBlockBySID(o["ev"]);if(!event)return null;let actIndex=0;if(o.hasOwnProperty("act")){const act=eventSheetManager.GetActionBySID(o["act"]);if(!act)return null;actIndex=act.GetIndex()}const sw=C3.New(C3.ScheduledWait,eventSheetManager);sw._time=o["t"];sw._type=sw._time===-1?"signal":
-"timer";sw._signalTag=o["st"];sw._isSignalled=o["s"];sw._event=event;sw._actIndex=actIndex;for(const sid of o["sm"]){const objectClass=runtime.GetObjectClassBySID(sid);if(objectClass)sw._solModifiers.push(objectClass)}for(const [sidStr,solData]of Object.entries(o["sols"])){const sid=parseInt(sidStr,10);const objectClass=runtime.GetObjectClassBySID(sid);if(!objectClass)continue;const solState=C3.New(C3.SolState,null);solState._LoadFromJson(eventSheetManager,solData);sw._sols.set(objectClass,solState)}return sw}}};
+'use strict';{const C3=self.C3;C3.ScheduledWait=class ScheduledWait extends C3.DefendedBase{constructor(eventSheetManager){super();this._eventSheetManager=eventSheetManager;this._type="";this._time=-1;this._signalTag="";this._isSignalled=false;this._event=null;this._actIndex=0;this._solModifiers=[];this._sols=new Map;this._callingFunctionBlock=null;this._asyncId=-1;this._functionParameters=null;this._functionInnerLocalVars=null;this._shouldRelease=false}Release(){this._type="";this._time=-1;this._signalTag=
+"";this._event=null;this._callingFunctionBlock=null;this._functionParameters=null;this._functionInnerLocalVars=null;this._asyncId=-1;C3.clearArray(this._solModifiers);for(const s of this._sols.values())s.Release();this._sols.clear()}_Init(){const eventSheetManager=this._eventSheetManager;const allObjectClasses=eventSheetManager.GetRuntime().GetAllObjectClasses();const frame=eventSheetManager.GetCurrentEventStackFrame();this._event=frame.GetCurrentEvent();this._actIndex=frame.GetActionIndex()+1;const functionBlock=
+eventSheetManager.FindFirstFunctionBlockParent(this._event);if(functionBlock){this._callingFunctionBlock=functionBlock;this._functionParameters=functionBlock.CaptureFunctionParameters();this._functionInnerLocalVars=functionBlock._GetAllInnerLocalVariables().map(v=>v.GetValue());if(functionBlock.IsAsync())this._asyncId=functionBlock.PauseCurrentAsyncFunction()}for(const objectClass of allObjectClasses){const sol=objectClass.GetCurrentSol();if(sol.IsSelectAll()&&!this._event.HasSolModifier(objectClass))continue;
+this._solModifiers.push(objectClass);this._sols.set(objectClass,C3.New(C3.SolState,sol))}}InitTimer(seconds){this._type="timer";this._Init();this._time=this._eventSheetManager.GetRuntime().GetGameTime()+seconds}InitSignal(tag){this._type="signal";this._Init();this._signalTag=tag.toLowerCase()}InitPromise(p){this._type="promise";this._Init();p.then(()=>this.SetSignalled()).catch(err=>{console.warn("[C3 runtime] Promise rejected in 'Wait for previous actions to complete': ",err);this.SetSignalled()})}IsTimer(){return this._type===
+"timer"}IsSignal(){return this._type==="signal"}IsPromise(){return this._type==="promise"}GetSignalTag(){return this._signalTag}IsSignalled(){return this._isSignalled}SetSignalled(){this._isSignalled=true}_ShouldRun(){if(this.IsTimer())return this._time<=this._eventSheetManager.GetRuntime().GetGameTime();else return this.IsSignalled()}_RestoreState(frame){frame._Restore(this._event,this._actIndex);for(const [objectClass,solState]of this._sols.entries()){const sol=objectClass.GetCurrentSol();solState._Restore(sol)}const callingFunctionBlock=
+this._callingFunctionBlock;if(callingFunctionBlock){callingFunctionBlock.SetFunctionParameters(this._functionParameters);callingFunctionBlock._GetAllInnerLocalVariables().map((v,index)=>v.SetValue(this._functionInnerLocalVars[index]));if(callingFunctionBlock.IsAsync())callingFunctionBlock.ResumeAsyncFunction(this._asyncId)}}_Run(frame){this._RestoreState(frame);this._event._ResumeActionsAndSubEvents(frame);if(this._callingFunctionBlock&&this._callingFunctionBlock.IsAsync())this._callingFunctionBlock.MaybeFinishAsyncFunctionCall(this._asyncId);
+this._eventSheetManager.ClearSol(this._solModifiers);this._shouldRelease=true}async _DebugRun(frame){this._RestoreState(frame);for(const breakEventObject of this._event._DebugResumeActionsAndSubEvents(frame))await this._eventSheetManager.GetRuntime().DebugBreak(breakEventObject);if(this._callingFunctionBlock&&this._callingFunctionBlock.IsAsync())this._callingFunctionBlock.MaybeFinishAsyncFunctionCall(this._asyncId);this._eventSheetManager.ClearSol(this._solModifiers);this._shouldRelease=true}ShouldRelease(){return this._shouldRelease}RemoveInstances(s){for(const solState of this._sols.values())solState.RemoveInstances(s)}_SaveToJson(){const sols=
+{};const o={"t":this._time,"st":this._signalTag,"s":this._isSignalled,"ev":this._event.GetSID(),"sm":this._solModifiers.map(oc=>oc.GetSID()),"sols":sols};if(this._event._HasActionIndex(this._actIndex))o["act"]=this._event.GetActionAt(this._actIndex).GetSID();for(const [objectClass,solState]of this._sols)sols[objectClass.GetSID().toString()]=solState._SaveToJson();return o}static _CreateFromJson(eventSheetManager,o){const runtime=eventSheetManager.GetRuntime();const event=eventSheetManager.GetEventBlockBySID(o["ev"]);
+if(!event)return null;let actIndex=0;if(o.hasOwnProperty("act")){const act=eventSheetManager.GetActionBySID(o["act"]);if(!act)return null;actIndex=act.GetIndex()}const sw=C3.New(C3.ScheduledWait,eventSheetManager);sw._time=o["t"];sw._type=sw._time===-1?"signal":"timer";sw._signalTag=o["st"];sw._isSignalled=o["s"];sw._event=event;sw._actIndex=actIndex;for(const sid of o["sm"]){const objectClass=runtime.GetObjectClassBySID(sid);if(objectClass)sw._solModifiers.push(objectClass)}for(const [sidStr,solData]of Object.entries(o["sols"])){const sid=
+parseInt(sidStr,10);const objectClass=runtime.GetObjectClassBySID(sid);if(!objectClass)continue;const solState=C3.New(C3.SolState,null);solState._LoadFromJson(eventSheetManager,solData);sw._sols.set(objectClass,solState)}return sw}}};
 
 
 // c3/events/solState.js
@@ -2272,8 +2273,8 @@ this._gpuTimeEndFrame;this._gpuTimeEndFrame=0}GetGPUFrameTimingsBuffer(){return 
 let canvas=this._canvas;const snapArea=this._snapshotArea;const x=C3.clamp(Math.floor(snapArea.getLeft()),0,canvas.width);const y=C3.clamp(Math.floor(snapArea.getTop()),0,canvas.height);let w=snapArea.width();if(w===0)w=canvas.width-x;else w=C3.clamp(Math.floor(w),0,canvas.width-x);let h=snapArea.height();if(h===0)h=canvas.height-y;else h=C3.clamp(Math.floor(h),0,canvas.height-y);if((x!==0||y!==0||w!==canvas.width||h!==canvas.height)&&(w>0&&h>0)){canvas=C3.CreateCanvas(w,h);const ctx=canvas.getContext("2d");
 ctx.drawImage(this._canvas,x,y,w,h,0,0,w,h)}C3.CanvasToBlob(canvas,this._snapshotFormat,this._snapshotQuality).then(blob=>{this._snapshotUrl=URL.createObjectURL(blob);this._snapshotPromise=null;this._snapshotResolve(this._snapshotUrl)});this._snapshotFormat="";this._snapshotQuality=1}GetCanvasSnapshotUrl(){return this._snapshotUrl}InitLoadingScreen(loaderStyle){if(loaderStyle===2){this._percentText=C3.New(C3.Gfx.RendererText,this._webglRenderer);this._percentText.SetIsAsync(false);this._percentText.SetFontName("Arial");
 this._percentText.SetFontSize(16);this._percentText.SetHorizontalAlignment("center");this._percentText.SetVerticalAlignment("center");this._percentText.SetSize(PERCENTTEXT_WIDTH,PERCENTTEXT_HEIGHT)}else if(loaderStyle===0){const loadingLogoFilename=this._runtime.GetLoadingLogoFilename();const assetManager=this._runtime.GetAssetManager();let url;if(this._runtime.IsPreview()){if(!assetManager._HasLocalUrlBlob(loadingLogoFilename))return;url=assetManager.GetLocalUrlAsBlobUrl(loadingLogoFilename)}else url=
-assetManager.GetIconsSubfolder()+loadingLogoFilename;this._loadingLogoAsset=assetManager.LoadImage({url});this._loadingLogoAsset.LoadStaticTexture(this._webglRenderer).catch(err=>console.warn(`[C3 runtime] Failed to load '${loadingLogoFilename}' for loading screen. Check the project has an icon with that name.`,err))}else if(loaderStyle===4){this._LoadSvgSplashImage("splash-images/splash-logo.svg").then(tex=>{if(this._splashState==="done")this._webglRenderer.DeleteTexture(tex);else this._splashTextures.logo=
-tex}).catch(err=>console.warn("Failed to load splash image: ",err));this._LoadBitmapSplashImage("splash-images/splash-poweredby-512.png").then(tex=>{if(this._splashState==="done")this._webglRenderer.DeleteTexture(tex);else this._splashTextures.powered=tex}).catch(err=>console.warn("Failed to load splash image: ",err));this._LoadBitmapSplashImage("splash-images/splash-website-512.png").then(tex=>{if(this._splashState==="done")this._webglRenderer.DeleteTexture(tex);else this._splashTextures.website=
+assetManager.GetIconsSubfolder()+loadingLogoFilename;this._loadingLogoAsset=assetManager.LoadImage({url});this._loadingLogoAsset.LoadStaticTexture(this._webglRenderer).catch(err=>console.warn(`[C3 runtime] Failed to load '${loadingLogoFilename}' for loading screen. Check the project has an icon with that name.`,err))}else if(loaderStyle===4){this._LoadSvgSplashImage("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIxNzAwLjc5MDA0cHgiIGhlaWdodD0iMTcwMC43OTAwNHB4IiB2aWV3Qm94PSIyODcgMzE3IDExMjUgMTEyNSINCgkgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTcwMC43OTAwNCAxNzAwLjc5MDA0IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnIGlkPSJsb2dvIj4NCgk8Zz4NCgkJPGc+DQoJCQk8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI0ZGRkZGRiIgZD0iTTM1NC45Nzc1NCwxMTk1LjYyMzA1DQoJCQkJYzExLjM4NDc3LDAsMjIuMDEyNywzLjIzNzMsMzEuMDE3NTgsOC44Mzc4OWMxLjk0NjI5LDEuMjEwOTQsMi41ODQ5NiwzLjc0OTAyLDEuNDM4NDgsNS43MzQzOGwtNC45MzI2Miw4LjU0MTk5DQoJCQkJYy0zLjI3ODMyLDUuNjc5NjktMTAuMDMzMiw4LjM3Njk1LTE2LjMxNzM4LDYuNTAwOThjLTIuNzY0NjUtMC44MjUyLTUuNjkzMzYtMS4yNjg1NS04LjcyNjU2LTEuMjY4NTUNCgkJCQljLTE2LjgyOTEsMC0zMC40NzI2NiwxMy42NDM1NS0zMC40NzI2NiwzMC40NzI2NmMwLDE2LjgyODEzLDEzLjY0MzU1LDMwLjQ3MjY2LDMwLjQ3MjY2LDMwLjQ3MjY2DQoJCQkJYzMuMDMzMiwwLDUuOTYxOTEtMC40NDMzNiw4LjcyNjU2LTEuMjY4NTVjNi4yOTQ5Mi0xLjg3OTg4LDEzLjAzMzIsMC44MTE1MiwxNi4zMTczOCw2LjUwMDk4bDQuOTMxNjQsOC41NDE5OQ0KCQkJCWMxLjE0NzQ2LDEuOTg4MjgsMC41MTA3NCw0LjUyMzQ0LTEuNDM4NDgsNS43MzQzOGMtOS4wMDM5MSw1LjYwMTU2LTE5LjYzMTg0LDguODM3ODktMzEuMDE2Niw4LjgzNzg5DQoJCQkJYy0zMi40ODUzNSwwLTU4LjgxOTM0LTI2LjMzNDk2LTU4LjgxOTM0LTU4LjgxOTM0QzI5Ni4xNTgyLDEyMjEuOTU3MDMsMzIyLjQ5MjE5LDExOTUuNjIzMDUsMzU0Ljk3NzU0LDExOTUuNjIzMDUNCgkJCQlMMzU0Ljk3NzU0LDExOTUuNjIzMDV6IE03MDMuMjE0ODQsMTI1OS4xNzU3OGMtMTQuNTU5NTctOS44MTczOC0yMC4yMDMxMy0yMC4wMzIyMy0yMC4yMDMxMy0zMy4wODAwOA0KCQkJCWMwLTE4LjQ4OTI2LDE1LjcxNDg0LTI5Ljc2MzY3LDM4LjI2NjYtMjkuNzYzNjdjOS42NTcyMywwLDE4LjcyMTY4LDIuNTQyOTcsMjYuNTU5NTcsNi45OTQxNA0KCQkJCWMyLjA0OTgsMS4xNjQwNiwyLjc2MTcyLDMuNzgzMiwxLjU4MzAxLDUuODI0MjJsLTMuNDE3OTcsNS45MTk5MmMtMy4yNDcwNyw1LjYyNDAyLTkuOTA4Miw4LjMzMTA1LTE2LjE1MzMyLDYuNTQ4ODMNCgkJCQljLTIuNzIzNjMtMC43NzYzNy01LjU5ODYzLTEuMTkyMzgtOC41NzEyOS0xLjE5MjM4Yy0xMC40OTAyMywwLTExLjU5ODYzLDkuNTc2MTctNC44NTc0MiwxNC4xMjMwNWwyMy42ODY1MiwxNS45NzY1Ng0KCQkJCWM5Ljk5MDIzLDYuNzM4MjgsMTUuODk1NTEsMTcuMDY2NDEsMTUuODk1NTEsMjguNzE4NzVjMCwxOC43ODYxMy0xNS4wMDY4NCwzMy4zMDc2Mi0zOC4yNjc1OCwzMy4zMDc2Mg0KCQkJCWMtOS41MjI0NiwwLTE4LjU4Nzg5LTEuOTU3MDMtMjYuODE1NDMtNS40OTAyM2MtNy43ODEyNS0zLjMzOTg0LTEwLjkzMzU5LTEyLjc4MjIzLTYuNjk3MjctMjAuMTE4MTZsMy40ODczLTYuMDQxOTkNCgkJCQljMS4yMTM4Ny0yLjA5OTYxLDMuOTMxNjQtMi43NTk3Nyw1Ljk3NDYxLTEuNDU2MDVjNi44NTkzOCw0LjM4MjgxLDE2LjQ5MDIzLDcuNTk0NzMsMjQuNzU4NzksNy41OTQ3Mw0KCQkJCWMxMC41NDU5LDAsMTEuMzI4MTMtOS45NTg5OCwzLjc2NzU4LTE1LjA1NzYyTDcwMy4yMTQ4NCwxMjU5LjE3NTc4TDcwMy4yMTQ4NCwxMjU5LjE3NTc4eiBNOTg0LjYzMDg2LDEyMDIuMDAwOTgNCgkJCQljMC0yLjM0NzY2LDEuOTAzMzItNC4yNTE5NSw0LjI1MTk1LTQuMjUxOTVoOS45MjE4OGM3LjgyNzE1LDAsMTQuMTcyODUsNi4zNDU3LDE0LjE3Mjg1LDE0LjE3MzgzdjU3LjQwMTM3DQoJCQkJYzAsOC42MTAzNSw2Ljk4MDQ3LDE1LjU5MDgyLDE1LjU5MDgyLDE1LjU5MDgyczE1LjU5MDgyLTYuOTgwNDcsMTUuNTkwODItMTUuNTkwODJ2LTU3LjQwMTM3DQoJCQkJYzAtNy44MjgxMyw2LjM0NTctMTQuMTczODMsMTQuMTcyODUtMTQuMTczODNoOS45MjA5YzIuMzQ4NjMsMCw0LjI1MTk1LDEuOTA0Myw0LjI1MTk1LDQuMjUxOTV2NjcuMzIzMjQNCgkJCQljMCwyNC4yNjU2My0xOS42NzA5LDQzLjkzNzUtNDMuOTM2NTIsNDMuOTM3NXMtNDMuOTM3NS0xOS42NzE4OC00My45Mzc1LTQzLjkzNzVWMTIwMi4wMDA5OEw5ODQuNjMwODYsMTIwMi4wMDA5OHoNCgkJCQkgTTQ2Ni44NjkxNCwxMTk1LjYyMzA1YzMyLjQ4NDM4LDAsNTguODE4MzYsMjYuMzMzOTgsNTguODE4MzYsNTguODE5MzRjMCwzMi40ODQzOC0yNi4zMzM5OCw1OC44MTkzNC01OC44MTgzNiw1OC44MTkzNA0KCQkJCWMtMzIuNDg2MzMsMC01OC44MTkzNC0yNi4zMzQ5Ni01OC44MTkzNC01OC44MTkzNEM0MDguMDQ5OCwxMjIxLjk1NzAzLDQzNC4zODI4MSwxMTk1LjYyMzA1LDQ2Ni44NjkxNCwxMTk1LjYyMzA1DQoJCQkJTDQ2Ni44NjkxNCwxMTk1LjYyMzA1eiBNNDY2Ljg2OTE0LDEyMjUuMDMzMmMtMTYuMjQzMTYsMC0yOS40MTAxNiwxMy4xNjY5OS0yOS40MTAxNiwyOS40MDkxOA0KCQkJCXMxMy4xNjY5OSwyOS40MDgyLDI5LjQxMDE2LDI5LjQwODJjMTYuMjQxMjEsMCwyOS40MDgyLTEzLjE2NjAyLDI5LjQwODItMjkuNDA4MlM0ODMuMTEwMzUsMTIyNS4wMzMyLDQ2Ni44NjkxNCwxMjI1LjAzMzINCgkJCQlMNDY2Ljg2OTE0LDEyMjUuMDMzMnogTTU1Ni43MzI0MiwxMzExLjEzNDc3Yy0yLjM0NzY2LDAtNC4yNTE5NS0xLjkwMjM0LTQuMjUxOTUtNC4yNXYtOTQuOTYxOTENCgkJCQljMC03LjgyODEzLDYuMzQ1Ny0xNC4xNzM4MywxNC4xNzM4My0xNC4xNzM4M2gzLjk1ODk4YzQuNjI1LDAsOC45NTg5OCwyLjI1Njg0LDExLjYxMTMzLDYuMDQ1OWw0MS4xMjIwNyw1OC43NDcwN3YtNTAuNjE5MTQNCgkJCQljMC03LjgyODEzLDYuMzQ1Ny0xNC4xNzM4MywxNC4xNzI4NS0xNC4xNzM4M2g5LjkyMTg4YzIuMzQ3NjYsMCw0LjI1MTk1LDEuOTA0Myw0LjI1MTk1LDQuMjUxOTV2OTQuOTYwOTQNCgkJCQljMCw3LjgyOTEtNi4zNDU3LDE0LjE3Mjg1LTE0LjE3MzgzLDE0LjE3Mjg1aC0zLjk1ODk4Yy00LjYyNSwwLTguOTU4OTgtMi4yNTU4Ni0xMS42MTEzMy02LjA0NDkybC00MS4xMjIwNy01OC43NDYwOXY1MC42MTgxNg0KCQkJCWMwLDcuODI5MS02LjM0NTcsMTQuMTcyODUtMTQuMTcyODUsMTQuMTcyODVINTU2LjczMjQyTDU1Ni43MzI0MiwxMzExLjEzNDc3eiBNMTIxNS4wMjA1MSwxMjExLjkyMjg1DQoJCQkJYzAtNy44MjgxMyw2LjM0NTctMTQuMTczODMsMTQuMTcyODUtMTQuMTczODNoNTAuMzE1NDNjMi4zNDg2MywwLDQuMjUxOTUsMS45MDQzLDQuMjUxOTUsNC4yNTE5NXY1LjY2OTkyDQoJCQkJYzAsNy44MjcxNS02LjM0NTcsMTQuMTcyODUtMTQuMTcyODUsMTQuMTcyODVoLTYuMDI0NDF2NzUuMTE4MTZjMCw3LjgyOTEtNi4zNDU3LDE0LjE3Mjg1LTE0LjE3Mjg1LDE0LjE3Mjg1aC05LjkyMTg4DQoJCQkJYy0yLjM0ODYzLDAtNC4yNTE5NS0xLjkwMjM0LTQuMjUxOTUtNC4yNXYtODUuMDQxMDJoLTE1Ljk0NDM0Yy0yLjM0ODYzLDAtNC4yNTE5NS0xLjkwMzMyLTQuMjUxOTUtNC4yNTE5NVYxMjExLjkyMjg1DQoJCQkJTDEyMTUuMDIwNTEsMTIxMS45MjI4NXogTTc3Ni40NDkyMiwxMjExLjkyMjg1YzAtNy44MjgxMyw2LjM0NTctMTQuMTczODMsMTQuMTczODMtMTQuMTczODNoNTAuMzE0NDUNCgkJCQljMi4zNDk2MSwwLDQuMjUxOTUsMS45MDQzLDQuMjUxOTUsNC4yNTE5NXY1LjY2OTkyYzAsNy44MjcxNS02LjM0NTcsMTQuMTcyODUtMTQuMTcxODgsMTQuMTcyODVoLTYuMDI1Mzl2NzUuMTE4MTYNCgkJCQljMCw3LjgyOTEtNi4zNDU3LDE0LjE3Mjg1LTE0LjE3Mjg1LDE0LjE3Mjg1aC05LjkyMDljLTIuMzQ5NjEsMC00LjI1MTk1LTEuOTAyMzQtNC4yNTE5NS00LjI1di04NS4wNDEwMmgtMTUuOTQ1MzENCgkJCQljLTIuMzQ3NjYsMC00LjI1MTk1LTEuOTAzMzItNC4yNTE5NS00LjI1MTk1VjEyMTEuOTIyODVMNzc2LjQ0OTIyLDEyMTEuOTIyODV6IE05MjkuNjA0NDksMTI3Mi4wMjI0NmwyNi45NTgwMSwzMi4xMjc5Mw0KCQkJCWMyLjMxNDQ1LDIuNzU3ODEsMC4zNDM3NSw2Ljk4NDM4LTMuMjU2ODQsNi45ODQzOGgtMTkuNzA1MDhjLTQuMTg5NDUsMC04LjE2NTA0LTEuODUxNTYtMTAuODU3NDItNS4wNjA1NWwtMjIuNjgxNjQtMjcuMDMxMjUNCgkJCQl2MjcuODQxOGMwLDIuMzQ3NjYtMS45MDMzMiw0LjI1LTQuMjUxOTUsNC4yNWgtOS45MjA5Yy03LjgyNzE1LDAtMTQuMTcyODUtNi4zNDM3NS0xNC4xNzI4NS0xNC4xNzI4NXYtODUuMDM5MDYNCgkJCQljMC03LjgyODEzLDYuMzQ1Ny0xNC4xNzM4MywxNC4xNzI4NS0xNC4xNzM4M2gyOS43NjM2N2MyMi43MDAyLDAsNDEuMTAyNTQsMTcuMTMzNzksNDEuMTAyNTQsMzguMjY4NTUNCgkJCQlDOTU2Ljc1NDg4LDEyNTIuNTkwODIsOTQ1LjQzNjUyLDEyNjYuNzAyMTUsOTI5LjYwNDQ5LDEyNzIuMDIyNDZMOTI5LjYwNDQ5LDEyNzIuMDIyNDZ6IE05MDAuMDYxNTIsMTIyMS44NDM3NXYzMi41OTg2M2g4LjUwMzkxDQoJCQkJYzEwLjk1ODk4LDAsMTkuODQyNzctNy4yOTc4NSwxOS44NDI3Ny0xNi4yOTg4M2MwLTkuMDAxOTUtOC44ODM3OS0xNi4yOTk4LTE5Ljg0Mjc3LTE2LjI5OThIOTAwLjA2MTUyTDkwMC4wNjE1MiwxMjIxLjg0Mzc1eg0KCQkJCSBNMTE1OC4zNTkzOCwxMTk1LjYyMzA1YzExLjM4NDc3LDAsMjIuMDEyNywzLjIzNzMsMzEuMDE3NTgsOC44Mzc4OWMxLjk0NzI3LDEuMjEwOTQsMi41ODQ5NiwzLjc0OTAyLDEuNDM4NDgsNS43MzQzOA0KCQkJCWwtNC45MzI2Miw4LjU0MTk5Yy0zLjI3ODMyLDUuNjc5NjktMTAuMDMzMiw4LjM3Njk1LTE2LjMxNzM4LDYuNTAwOThjLTIuNzY0NjUtMC44MjUyLTUuNjkzMzYtMS4yNjg1NS04LjcyNTU5LTEuMjY4NTUNCgkJCQljLTE2LjgyOTEsMC0zMC40NzI2NiwxMy42NDM1NS0zMC40NzI2NiwzMC40NzI2NmMwLDE2LjgyODEzLDEzLjY0MzU1LDMwLjQ3MjY2LDMwLjQ3MjY2LDMwLjQ3MjY2DQoJCQkJYzMuMDMyMjMsMCw1Ljk2MDk0LTAuNDQzMzYsOC43MjU1OS0xLjI2ODU1YzYuMjk1OS0xLjg3OTg4LDEzLjAzMzIsMC44MTE1MiwxNi4zMTgzNiw2LjUwMDk4bDQuOTMwNjYsOC41NDE5OQ0KCQkJCWMxLjE0NzQ2LDEuOTg4MjgsMC41MTA3NCw0LjUyMzQ0LTEuNDM3NSw1LjczNDM4Yy05LjAwNDg4LDUuNjAxNTYtMTkuNjMyODEsOC44Mzc4OS0zMS4wMTc1OCw4LjgzNzg5DQoJCQkJYy0zMi40ODUzNSwwLTU4LjgxOTM0LTI2LjMzNDk2LTU4LjgxOTM0LTU4LjgxOTM0QzEwOTkuNTQwMDQsMTIyMS45NTcwMywxMTI1Ljg3NDAyLDExOTUuNjIzMDUsMTE1OC4zNTkzOCwxMTk1LjYyMzA1eiIvPg0KCQkJPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiMwMEZGREEiIGQ9Ik0xMzE4LjE5NzI3LDEyMDYuMDMyMjMNCgkJCQljMC03LjgyODEzLDYuMzQ1Ny0xNC4xNzM4MywxNC4xNzI4NS0xNC4xNzM4M2MyMC42NTYyNSwwLDQxLjMxMjUsMCw2MS45Njg3NSwwYzMuNDI5NjksMCw1LjQ1MDIsMy44ODA4NiwzLjQ4MzQsNi42OTA0Mw0KCQkJCWwtMTkuMjk2ODgsMjcuNTY3MzhjMTUuNTQyOTcsOC4zNzU5OCwyNi4xMDY0NSwyNC44MDA3OCwyNi4xMDY0NSw0My42OTUzMWMwLDI3LjM5NzQ2LTIyLjIwODk4LDQ5LjYwNjQ1LTQ5LjYwNjQ1LDQ5LjYwNjQ1DQoJCQkJYy0xNi42ODg0OCwwLTMxLjQ1MTE3LTguMjQwMjMtNDAuNDQzMzYtMjAuODc1OThjLTEuNDUwMi0yLjAzOTA2LTAuODMxMDUtNC44OTk0MSwxLjMzNTk0LTYuMTUyMzRsMTAuOTc3NTQtNi4zMzc4OQ0KCQkJCWM0Ljg4MTg0LTIuODE4MzYsMTAuOTc5NDktMi40NzU1OSwxNS41MTQ2NSwwLjg3MzA1YzMuNTI4MzIsMi42MDU0Nyw3Ljg5MTYsNC4xNDY0OCwxMi42MTUyMyw0LjE0NjQ4DQoJCQkJYzExLjc0MjE5LDAsMjEuMjU5NzctOS41MTg1NSwyMS4yNTk3Ny0yMS4yNTk3N3MtOS41MTc1OC0yMS4yNTk3Ny0yMS4yNTk3Ny0yMS4yNTk3N2gtMTUuMjE3NzcNCgkJCQljLTMuNDI5NjksMC01LjQ1MDItMy44ODA4Ni0zLjQ4NDM4LTYuNjkwNDNsMTguMTM1NzQtMjUuOTA4MmgtMzIuMDA5NzdjLTIuMzQ4NjMsMC00LjI1MTk1LTEuOTAzMzItNC4yNTE5NS00LjI1MTk1VjEyMDYuMDMyMjN6DQoJCQkJIi8+DQoJCTwvZz4NCgkJPGc+DQoJCQk8Zz4NCgkJCQk8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iI0RBRThGNyIgZD0iTTg1MC4zOTU1MSw4NTcuNTkxOA0KCQkJCQljLTUwLjM1NjQ1LDAtOTQuMzI1Mi0yNy4zNTY0NS0xMTcuODUyNTQtNjguMDIwNTFsLTgwLjAzMDI3LDQ2LjIwNDFjLTQuNjU1MjcsMi42ODk0NS02LjEzMTg0LDguNzE4NzUtMy4yNDkwMiwxMy4yNTU4Ng0KCQkJCQljNDIuMjM3Myw2Ni40ODYzMywxMTYuNTMzMiwxMTAuNjA3NDIsMjAxLjEzMTg0LDExMC42MDc0MmM4OC4xMjU5OCwwLDE2NS4wNzEyOS00Ny44NzUsMjA2LjI0MzE2LTExOS4wMzYxM2wtODAuNDg3My00Ni40Njk3Mw0KCQkJCQljLTQuMzEzNDgtMi40OTAyMy05LjgwMTc2LTEuMjA1MDgtMTIuNTcwMzEsMi45MzU1NUM5MzkuMTc1NzgsODMzLjU2MjUsODk3LjU5MTgsODU3LjU5MTgsODUwLjM5NTUxLDg1Ny41OTE4DQoJCQkJCUw4NTAuMzk1NTEsODU3LjU5MTh6IE0xMTM2LjcyMTY4LDU1Ni4yMTc3N2M0LjYxNDI2LTIuNjYzMDksNi4xMTAzNS04LjYxOTE0LDMuMzEyNS0xMy4xNTEzNw0KCQkJCQljLTU5LjkxNTA0LTk3LjAzMDI3LTE2Ny4yMjQ2MS0xNjEuNjk0MzQtMjg5LjYzODY3LTE2MS42OTQzNGMtMTI1Ljg5MzU1LDAtMjM1LjgxMzQ4LDY4LjM5MjU4LTI5NC42MzM3OSwxNzAuMDQ5OA0KCQkJCQlsODAuMzc2OTUsNDYuNDA2MjVjNC4zOTc0NiwyLjUzOTA2LDEwLjAwMTk1LDEuMTQ5NDEsMTIuNzEwOTQtMy4xNDU1MQ0KCQkJCQljNDIuMTY0MDYtNjYuODUxNTYsMTE2LjY2ODk1LTExMS4yNjM2NywyMDEuNTQ1OS0xMTEuMjYzNjdjODguMTI1OTgsMCwxNjUuMDcxMjksNDcuODc1OTgsMjA2LjI0MzE2LDExOS4wMzYxMw0KCQkJCQlMMTEzNi43MjE2OCw1NTYuMjE3Nzd6Ii8+DQoJCQkJPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiNBNUJBQzgiIGQ9Ik04NTAuMzk1NTEsOTU5LjYzODY3DQoJCQkJCWMtODQuNTk4NjMsMC0xNTguODk0NTMtNDQuMTIxMDktMjAxLjEzMTg0LTExMC42MDc0MmMtMi44NzY5NS00LjUzMDI3LTEuMzk5NDEtMTAuNTcwMzEsMy4yNDkwMi0xMy4yNTU4Nmw4MC4wMzAyNy00Ni4yMDQxDQoJCQkJCWMtMTEuNTgxMDUtMjAuMDE2Ni0xOC4yMDk5Ni00My4yNTQ4OC0xOC4yMDk5Ni02OC4wNDE5OWMwLTc0Ljc4NTE2LDYwLjU1NzYyLTEzNi4wNjI1LDEzNi4wNjI1LTEzNi4wNjI1DQoJCQkJCWM0Ny4xOTYyOSwwLDg4Ljc4MDI3LDI0LjAyOTMsMTEzLjE4NTU1LDYwLjUyMjQ2YzIuNzY0NjUsNC4xMzM3OSw4LjI2MzY3LDUuNDIxODgsMTIuNTcwMzEsMi45MzU1NWw4MC40ODczLTQ2LjQ2OTczDQoJCQkJCWMtNDEuMTcxODgtNzEuMTYwMTYtMTE4LjExNzE5LTExOS4wMzYxMy0yMDYuMjQzMTYtMTE5LjAzNjEzYy04NC44NzY5NSwwLTE1OS4zODE4NCw0NC40MTIxMS0yMDEuNTQ1OSwxMTEuMjYzNjcNCgkJCQkJYy0yLjcwNjA1LDQuMjkxMDItOC4zMTgzNiw1LjY4MTY0LTEyLjcxMDk0LDMuMTQ1NTFsLTgwLjM3Njk1LTQ2LjQwNjI1DQoJCQkJCWMtMjguOTUyMTUsNTAuMDQwMDQtNDUuNTIzNDQsMTA4LjEzOTY1LTQ1LjUyMzQ0LDE3MC4xMDc0MmMwLDE4Ni45NjM4NywxNTEuMzk0NTMsMzQwLjE1NzIzLDM0MC4xNTcyMywzNDAuMTU3MjMNCgkJCQkJYzEyMi40MTQwNiwwLDIyOS43MjM2My02NC42NjQwNiwyODkuNjM4NjctMTYxLjY5NTMxYzIuNzk0OTItNC41MjYzNywxLjI5NDkyLTEwLjQ5MDIzLTMuMzEyNS0xMy4xNTEzN2wtODAuMDgzMDEtNDYuMjM3Mw0KCQkJCQlDMTAxNS40NjY4LDkxMS43NjM2Nyw5MzguNTIxNDgsOTU5LjYzODY3LDg1MC4zOTU1MSw5NTkuNjM4Njd6Ii8+DQoJCQk8L2c+DQoJCQk8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzAwRkZEQSIgZD0iTTExMzcuMTg1NTUsNzU4LjExMzI4di03My4xNjc5N2wtNjMuMzY1MjMsMzYuNTgzOTgNCgkJCQlMMTEzNy4xODU1NSw3NTguMTEzMjhMMTEzNy4xODU1NSw3NTguMTEzMjh6IE0xMDI2LjU3NjE3LDcwNS4xNjQwNmwxMjAuMDU4NTktNjkuMzE2NDENCgkJCQljMTIuNTY4MzYtNy4yNTU4NiwyOC4zNDQ3MywxLjg1MjU0LDI4LjM0NTcsMTYuMzY2MjF2MTM4LjYzMDg2Yy0wLjAwMDk4LDE0LjUxMjctMTUuNzc3MzQsMjMuNjIyMDctMjguMzQ1NywxNi4zNjYyMQ0KCQkJCWwtMTIwLjA1ODU5LTY5LjMxNjQxQzEwMTQuMDI4MzIsNzMwLjY0OTQxLDEwMTQuMDI4MzIsNzEyLjQwOTE4LDEwMjYuNTc2MTcsNzA1LjE2NDA2eiIvPg0KCQk8L2c+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=").then(tex=>{if(this._splashState==="done")this._webglRenderer.DeleteTexture(tex);else this._splashTextures.logo=
+tex}).catch(err=>console.warn("Failed to load splash image: ",err));this._LoadBitmapSplashImage("data:image/png;base64,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").then(tex=>{if(this._splashState==="done")this._webglRenderer.DeleteTexture(tex);else this._splashTextures.powered=tex}).catch(err=>console.warn("Failed to load splash image: ",err));this._LoadBitmapSplashImage("data:image/png;base64,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").then(tex=>{if(this._splashState==="done")this._webglRenderer.DeleteTexture(tex);else this._splashTextures.website=
 tex}).catch(err=>console.warn("Failed to load splash image: ",err))}}async _LoadSvgSplashImage(url){url=(new URL(url,this._runtime.GetBaseURL())).toString();const blob=await C3.FetchBlob(url);const drawable=await this._runtime.RasterSvgImage(blob,2048,2048);return await this._webglRenderer.CreateStaticTextureAsync(drawable,{mipMapQuality:"high"})}async _LoadBitmapSplashImage(url){url=(new URL(url,this._runtime.GetBaseURL())).toString();const blob=await C3.FetchBlob(url);return await this._webglRenderer.CreateStaticTextureAsync(blob,
 {mipMapQuality:"high"})}HideCordovaSplashScreen(){this._runtime.PostComponentMessageToDOM("runtime","hide-cordova-splash")}StartLoadingScreen(){this._loaderStartTime=Date.now();this._runtime.Dispatcher().addEventListener("loadingprogress",this._loadingprogress_handler);this._rafId=requestAnimationFrame(()=>this._DrawLoadingScreen());const loaderStyle=this._runtime.GetLoaderStyle();if(loaderStyle!==3)this.HideCordovaSplashScreen()}async EndLoadingScreen(){this._loadingProgress=1;const loaderStyle=
 this._runtime.GetLoaderStyle();if(loaderStyle===4)await this._splashDonePromise;this._splashDoneResolve=null;this._splashDonePromise=null;if(this._rafId!==-1){cancelAnimationFrame(this._rafId);this._rafId=-1}this._runtime.Dispatcher().removeEventListener("loadingprogress",this._loadingprogress_handler);this._loadingprogress_handler=null;if(this._percentText){this._percentText.Release();this._percentText=null}if(this._loadingLogoAsset){this._loadingLogoAsset.Release();this._loadingLogoAsset=null}this._webglRenderer.Start();
@@ -2386,14 +2387,14 @@ this.GetProjectUniqueId(),description:this.GetProjectName()});return this._saveg
 err);await this.TriggerAsync(C3.Plugins.System.Cnds.OnSaveFailed,null)}}async _DoLoadFromSlot(slotName){try{const loadJson=await this._GetSavegamesStorage().getItem(slotName);if(!loadJson)throw new Error("empty slot");console.log("[Construct 3] Loaded state from storage ("+loadJson.length+" chars)");await this._DoLoadFromJsonString(loadJson);this._lastSaveJson=loadJson;await this.TriggerAsync(C3.Plugins.System.Cnds.OnLoadComplete,null);this._lastSaveJson=""}catch(err){console.error("[Construct 3] Failed to load state from storage: ",
 err);await this.TriggerAsync(C3.Plugins.System.Cnds.OnLoadFailed,null)}}async _SaveToJsonString(){const o={"c3save":true,"version":1,"rt":{"time":this.GetGameTime(),"walltime":this.GetWallTime(),"timescale":this.GetTimeScale(),"tickcount":this.GetTickCount(),"execcount":this.GetExecCount(),"next_uid":this._nextUid,"running_layout":this.GetMainRunningLayout().GetSID(),"start_time_offset":Date.now()-this._startTime},"types":{},"layouts":{},"events":this._eventSheetManager._SaveToJson(),"timelines":this._timelineManager._SaveToJson(),
 "user_script_data":null};for(const objectClass of this._allObjectClasses){if(objectClass.IsFamily()||objectClass.HasNoSaveBehavior())continue;o["types"][objectClass.GetSID().toString()]=objectClass._SaveToJson()}for(const layout of this._layoutManager.GetAllLayouts())o["layouts"][layout.GetSID().toString()]=layout._SaveToJson();const saveEvent=this._CreateUserScriptEvent("save");saveEvent.saveData=null;await this.DispatchUserScriptEventAsyncWait(saveEvent);o["user_script_data"]=saveEvent.saveData;
-return JSON.stringify(o)}IsLoadingState(){return this._isLoadingState}async _DoLoadFromJsonString(jsonStr){const o=JSON.parse(jsonStr);if(o["c2save"])throw new Error("C2 saves are incompatible with C3 runtime");if(!o["c3save"])throw new Error("not valid C3 save data");if(o["version"]>1)throw new Error("C3 save data from future version");this._isLoadingState=true;const rt=o["rt"];this._gameTime.Set(rt["time"]);this._wallTime.Set(rt["walltime"]);this._timeScale=rt["timescale"];this._tickCount=rt["tickcount"];
-this._execCount=rt["execcount"];this._startTime=Date.now()-rt["start_time_offset"];const layoutSid=rt["running_layout"];if(layoutSid!==this.GetMainRunningLayout().GetSID()){const changeToLayout=this._layoutManager.GetLayoutBySID(layoutSid);if(changeToLayout)await this._DoChangeLayout(changeToLayout);else return}for(const [sidStr,data]of Object.entries(o["types"])){const sid=parseInt(sidStr,10);const objectClass=this.GetObjectClassBySID(sid);if(!objectClass||objectClass.IsFamily()||objectClass.HasNoSaveBehavior())continue;
-objectClass._LoadFromJson(data)}this.FlushPendingInstances();this._RefreshUidMap();this._isLoadingState=false;this._nextUid=rt["next_uid"];for(const [sidStr,data]of Object.entries(o["layouts"])){const sid=parseInt(sidStr,10);const layout=this._layoutManager.GetLayoutBySID(sid);if(!layout)continue;layout._LoadFromJson(data)}this._eventSheetManager._LoadFromJson(o["events"]);for(const objectClass of this._allObjectClasses){if(objectClass.IsFamily()||!objectClass.IsInContainer())continue;for(const inst of objectClass.GetInstances()){const iid=
-inst.GetIID();for(const otherType of objectClass.GetContainer().objectTypes()){if(otherType===objectClass)continue;const otherInstances=otherType.GetInstances();if(iid<0||iid>=otherInstances.length)throw new Error("missing sibling instance");inst._AddSibling(otherInstances[iid])}}}this._timelineManager._LoadFromJson(o["timelines"]);this._dispatcher.dispatchEvent(C3.New(C3.Event,"afterload"));const loadEvent=this._CreateUserScriptEvent("load");loadEvent.saveData=o["user_script_data"];await this.DispatchUserScriptEventAsyncWait(loadEvent);
-this.UpdateRender()}async AddJobWorkerScripts(scripts){const blobs=await Promise.all(scripts.map(url=>this._assetManager.FetchBlob(url)));const blobUrls=blobs.map(b=>URL.createObjectURL(b));this._jobScheduler.ImportScriptsToJobWorkers(blobUrls)}AddJobWorkerBlob(blob,id){this._jobScheduler.SendBlobToJobWorkers(blob,id)}AddJobWorkerBuffer(buffer,id){this._jobScheduler.SendBufferToJobWorkers(buffer,id)}AddJob(type,params,transferables){return this._jobScheduler.AddJob(type,params,transferables)}BroadcastJob(type,
-params,transferables){return this._jobScheduler.BroadcastJob(type,params,transferables)}InvokeDownload(url,filename){this.PostComponentMessageToDOM("runtime","invoke-download",{"url":url,"filename":filename})}async RasterSvgImage(blob,imageWidth,imageHeight,surfaceWidth,surfaceHeight,imageBitmapOpts){surfaceWidth=surfaceWidth||imageWidth;surfaceHeight=surfaceHeight||imageHeight;if(this.IsInWorker()){const result=await this.PostComponentMessageToDOMAsync("runtime","raster-svg-image",{"blob":blob,"imageWidth":imageWidth,
-"imageHeight":imageHeight,"surfaceWidth":surfaceWidth,"surfaceHeight":surfaceHeight,"imageBitmapOpts":imageBitmapOpts});return result["imageBitmap"]}else{const canvas=await self["C3_RasterSvgImageBlob"](blob,imageWidth,imageHeight,surfaceWidth,surfaceHeight);if(imageBitmapOpts)return await self.createImageBitmap(canvas,imageBitmapOpts);else return canvas}}async GetSvgImageSize(blob){if(this.IsInWorker())return await this.PostComponentMessageToDOMAsync("runtime","get-svg-image-size",{"blob":blob});
-else return await self["C3_GetSvgImageSize"](blob)}RequestDeviceOrientationEvent(){if(this._didRequestDeviceOrientationEvent)return;this._didRequestDeviceOrientationEvent=true;this.PostComponentMessageToDOM("runtime","enable-device-orientation")}RequestDeviceMotionEvent(){if(this._didRequestDeviceMotionEvent)return;this._didRequestDeviceMotionEvent=true;this.PostComponentMessageToDOM("runtime","enable-device-motion")}Random(){return this._randomNumberCallback()}SetRandomNumberGeneratorCallback(f){this._randomNumberCallback=
+return JSON.stringify(o)}IsLoadingState(){return this._isLoadingState}async _DoLoadFromJsonString(jsonStr){const o=JSON.parse(jsonStr);if(o["c2save"])throw new Error("C2 saves are incompatible with C3 runtime");if(!o["c3save"])throw new Error("not valid C3 save data");if(o["version"]>1)throw new Error("C3 save data from future version");this._dispatcher.dispatchEvent(C3.New(C3.Event,"beforeload"));this._isLoadingState=true;const rt=o["rt"];this._gameTime.Set(rt["time"]);this._wallTime.Set(rt["walltime"]);
+this._timeScale=rt["timescale"];this._tickCount=rt["tickcount"];this._execCount=rt["execcount"];this._startTime=Date.now()-rt["start_time_offset"];const layoutSid=rt["running_layout"];if(layoutSid!==this.GetMainRunningLayout().GetSID()){const changeToLayout=this._layoutManager.GetLayoutBySID(layoutSid);if(changeToLayout)await this._DoChangeLayout(changeToLayout);else return}for(const [sidStr,data]of Object.entries(o["types"])){const sid=parseInt(sidStr,10);const objectClass=this.GetObjectClassBySID(sid);
+if(!objectClass||objectClass.IsFamily()||objectClass.HasNoSaveBehavior())continue;objectClass._LoadFromJson(data)}this.FlushPendingInstances();this._RefreshUidMap();this._isLoadingState=false;this._nextUid=rt["next_uid"];for(const [sidStr,data]of Object.entries(o["layouts"])){const sid=parseInt(sidStr,10);const layout=this._layoutManager.GetLayoutBySID(sid);if(!layout)continue;layout._LoadFromJson(data)}this._eventSheetManager._LoadFromJson(o["events"]);for(const objectClass of this._allObjectClasses){if(objectClass.IsFamily()||
+!objectClass.IsInContainer())continue;for(const inst of objectClass.GetInstances()){const iid=inst.GetIID();for(const otherType of objectClass.GetContainer().objectTypes()){if(otherType===objectClass)continue;const otherInstances=otherType.GetInstances();if(iid<0||iid>=otherInstances.length)throw new Error("missing sibling instance");inst._AddSibling(otherInstances[iid])}}}this._timelineManager._LoadFromJson(o["timelines"]);this._dispatcher.dispatchEvent(C3.New(C3.Event,"afterload"));const loadEvent=
+this._CreateUserScriptEvent("load");loadEvent.saveData=o["user_script_data"];await this.DispatchUserScriptEventAsyncWait(loadEvent);this.UpdateRender()}async AddJobWorkerScripts(scripts){const blobs=await Promise.all(scripts.map(url=>this._assetManager.FetchBlob(url)));const blobUrls=blobs.map(b=>URL.createObjectURL(b));this._jobScheduler.ImportScriptsToJobWorkers(blobUrls)}AddJobWorkerBlob(blob,id){this._jobScheduler.SendBlobToJobWorkers(blob,id)}AddJobWorkerBuffer(buffer,id){this._jobScheduler.SendBufferToJobWorkers(buffer,
+id)}AddJob(type,params,transferables){return this._jobScheduler.AddJob(type,params,transferables)}BroadcastJob(type,params,transferables){return this._jobScheduler.BroadcastJob(type,params,transferables)}InvokeDownload(url,filename){this.PostComponentMessageToDOM("runtime","invoke-download",{"url":url,"filename":filename})}async RasterSvgImage(blob,imageWidth,imageHeight,surfaceWidth,surfaceHeight,imageBitmapOpts){surfaceWidth=surfaceWidth||imageWidth;surfaceHeight=surfaceHeight||imageHeight;if(this.IsInWorker()){const result=
+await this.PostComponentMessageToDOMAsync("runtime","raster-svg-image",{"blob":blob,"imageWidth":imageWidth,"imageHeight":imageHeight,"surfaceWidth":surfaceWidth,"surfaceHeight":surfaceHeight,"imageBitmapOpts":imageBitmapOpts});return result["imageBitmap"]}else{const canvas=await self["C3_RasterSvgImageBlob"](blob,imageWidth,imageHeight,surfaceWidth,surfaceHeight);if(imageBitmapOpts)return await self.createImageBitmap(canvas,imageBitmapOpts);else return canvas}}async GetSvgImageSize(blob){if(this.IsInWorker())return await this.PostComponentMessageToDOMAsync("runtime",
+"get-svg-image-size",{"blob":blob});else return await self["C3_GetSvgImageSize"](blob)}RequestDeviceOrientationEvent(){if(this._didRequestDeviceOrientationEvent)return;this._didRequestDeviceOrientationEvent=true;this.PostComponentMessageToDOM("runtime","enable-device-orientation")}RequestDeviceMotionEvent(){if(this._didRequestDeviceMotionEvent)return;this._didRequestDeviceMotionEvent=true;this.PostComponentMessageToDOM("runtime","enable-device-motion")}Random(){return this._randomNumberCallback()}SetRandomNumberGeneratorCallback(f){this._randomNumberCallback=
 f}_GetRemotePreviewStatusInfo(){return{"fps":this.GetFPS(),"cpu":this.GetMainThreadTime(),"gpu":this.GetGPUUtilisation(),"layout":this.GetMainRunningLayout()?this.GetMainRunningLayout().GetName():"","renderer":this.GetWebGLRenderer().GetUnmaskedRenderer()}}HitBreakpoint(){if(!this.IsDebug())return false;return C3Debugger.HitBreakpoint()}DebugBreak(eventObject){if(!this.IsDebugging())return Promise.resolve();return C3Debugger.DebugBreak(eventObject)}DebugBreakNext(){if(!this.IsDebugging())return false;
 return C3Debugger.BreakNext()}SetDebugBreakpointsEnabled(e){this._breakpointsEnabled=!!e;this._UpdateDebuggingFlag()}AreDebugBreakpointsEnabled(){return this._breakpointsEnabled}IsDebugging(){return this._isDebugging}SetDebuggingEnabled(d){if(d)this._debuggingDisabled--;else this._debuggingDisabled++;this._UpdateDebuggingFlag()}_UpdateDebuggingFlag(){this._isDebugging=this.IsDebug()&&this._breakpointsEnabled&&this._debuggingDisabled===0}IsCPUProfiling(){return this.IsDebug()&&C3Debugger.IsCPUProfiling()}IsGPUProfiling(){return this.IsDebug()&&
 this.GetWebGLRenderer().SupportsGPUProfiling()&&C3Debugger.IsGPUProfiling()}async DebugIterateAndBreak(iter){if(!iter)return;for(const breakEventObject of iter)await this.DebugBreak(breakEventObject)}DebugFireGeneratorEventAndBreak(event){return this.DebugIterateAndBreak(this._dispatcher.dispatchGeneratorEvent(event))}_InvokeFunctionFromJS(e){return this._eventSheetManager._InvokeFunctionFromJS(e["name"],e["params"])}GetIRuntime(){return this._iRuntime}_CreateUserScriptEvent(name){const e=C3.New(C3.Event,
@@ -4124,19 +4125,19 @@ const objectClassB=UnwrapIObjectClass(iObjectClassB);state=!!state;physicsBehavi
 const TILE_FLAGS_MASK=3758096384;const TILE_ID_MASK=536870911;const GetTempVec2A=C3.Behaviors.Physics.GetTempVec2A;const GetTempVec2B=C3.Behaviors.Physics.GetTempVec2B;const tempRect=C3.New(C3.Rect);const tempQuad=C3.New(C3.Quad);C3.Behaviors.Physics.Instance=class PhysicsInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);const behavior=this.GetBehavior();const wi=this.GetWorldInfo();this._box2d=behavior.GetBox2D();this._world=behavior.GetWorld();this._worldScale=
 behavior.GetWorldScale();this._isImmovable=false;this._collisionMask=0;this._preventRotation=false;this._density=1;this._friction=.5;this._restitution=.2;this._linearDamping=0;this._angularDamping=.01;this._isBullet=false;this._isEnabled=true;this._body=null;this._fixtures=[];this._myJoints=[];this._myCreatedJoints=[];this._joiningMe=new Set;this._lastKnownX=wi.GetX();this._lastKnownY=wi.GetY();this._lastKnownAngle=wi.GetAngle();this._lastWidth=0;this._lastHeight=0;this._lastTickOverride=false;if(properties){this._isImmovable=
 !!properties[IMMOVABLE];this._collisionMask=properties[COLLISION_MASK];this._preventRotation=!!properties[PREVENT_ROTATION];this._density=properties[DENSITY];this._friction=properties[FRICTION];this._restitution=properties[ELASTICITY];this._linearDamping=properties[LINEAR_DAMPING];this._angularDamping=properties[ANGULAR_DAMPING];this._isBullet=!!properties[BULLET];this._isEnabled=!!properties[ENABLE]}const rt=this._runtime.Dispatcher();this._disposables=new C3.CompositeDisposable(C3.Disposable.From(rt,
-"instancedestroy",e=>this._OnInstanceDestroyed(e.instance)),C3.Disposable.From(rt,"afterload",()=>this._OnAfterLoad()));inst2beh.set(this._inst,this);if(this._isEnabled)this._StartTicking()}PostCreate(){this._CreateBody()}Release(){this._DestroyMyJoints();C3.clearArray(this._myCreatedJoints);this._joiningMe.clear();if(this._body){this._DestroyFixtures();this._world["DestroyBody"](this._body);this._body=null}super.Release()}_CreateFixture(fixDef){if(!this._body)return;const fixture=this._body["CreateFixture"](fixDef);
-this._fixtures.push(fixture);return fixture}_DestroyFixtures(){if(!this._body)return;for(const fixture of this._fixtures)this._body["DestroyFixture"](fixture);C3.clearArray(this._fixtures)}_GetBoundingQuadExcludingMesh(){const wi=this.GetWorldInfo();if(wi.HasMesh()){wi.CalculateBbox(tempRect,tempQuad,false);return tempQuad}else return wi.GetBoundingQuad()}_Destroy(o){this._box2d["destroy"](o)}_CreateBody(){if(!this._isEnabled)return;const b2FixtureDef=this._box2d["b2FixtureDef"];const b2BodyDef=this._box2d["b2BodyDef"];
-const wi=this.GetWorldInfo();if(!this._body){const bodyDef=new b2BodyDef;bodyDef["set_type"](this._isImmovable?0:2);const bquad=this._GetBoundingQuadExcludingMesh();bodyDef["set_position"](GetTempVec2B(bquad.midX()*this._worldScale,bquad.midY()*this._worldScale));bodyDef["set_angle"](wi.GetAngle());bodyDef["set_fixedRotation"](this._preventRotation);bodyDef["set_linearDamping"](this._linearDamping);bodyDef["set_angularDamping"](this._angularDamping);bodyDef["set_bullet"](this._isBullet);this._body=
-this._world["CreateBody"](bodyDef);this._Destroy(bodyDef);body2beh.set(this._body,this)}this._DestroyFixtures();const fixDef=new b2FixtureDef;fixDef["set_density"](this._density);fixDef["set_friction"](this._friction);fixDef["set_restitution"](this._restitution);const hasPoly=wi.HasOwnCollisionPoly();let useCollisionMask=this._collisionMask;if(!hasPoly&&!this._inst.HasTilemap()&&useCollisionMask===0)useCollisionMask=1;const instW=Math.max(Math.abs(wi.GetWidth()),1);const instH=Math.max(Math.abs(wi.GetHeight()),
-1);if(useCollisionMask===0)if(this._inst.HasTilemap())this._CreateTilemapFixtures(fixDef);else this._CreatePolygonFixture(fixDef,instW,instH);else if(useCollisionMask===1)this._CreateBoundingBoxFixture(fixDef,instW,instH);else this._CreateCircleFixture(fixDef,instW,instH);this._lastWidth=wi.GetWidth();this._lastHeight=wi.GetHeight();wi.SetPhysicsBodyChanged(false);this._Destroy(fixDef)}_CreateBoundingBoxFixture(fixDef,instW,instH){const b2PolygonShape=this._box2d["b2PolygonShape"];const shape=new b2PolygonShape;
-shape["SetAsBox"](instW*this._worldScale*.5,instH*this._worldScale*.5);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape)}_CreateCircleFixture(fixDef,instW,instH){const b2CircleShape=this._box2d["b2CircleShape"];const shape=new b2CircleShape;shape["set_m_radius"](Math.min(instW,instH)*this._worldScale*.5);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape)}_CreatePolygonFixture(fixDef,instW,instH){const wi=this.GetWorldInfo();const isMirrored=wi.GetWidth()<
-0;const isFlipped=wi.GetHeight()<0;const worldScale=this._worldScale;const angle=wi.GetAngle();if(angle!==0){wi.SetAngle(0);wi.SetBboxChanged()}const bquad=this._GetBoundingQuadExcludingMesh();const offX=bquad.midX()-wi.GetX();const offY=bquad.midY()-wi.GetY();if(angle!==0){wi.SetAngle(angle);wi.SetBboxChanged()}const transformedPoly=wi.GetCustomTransformedCollisionPoly(isMirrored?-instW:instW,isFlipped?-instH:instH,0);const ptsArr=transformedPoly.pointsArr();const ptsCount=ptsArr.length/2;const arr=
-[];for(let i=0;i<ptsCount;++i)arr.push(C3.Behaviors.Physics.GetVec2(ptsArr[i*2]-offX,ptsArr[i*2+1]-offY));if(isMirrored!==isFlipped)arr.reverse();const convexPolys=C3.Behaviors.Physics.Separator.Separate(arr,instW*instH);for(const v of arr)C3.Behaviors.Physics.FreeVec2(v);if(convexPolys.length)for(const arr2 of convexPolys){for(const vec of arr2){vec["set_x"](vec["get_x"]()*worldScale);vec["set_y"](vec["get_y"]()*worldScale)}const shape=C3.Behaviors.Physics.CreatePolygonShape(arr2);fixDef["set_shape"](shape);
-this._CreateFixture(fixDef);this._Destroy(shape);for(const v of arr2)C3.Behaviors.Physics.FreeVec2(v)}else this._CreateBoundingBoxFixture(fixDef,instW,instH)}_CreateTilemapFixtures(fixDef){const wi=this.GetWorldInfo();const bquad=this._GetBoundingQuadExcludingMesh();const offX=bquad.midX()-wi.GetX();const offY=bquad.midY()-wi.GetY();const worldScale=this._worldScale;const GetVec2=C3.Behaviors.Physics.GetVec2;const FreeVec2=C3.Behaviors.Physics.FreeVec2;const collRects=[];this._inst.GetSdkInstance().GetAllCollisionRects(collRects);
-const arr=[];for(let i=0,len=collRects.length;i<len;++i){const c=collRects[i];const rc=c.GetRect();const poly=c.GetPoly();if(poly){let convexPolys=tileConvexPolyCache.get(poly);if(!convexPolys){const ptsArr=poly.pointsArr();const ptsCount=poly.pointCount();for(let j=0;j<ptsCount;++j)arr.push(GetVec2(ptsArr[j*2],ptsArr[j*2+1]));const flags=c.GetTileId()&TILE_FLAGS_MASK;if(flags===TILE_FLIPPED_HORIZONTAL||flags===TILE_FLIPPED_VERTICAL||flags===TILE_FLIPPED_DIAGONAL||flags&TILE_FLIPPED_HORIZONTAL&&flags&
-TILE_FLIPPED_VERTICAL&&flags&TILE_FLIPPED_DIAGONAL)arr.reverse();convexPolys=C3.Behaviors.Physics.Separator.Separate(arr,rc.width()*rc.height());tileConvexPolyCache.set(poly,convexPolys);for(const v of arr)FreeVec2(v);C3.clearArray(arr)}for(let j=0,lenj=convexPolys.length;j<lenj;++j){const cp=convexPolys[j];for(let k=0,lenk=cp.length;k<lenk;++k)arr.push(GetVec2((rc.getLeft()+cp[k]["get_x"]()-offX)*worldScale,(rc.getTop()+cp[k]["get_y"]()-offY)*worldScale));const shape=C3.Behaviors.Physics.CreatePolygonShape(arr);
-fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape);for(const v of arr)FreeVec2(v);C3.clearArray(arr)}}else{arr.push(GetVec2((rc.getLeft()-offX)*worldScale,(rc.getTop()-offY)*worldScale));arr.push(GetVec2((rc.getRight()-offX)*worldScale,(rc.getTop()-offY)*worldScale));arr.push(GetVec2((rc.getRight()-offX)*worldScale,(rc.getBottom()-offY)*worldScale));arr.push(GetVec2((rc.getLeft()-offX)*worldScale,(rc.getBottom()-offY)*worldScale));const shape=C3.Behaviors.Physics.CreatePolygonShape(arr);
-fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape)}for(const v of arr)FreeVec2(v);C3.clearArray(arr)}}_DestroyBody(){if(!this._body)return;this._DestroyMyJoints();body2beh.delete(this._body);this._DestroyFixtures();this._world["DestroyBody"](this._body);this._body=null}_DestroyMyJoints(){for(const joint of this._myJoints)this._world["DestroyJoint"](joint);C3.clearArray(this._myJoints)}_RecreateMyJoints(){for(const j of this._myCreatedJoints)switch(j.type){case 0:this._DoCreateDistanceJoint(...j.params);
+"instancedestroy",e=>this._OnInstanceDestroyed(e.instance)),C3.Disposable.From(rt,"beforeload",()=>this._OnBeforeLoad()),C3.Disposable.From(rt,"afterload",()=>this._OnAfterLoad()));inst2beh.set(this._inst,this);if(this._isEnabled)this._StartTicking()}PostCreate(){this._CreateBody()}Release(){this._DestroyMyJoints();C3.clearArray(this._myCreatedJoints);this._joiningMe.clear();if(this._body){this._DestroyFixtures();this._world["DestroyBody"](this._body);this._body=null}super.Release()}_CreateFixture(fixDef){if(!this._body)return;
+const fixture=this._body["CreateFixture"](fixDef);this._fixtures.push(fixture);return fixture}_DestroyFixtures(){if(!this._body)return;for(const fixture of this._fixtures)this._body["DestroyFixture"](fixture);C3.clearArray(this._fixtures)}_GetBoundingQuadExcludingMesh(){const wi=this.GetWorldInfo();if(wi.HasMesh()){wi.CalculateBbox(tempRect,tempQuad,false);return tempQuad}else return wi.GetBoundingQuad()}_Destroy(o){this._box2d["destroy"](o)}_CreateBody(){if(!this._isEnabled)return;const b2FixtureDef=
+this._box2d["b2FixtureDef"];const b2BodyDef=this._box2d["b2BodyDef"];const wi=this.GetWorldInfo();if(!this._body){const bodyDef=new b2BodyDef;bodyDef["set_type"](this._isImmovable?0:2);const bquad=this._GetBoundingQuadExcludingMesh();bodyDef["set_position"](GetTempVec2B(bquad.midX()*this._worldScale,bquad.midY()*this._worldScale));bodyDef["set_angle"](wi.GetAngle());bodyDef["set_fixedRotation"](this._preventRotation);bodyDef["set_linearDamping"](this._linearDamping);bodyDef["set_angularDamping"](this._angularDamping);
+bodyDef["set_bullet"](this._isBullet);this._body=this._world["CreateBody"](bodyDef);this._Destroy(bodyDef);body2beh.set(this._body,this)}this._DestroyFixtures();const fixDef=new b2FixtureDef;fixDef["set_density"](this._density);fixDef["set_friction"](this._friction);fixDef["set_restitution"](this._restitution);const hasPoly=wi.HasOwnCollisionPoly();let useCollisionMask=this._collisionMask;if(!hasPoly&&!this._inst.HasTilemap()&&useCollisionMask===0)useCollisionMask=1;const instW=Math.max(Math.abs(wi.GetWidth()),
+1);const instH=Math.max(Math.abs(wi.GetHeight()),1);if(useCollisionMask===0)if(this._inst.HasTilemap())this._CreateTilemapFixtures(fixDef);else this._CreatePolygonFixture(fixDef,instW,instH);else if(useCollisionMask===1)this._CreateBoundingBoxFixture(fixDef,instW,instH);else this._CreateCircleFixture(fixDef,instW,instH);this._lastWidth=wi.GetWidth();this._lastHeight=wi.GetHeight();wi.SetPhysicsBodyChanged(false);this._Destroy(fixDef)}_CreateBoundingBoxFixture(fixDef,instW,instH){const b2PolygonShape=
+this._box2d["b2PolygonShape"];const shape=new b2PolygonShape;shape["SetAsBox"](instW*this._worldScale*.5,instH*this._worldScale*.5);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape)}_CreateCircleFixture(fixDef,instW,instH){const b2CircleShape=this._box2d["b2CircleShape"];const shape=new b2CircleShape;shape["set_m_radius"](Math.min(instW,instH)*this._worldScale*.5);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape)}_CreatePolygonFixture(fixDef,instW,
+instH){const wi=this.GetWorldInfo();const isMirrored=wi.GetWidth()<0;const isFlipped=wi.GetHeight()<0;const worldScale=this._worldScale;const angle=wi.GetAngle();if(angle!==0){wi.SetAngle(0);wi.SetBboxChanged()}const bquad=this._GetBoundingQuadExcludingMesh();const offX=bquad.midX()-wi.GetX();const offY=bquad.midY()-wi.GetY();if(angle!==0){wi.SetAngle(angle);wi.SetBboxChanged()}const transformedPoly=wi.GetCustomTransformedCollisionPoly(isMirrored?-instW:instW,isFlipped?-instH:instH,0);const ptsArr=
+transformedPoly.pointsArr();const ptsCount=ptsArr.length/2;const arr=[];for(let i=0;i<ptsCount;++i)arr.push(C3.Behaviors.Physics.GetVec2(ptsArr[i*2]-offX,ptsArr[i*2+1]-offY));if(isMirrored!==isFlipped)arr.reverse();const convexPolys=C3.Behaviors.Physics.Separator.Separate(arr,instW*instH);for(const v of arr)C3.Behaviors.Physics.FreeVec2(v);if(convexPolys.length)for(const arr2 of convexPolys){for(const vec of arr2){vec["set_x"](vec["get_x"]()*worldScale);vec["set_y"](vec["get_y"]()*worldScale)}const shape=
+C3.Behaviors.Physics.CreatePolygonShape(arr2);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape);for(const v of arr2)C3.Behaviors.Physics.FreeVec2(v)}else this._CreateBoundingBoxFixture(fixDef,instW,instH)}_CreateTilemapFixtures(fixDef){const wi=this.GetWorldInfo();const bquad=this._GetBoundingQuadExcludingMesh();const offX=bquad.midX()-wi.GetX();const offY=bquad.midY()-wi.GetY();const worldScale=this._worldScale;const GetVec2=C3.Behaviors.Physics.GetVec2;const FreeVec2=C3.Behaviors.Physics.FreeVec2;
+const collRects=[];this._inst.GetSdkInstance().GetAllCollisionRects(collRects);const arr=[];for(let i=0,len=collRects.length;i<len;++i){const c=collRects[i];const rc=c.GetRect();const poly=c.GetPoly();if(poly){let convexPolys=tileConvexPolyCache.get(poly);if(!convexPolys){const ptsArr=poly.pointsArr();const ptsCount=poly.pointCount();for(let j=0;j<ptsCount;++j)arr.push(GetVec2(ptsArr[j*2],ptsArr[j*2+1]));const flags=c.GetTileId()&TILE_FLAGS_MASK;if(flags===TILE_FLIPPED_HORIZONTAL||flags===TILE_FLIPPED_VERTICAL||
+flags===TILE_FLIPPED_DIAGONAL||flags&TILE_FLIPPED_HORIZONTAL&&flags&TILE_FLIPPED_VERTICAL&&flags&TILE_FLIPPED_DIAGONAL)arr.reverse();convexPolys=C3.Behaviors.Physics.Separator.Separate(arr,rc.width()*rc.height());tileConvexPolyCache.set(poly,convexPolys);for(const v of arr)FreeVec2(v);C3.clearArray(arr)}for(let j=0,lenj=convexPolys.length;j<lenj;++j){const cp=convexPolys[j];for(let k=0,lenk=cp.length;k<lenk;++k)arr.push(GetVec2((rc.getLeft()+cp[k]["get_x"]()-offX)*worldScale,(rc.getTop()+cp[k]["get_y"]()-
+offY)*worldScale));const shape=C3.Behaviors.Physics.CreatePolygonShape(arr);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape);for(const v of arr)FreeVec2(v);C3.clearArray(arr)}}else{arr.push(GetVec2((rc.getLeft()-offX)*worldScale,(rc.getTop()-offY)*worldScale));arr.push(GetVec2((rc.getRight()-offX)*worldScale,(rc.getTop()-offY)*worldScale));arr.push(GetVec2((rc.getRight()-offX)*worldScale,(rc.getBottom()-offY)*worldScale));arr.push(GetVec2((rc.getLeft()-offX)*worldScale,
+(rc.getBottom()-offY)*worldScale));const shape=C3.Behaviors.Physics.CreatePolygonShape(arr);fixDef["set_shape"](shape);this._CreateFixture(fixDef);this._Destroy(shape)}for(const v of arr)FreeVec2(v);C3.clearArray(arr)}}_DestroyBody(){if(!this._body)return;this._DestroyMyJoints();body2beh.delete(this._body);this._DestroyFixtures();this._world["DestroyBody"](this._body);this._body=null}_DestroyMyJoints(){for(const joint of this._myJoints)this._world["DestroyJoint"](joint);C3.clearArray(this._myJoints)}_RecreateMyJoints(){for(const j of this._myCreatedJoints)switch(j.type){case 0:this._DoCreateDistanceJoint(...j.params);
 break;case 1:this._DoCreateRevoluteJoint(...j.params);break;case 2:this._DoCreateLimitedRevoluteJoint(...j.params);break;case 3:this._DoCreatePrismaticJoint(...j.params);break;default:}}_GetInstImagePoint(imgPt){const wi=this.GetWorldInfo();if(imgPt===-1)return[wi.GetX(),wi.GetY()];if(imgPt===0&&this._body){const pos=this._body["GetPosition"]();const lc=this._body["GetLocalCenter"]();return[(pos["get_x"]()+lc["get_x"]())/this._worldScale,(pos["get_y"]()+lc["get_y"]())/this._worldScale]}return this._inst.GetImagePoint(imgPt)}_CreateDistanceJoint(imgPt,
 otherInst,otherImgPt,damping,freq){if(!this._isEnabled||!otherInst||otherInst===this._inst)return;if(!C3.Behaviors.Physics.Instance.LookupBehInstFromInst(otherInst))return;this._myCreatedJoints.push({type:0,params:[imgPt,otherInst.GetUID(),otherImgPt,damping,freq]});this._DoCreateDistanceJoint(imgPt,otherInst.GetUID(),otherImgPt,damping,freq)}_DoCreateDistanceJoint(imgPt,otherInstUid,otherImgPt,damping,freq){if(!this._isEnabled)return;const otherInst=this._runtime.GetInstanceByUID(otherInstUid);if(!otherInst||
 otherInst===this._inst||!inst2beh.has(otherInst))return;const otherBehInst=C3.Behaviors.Physics.Instance.LookupBehInstFromInst(otherInst);otherBehInst._joiningMe.add(this._inst);this._UpdateBodyToMatchInstance(false);otherBehInst._UpdateBodyToMatchInstance(false);const [myX,myY]=this._GetInstImagePoint(imgPt);const [theirX,theirY]=otherInst.GetImagePoint(otherImgPt);const dx=myX-theirX;const dy=myY-theirY;const b2DistanceJointDef=this._box2d["b2DistanceJointDef"];const worldScale=this._worldScale;
@@ -4151,8 +4152,8 @@ const otherBehInst=C3.Behaviors.Physics.Instance.LookupBehInstFromInst(otherInst
 otherBehInst.GetBody(),GetTempVec2A(myX*worldScale,myY*worldScale),GetTempVec2B(axisX,axisY));jointDef["set_enableLimit"](!!enableLimit);jointDef["set_lowerTranslation"](lowerTranslation*worldScale);jointDef["set_upperTranslation"](upperTranslation*worldScale);jointDef["set_enableMotor"](!!enableMotor);jointDef["set_motorSpeed"](C3.toRadians(motorSpeed));jointDef["set_maxMotorForce"](maxMotorForce);this._myJoints.push(this._world["CreateJoint"](jointDef));this._Destroy(jointDef)}_RemoveJoints(){if(!this._isEnabled)return;
 this._DestroyMyJoints();C3.clearArray(this._myCreatedJoints);this._joiningMe.clear()}_OnInstanceDestroyed(inst){const instUid=inst.GetUID();let j=0;for(let i=0,len=this._myCreatedJoints.length;i<len;++i){this._myCreatedJoints[j]=this._myCreatedJoints[i];if(j<this._myJoints.length)this._myJoints[j]=this._myJoints[i];if(this._myCreatedJoints[i].params[1]===instUid){if(i<this._myJoints.length)this._world["DestroyJoint"](this._myJoints[i])}else++j}C3.truncateArray(this._myCreatedJoints,j);if(j<this._myJoints.length)C3.truncateArray(this._myJoints,
 j);this._joiningMe.delete(inst)}GetBody(){return this._body}static LookupBehInstFromBody(body){return body2beh.get(body)||null}static LookupBehInstFromInst(inst){return inst2beh.get(inst)||null}SaveToJson(){const ret={"e":this._isEnabled,"pr":this._preventRotation,"d":this._density,"fr":this._friction,"re":this._restitution,"ld":this._linearDamping,"ad":this._angularDamping,"b":this._isBullet,"mcj":this._myCreatedJoints};if(this._isEnabled){const v=this._body["GetLinearVelocity"]();ret["vx"]=v["get_x"]();
-ret["vy"]=v["get_y"]();ret["om"]=this._body["GetAngularVelocity"]()}return ret}LoadFromJson(o){this._DestroyMyJoints();C3.clearArray(this._myCreatedJoints);this._joiningMe.clear();this._DestroyBody();this._isEnabled=o["e"];this._preventRotation=o["pr"];this._density=o["d"];this._friction=o["fr"];this._restitution=o["re"];this._linearDamping=o["ld"];this._angularDamping=o["ad"];this._isBullet=o["b"];this._myCreatedJoints=o["mcj"];const wi=this.GetWorldInfo();this._lastKnownX=wi.GetX();this._lastKnownY=
-wi.GetY();this._lastKnownAngle=wi.GetAngle();this._lastWidth=wi.GetWidth();this._lastHeight=wi.GetHeight();if(this._isEnabled){this._CreateBody();this._body["SetLinearVelocity"](GetTempVec2A(o["vx"],o["vy"]));this._body["SetAngularVelocity"](o["om"]);if(o["vx"]!==0||o["vy"]!==0||o["om"]!==0)this._body["SetAwake"](true);this._myCreatedJoints=o["mcj"]}if(this._isEnabled)this._StartTicking();else this._StopTicking()}_OnAfterLoad(){if(this._isEnabled)this._RecreateMyJoints()}Tick(){if(!this._isEnabled)return;
+ret["vy"]=v["get_y"]();ret["om"]=this._body["GetAngularVelocity"]()}return ret}_OnBeforeLoad(){this._DestroyMyJoints();C3.clearArray(this._myCreatedJoints);this._joiningMe.clear()}LoadFromJson(o){this._DestroyBody();this._isEnabled=o["e"];this._preventRotation=o["pr"];this._density=o["d"];this._friction=o["fr"];this._restitution=o["re"];this._linearDamping=o["ld"];this._angularDamping=o["ad"];this._isBullet=o["b"];this._myCreatedJoints=o["mcj"];const wi=this.GetWorldInfo();this._lastKnownX=wi.GetX();
+this._lastKnownY=wi.GetY();this._lastKnownAngle=wi.GetAngle();this._lastWidth=wi.GetWidth();this._lastHeight=wi.GetHeight();if(this._isEnabled){this._CreateBody();this._body["SetLinearVelocity"](GetTempVec2A(o["vx"],o["vy"]));this._body["SetAngularVelocity"](o["om"]);if(o["vx"]!==0||o["vy"]!==0||o["om"]!==0)this._body["SetAwake"](true);this._myCreatedJoints=o["mcj"]}if(this._isEnabled)this._StartTicking();else this._StopTicking()}_OnAfterLoad(){if(this._isEnabled)this._RecreateMyJoints()}Tick(){if(!this._isEnabled)return;
 const runtime=this._runtime;const behavior=this.GetBehavior();let dt=0;if(behavior.GetSteppingMode()===0)dt=runtime.GetTimeScale()/60;else{dt=runtime.GetDt(this._inst);if(dt>1/30)dt=1/30}const tickCount=runtime.GetTickCountNoSave();if(tickCount>behavior.GetLastUpdateTick()&&runtime.GetTimeScale()>0){const isDebug=this._runtime.IsDebug();let startTime=0;if(isDebug)startTime=performance.now();if(dt!==0)this._world["Step"](dt,behavior.GetVelocityIterations(),behavior.GetPositionIterations());this._world["ClearForces"]();
 if(isDebug)self.C3Debugger.AddPhysicsTime(performance.now()-startTime);behavior.SetLastUpdateTick(tickCount)}this._UpdateBodyToMatchInstance(true)}_UpdateBodyToMatchInstance(isTickUpdate){const inst=this._inst;const wi=inst.GetWorldInfo();const worldScale=this._worldScale;if(wi.GetWidth()!==this._lastWidth||wi.GetHeight()!==this._lastHeight||wi.IsPhysicsBodyChanged())this._CreateBody();const body=this._body;const posChanged=wi.GetX()!==this._lastKnownX||wi.GetY()!==this._lastKnownY;const angleChanged=
 wi.GetAngle()!==this._lastKnownAngle;if(posChanged){const bquad=this._GetBoundingQuadExcludingMesh();const newMidX=bquad.midX();const newMidY=bquad.midY();const diffX=newMidX-this._lastKnownX;const diffY=newMidY-this._lastKnownY;if(angleChanged)body["SetTransform"](GetTempVec2A(newMidX*worldScale,newMidY*worldScale),wi.GetAngle());else body["SetTransform"](GetTempVec2A(newMidX*worldScale,newMidY*worldScale),body["GetAngle"]());if(isTickUpdate){body["SetLinearVelocity"](GetTempVec2A(diffX,diffY));
@@ -4427,19 +4428,19 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Dictionary.Exps.CurrentValue,
 		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.Timeline.Acts.StopTimelineByTags,
+		C3.Plugins.Sprite.Acts.MoveToBottom,
 		C3.Plugins.Sprite.Acts.SetAngle,
 		C3.Plugins.Sprite.Exps.Width,
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.System.Exps.max,
 		C3.Plugins.LocalStorage.Acts.SetItem,
-		C3.Plugins.System.Exps.choose,
-		C3.Plugins.Sprite.Acts.SetEffectEnabled,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Sprite.Acts.SetMirrored,
 		C3.Plugins.System.Acts.CreateObject,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
+		C3.Plugins.Sprite.Acts.SetEffectEnabled,
 		C3.Behaviors.Rotate.Acts.SetEnabled,
 		C3.Behaviors.Fade.Acts.SetFadeOutTime,
 		C3.Plugins.Sprite.Cnds.IsBoolInstanceVarSet,
@@ -4469,6 +4470,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Dictionary.Cnds.CompareValue,
 		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
+		C3.Plugins.Sprite.Cnds.CompareOpacity,
 		C3.Plugins.System.Acts.SetBoolVar,
 		C3.Plugins.Touch.Exps.TouchID,
 		C3.Plugins.Touch.Cnds.OnTouchEnd,
@@ -4476,7 +4478,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.Touch.Exps.YForID,
 		C3.Plugins.System.Exps.min,
 		C3.Plugins.System.Acts.Scroll,
-		C3.Plugins.Sprite.Cnds.CompareOpacity,
 		C3.Plugins.System.Acts.GoToLayoutByName,
 		C3.Plugins.Sprite.Exps.AnimationName,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
@@ -4508,19 +4509,21 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.System.Exps.random,
 		C3.Behaviors.Physics.Acts.ApplyImpulseAtAngle,
 		C3.Behaviors.Physics.Acts.ApplyTorque,
-		C3.Plugins.Sprite.Acts.MoveToBottom,
+		C3.Plugins.System.Exps.choose,
 		C3.Behaviors.Bullet.Acts.SetAngleOfMotion,
 		C3.Plugins.Sprite.Exps.AnimationFrameCount,
+		C3.Plugins.Timeline.Cnds.OnTimelineStartedByTags,
+		C3.Behaviors.Timer.Acts.StartTimer,
+		C3.Behaviors.Timer.Cnds.OnTimer,
 		C3.Plugins.Arr.Cnds.CompareSize,
 		C3.Plugins.Tilemap.Exps.Width,
 		C3.Plugins.Arr.Acts.SetSize,
 		C3.Plugins.Tilemap.Exps.Height,
 		C3.Plugins.Arr.Cnds.ArrForEach,
 		C3.Plugins.Arr.Cnds.CompareCurrent,
-		C3.Plugins.Tilemap.Acts.SetTile,
+		C3.Plugins.Tilemap.Acts.EraseTile,
 		C3.Plugins.Arr.Exps.CurX,
 		C3.Plugins.Arr.Exps.CurY,
-		C3.Plugins.Tilemap.Acts.EraseTile,
 		C3.Plugins.Tilemap.Exps.PositionToTileX,
 		C3.Plugins.Tilemap.Exps.TileToPositionX,
 		C3.Plugins.Tilemap.Exps.PositionToTileY,
@@ -4543,14 +4546,15 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
 		C3.Plugins.Sprite.Acts.ToggleBoolInstanceVar,
 		C3.Plugins.Sprite.Cnds.IsOnScreen,
+		C3.Plugins.NinePatch.Cnds.CompareInstanceVar,
 		C3.Plugins.System.Cnds.Every,
-		C3.Plugins.Text.Cnds.CompareText,
+		C3.Plugins.NinePatch.Acts.SetEffectParam,
 		C3.Plugins.Button.Cnds.OnClicked,
+		C3.Plugins.NinePatch.Exps.X,
+		C3.Plugins.NinePatch.Exps.Y,
 		C3.Plugins.Sprite.Acts.SetWidth,
 		C3.Plugins.System.Exps.layoutwidth,
 		C3.Plugins.Tilemap.Exps.Y,
-		C3.Behaviors.Timer.Acts.StartTimer,
-		C3.Behaviors.Timer.Cnds.OnTimer,
 		C3.Behaviors.Timer.Cnds.IsTimerRunning,
 		C3.Plugins.Sprite.Cnds.PickChildren,
 		C3.Plugins.Particles.Acts.SetAngle,
@@ -4584,14 +4588,29 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		C3.Plugins.LocalStorage.Cnds.OnItemMissing,
 		C3.Plugins.Dictionary.Acts.AddKey,
 		C3.Plugins.LocalStorage.Cnds.CompareValue,
-		C3.Behaviors.Timer.Acts.StopTimer,
-		C3.Behaviors.EightDir.Acts.SimulateControl,
-		C3.Plugins.Sprite.Acts.SubInstanceVar,
+		C3.Plugins.Sprite.Acts.SetHeight,
 		C3.Plugins.System.Acts.RestartLayout,
+		C3.Plugins.Sprite.Acts.SetY,
+		C3.Plugins.System.Exps.originalviewportwidth,
+		C3.Plugins.TiledBg.Acts.SetImageOffsetY,
+		C3.Plugins.TiledBg.Exps.ImageOffsetY,
+		C3.Behaviors.EightDir.Acts.SimulateControl,
+		C3.Plugins.Sprite.Exps.ImagePointCount,
+		C3.Behaviors.Timer.Acts.StopTimer,
+		C3.Plugins.Sprite.Cnds.IsVisible,
+		C3.Plugins.Sprite.Acts.SetScale,
+		C3.Plugins.System.Acts.WaitForSignal,
+		C3.Plugins.Sprite.Acts.SubInstanceVar,
 		C3.Plugins.Sprite.Exps.Count,
 		C3.Plugins.Sprite.Acts.SetTowardPosition,
 		C3.Plugins.Sprite.Cnds.PickDistance,
-		C3.Plugins.Sprite.Exps.ImagePointCount
+		C3.Plugins.Sprite.Cnds.OnAnyAnimFinished,
+		C3.Behaviors.Fade.Acts.SetFadeInTime,
+		C3.Plugins.System.Acts.Signal,
+		C3.Plugins.NinePatch.Acts.SetSize,
+		C3.Plugins.NinePatch.Exps.Width,
+		C3.Plugins.NinePatch.Exps.Height,
+		C3.Plugins.NinePatch.Acts.SetInstanceVar
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -4628,7 +4647,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{TradeDescription: 0},
 		{give: 0},
 		{get: 0},
-		{TraderTradeButton: 0},
+		{TraderTradeInfo: 0},
 		{tab_frame: 0},
 		{Villager: 0},
 		{ZombieCollision: 0},
@@ -4659,7 +4678,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{item: 0},
 		{item_count: 0},
 		{price: 0},
-		{MinerBuyButton: 0},
+		{MinerOfferInfo: 0},
 		{MinerDescription: 0},
 		{name: 0},
 		{bought: 0},
@@ -4677,7 +4696,6 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{Timeline: 0},
 		{TreeParts: 0},
 		{Particles: 0},
-		{ShipDetailsText: 0},
 		{ShipDetails: 0},
 		{ShipDetailsButton: 0},
 		{ShipFuelButton: 0},
@@ -4727,7 +4745,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{BossUIArrows: 0},
 		{BossUIUltUse: 0},
 		{Rotate: 0},
-		{Sprite: 0},
+		{Asteroid: 0},
 		{EnemyShip: 0},
 		{DestroyOutsideLayout: 0},
 		{SpaceBullet: 0},
@@ -4797,8 +4815,37 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{TraderNextOfferText: 0},
 		{TraderChangeOfferButton: 0},
 		{TutDigArea: 0},
+		{ShipParts: 0},
+		{Particles4: 0},
+		{TiledBackground6: 0},
+		{Sprite2: 0},
+		{SpaceBack: 0},
+		{RocketParts: 0},
+		{ExpEffect: 0},
+		{BossHUDHealthBarBack: 0},
+		{BossHUDPlpayersHealthBar: 0},
+		{BossHUDBossHealthBar: 0},
+		{Fader: 0},
+		{CreditsText: 0},
+		{HealthBottomButton: 0},
+		{SlimeBottomButton: 0},
+		{WitchCurHealthText: 0},
+		{DiplomatBack: 0},
+		{GroundBack: 0},
+		{MinerPriceText: 0},
+		{MinerCountText: 0},
+		{init_w: 0},
+		{init_h: 0},
+		{sense: 0},
+		{"9patch": 0},
+		{"9patch2": 0},
+		{"9patch3": 0},
+		{UpParts: 0},
+		{ShipDetailsInfo: 0},
 		{TabSprites: 0},
 		{TabTexts: 0},
+		{Tab9patches: 0},
+		{ScaleEffect9patch: 0},
 		{PrologTyping: 0},
 		{PrologStep: 0},
 		{SelectedTool: 0},
@@ -4853,7 +4900,10 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		{MovingTouchID: 0},
 		{EnemyShipsSpawned: 0},
 		{BossFight: 0},
-		{BossHealth: 0}
+		{BossHealth: 0},
+		{BOSS_ENEMIES_TOTAL_COUNT: 0},
+		{in: 0},
+		{duration: 0}
 	];
 }
 
@@ -5056,27 +5106,14 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => f0(0, (v1.GetValue() + v2.GetValue()));
 		},
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0("gold", "iron", "copper");
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0("glass", "scheme", "details");
-		},
-		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
 		},
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const n1 = p._GetNode(1);
-			return () => f0(n1.ExpInstVar(), 1);
-		},
-		() => "Grayscale",
-		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (30 - (60 * v0.GetValue()));
 		},
+		() => "Grayscale",
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -5141,6 +5178,10 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => 16,
 		() => 17,
 		() => 18,
+		() => 20,
+		() => 20.5,
+		() => 21,
+		() => 22,
 		() => -1,
 		() => 28,
 		() => "oak_logs",
@@ -5208,11 +5249,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		},
 		() => "UI",
 		() => "FuncButton",
-		() => 0.1,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => ("H_" + n0.ExpObject());
 		},
+		() => 0.1,
 		() => "H_miner",
 		() => "H_ship",
 		() => "H_ship_fuel",
@@ -5261,11 +5302,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => C3.lerp(n0.ExpObject(), 341, 0.15);
+			return () => C3.lerp(n0.ExpObject(), 345, 0.15);
 		},
 		p => {
 			const n0 = p._GetNode(0);
-			return () => C3.lerp(n0.ExpObject(), 49, 0.15);
+			return () => C3.lerp(n0.ExpObject(), 48, 0.15);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -5369,6 +5410,7 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0((-180), 0);
 		},
+		() => "hideaxe",
 		() => "Tile interaction (digging)",
 		p => {
 			const n0 = p._GetNode(0);
@@ -5380,30 +5422,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const n2 = p._GetNode(2);
 			return () => n0.ExpObject(n1.ExpObject(n2.ExpObject()));
 		},
-		() => "Ground",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject(0);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => n0.ExpObject(n1.ExpObject());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => n0.ExpObject(8);
-		},
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
 			const v2 = p._GetNode(2).GetVar();
 			return () => n0.ExpObject(n1.ExpObject(v2.GetValue()));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			return () => n0.ExpObject(v1.GetValue());
 		},
 		() => "blocks_digged",
 		p => {
@@ -5418,6 +5441,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => Math.floor(f0(2, 4));
 		},
 		() => "Effects",
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue());
+		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
@@ -5452,6 +5480,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => (n0.ExpObject() + (Math.sin(C3.toRadians(C3.toDegrees(C3.angleTo(n1.ExpObject(), n2.ExpObject(), n3.ExpObject(), n4.ExpObject())))) * 70));
 		},
 		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => n0.ExpObject(n1.ExpObject());
+		},
+		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => Math.floor((v0.GetValue() / 9));
 		},
@@ -5468,9 +5501,15 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
+			return () => f0(n1.ExpInstVar(), 1);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const n1 = p._GetNode(1);
 			const n2 = p._GetNode(2);
 			return () => f0(0, subtract(n1.ExpObject(n2.ExpInstVar()), 1));
 		},
+		() => "ship_details",
 		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
@@ -5479,6 +5518,15 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("fuel", 1);
+		},
+		() => "All parts are complete",
+		() => -140746078815231,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			return () => and(and(and(and(n0.ExpObject(n1.ExpInstVar()), " left"), "\n"), "You have "), n2.ExpObject(n3.ExpInstVar()));
 		},
 		() => "Slime",
 		p => {
@@ -5512,6 +5560,11 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => "mi",
 		p => {
 			const n0 = p._GetNode(0);
+			return () => and("x ", n0.ExpInstVar());
+		},
+		() => "miner",
+		p => {
+			const n0 = p._GetNode(0);
 			return () => (-n0.ExpInstVar());
 		},
 		() => "mo",
@@ -5525,13 +5578,16 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v1 = p._GetNode(1).GetVar();
 			return () => n0.ExpObject((v1.GetValue() + 1), 1);
 		},
-		() => "0",
 		() => "slime",
 		() => "health",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 1);
 		},
+		() => "smith_axe",
+		() => "smith_gun",
+		() => "witch_slime",
+		() => "witch_health",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("Level ", (v0.GetValue() + 1));
@@ -5539,9 +5595,20 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => 0.5,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("gold", "iron", "copper");
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("glass", "scheme", "details");
+		},
+		() => "trader_trade",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("oak_logs", 1);
 		},
 		() => "H_trader",
+		() => "trader_oak_1",
+		() => "trader_oak_a",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => multiply(10, n0.ExpObject("oak_logs"));
@@ -5554,7 +5621,9 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject("oak_logs");
 		},
+		() => "trader_birch_1",
 		() => "birch_logs",
+		() => "trader_birch_a",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => multiply(50, n0.ExpObject("birch_logs"));
@@ -5567,8 +5636,10 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject("birch_logs");
 		},
+		() => "trader_pine_1",
 		() => "pine_logs",
 		() => 200,
+		() => "trader_pine_a",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => multiply(200, n0.ExpObject("pine_logs"));
@@ -5581,6 +5652,8 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject("pine_logs");
 		},
+		() => "trader_co_video",
+		() => "trader_co_rubies",
 		() => -3,
 		() => 300,
 		p => {
@@ -5589,9 +5662,16 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => unaryminus(n0.ExpObject((v1.GetValue() + 1), 1));
 		},
 		() => "cur_axe",
+		() => "H_smith",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 100);
+		},
 		() => "cur_gun",
+		() => "smith_shovel",
 		() => -50,
 		() => "cur_slime",
+		() => "H_witch",
 		() => "cur_health",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5599,6 +5679,8 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		},
 		() => "dark_logs",
 		() => "fuel",
+		() => "Fuel",
+		() => "H_diplomat",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("-", v0.GetValue());
@@ -5751,13 +5833,13 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v1 = p._GetNode(1).GetVar();
 			return () => (and(and(Math.ceil((v0.GetValue() / 10)), "("), (10 - (v1.GetValue() % 10))) + "/10)");
 		},
-		() => "inv",
-		() => "sdet",
 		() => "stips",
 		() => "u_axe",
 		() => "u_gun",
 		() => "u_slime",
 		() => "u_health",
+		() => "inv",
+		() => "sdet_def",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -5768,6 +5850,38 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		() => "birch",
 		() => "pine",
 		() => "sofia_last_index",
+		() => 10000,
+		() => 0.6,
+		() => "Player",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (240 * (n0.ExpInstVar() / 250));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (((-Math.pow((n0.ExpObject() - 640), 2)) / 2500) + 600);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => C3.clamp(n0.ExpObject(), 0, f1());
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => ((n0.ExpObject() + 0.02) + (0.02 * f1()));
+		},
+		() => "enemy_bullet",
+		() => "boss_bullet",
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (0.6 - (0.5 * n0.ExpInstVar()));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0() + 1);
+		},
+		() => "Boss",
 		() => "be",
 		() => 0.3,
 		p => {
@@ -5776,18 +5890,42 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			const v2 = p._GetNode(2).GetVar();
 			return () => f0(0, (v1.GetValue() - v2.GetValue()));
 		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (240 * (v0.GetValue() / 10000));
+		},
 		() => 5000,
 		() => "spec",
 		() => "bd",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (0.2 * f0());
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(200, 1080);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => (n0.ExpObject() + f1((-200), 200));
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(5, 10);
+		},
+		() => "fe",
 		() => "Win",
 		() => 8000,
 		() => 0.25,
 		() => "bo",
-		() => "Boss",
 		() => 220,
 		() => 640,
 		() => 1060,
 		() => "d",
+		() => "white",
+		() => "green",
+		() => "red",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 20);
@@ -5806,17 +5944,9 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 			return () => (n0.ExpObject() + 150);
 		},
 		() => -300,
-		() => 80,
-		() => "Asteroids",
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(100, 1180);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(300, 980);
-		},
-		() => 1200,
+		() => "bullet",
+		() => "blue",
+		() => "Enemies",
 		() => "EnemyShips",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5824,8 +5954,18 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(300, 980);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(100, 200);
 		},
+		() => "Asteroids",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(100, 1180);
+		},
+		() => 1200,
 		p => {
 			const n0 = p._GetNode(0);
 			const n1 = p._GetNode(1);
@@ -5841,21 +5981,14 @@ onedit:v=>this._speed=C3.toRadians(v)},{name:prefix+".properties.acceleration.na
 		},
 		() => 270,
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => (f0() + 1);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (0.6 - (0.5 * n0.ExpInstVar()));
-		},
-		() => 10000,
-		() => 0.6,
-		() => 20,
-		p => {
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
 			const n2 = p._GetNode(2);
 			return () => and(((and(((and("Player: ", n0.ExpInstVar()) + "\n") + "Boss: "), v1.GetValue()) + "\n") + "Spec timer: "), Math.floor(n2.ExpBehavior("spec")));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 8);
 		}
 	];
 }
