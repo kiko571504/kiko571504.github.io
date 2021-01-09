@@ -42,3 +42,33 @@ html, body, canvas {
 	src: url('fonts/19888.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: 'old19888';
+	src: url('fonts/old19888.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'future';
+	src: url('fonts/future.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'tt';
+	src: url('fonts/tt.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'rv';
+	src: url('fonts/rv.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'header';
+	src: url('fonts/header.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'texts';
+	src: url('fonts/texts.ttf') format('truetype');
+}
+
