@@ -4411,6 +4411,27 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 'use strict';{const C3=self.C3;C3.Behaviors.Pin.Exps={PinnedUID(){return this._pinInst?this._pinInst.GetUID():-1}}};
 
 
+'use strict';{const C3=self.C3;C3.Behaviors.scrollto=class ScrollToBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts);this._shakeMag=0;this._shakeStart=0;this._shakeEnd=0;this._shakeMode=0}Release(){super.Release()}SetShakeMagnitude(m){this._shakeMag=m}GetShakeMagnitude(){return this._shakeMag}SetShakeStart(s){this._shakeStart=s}GetShakeStart(){return this._shakeStart}SetShakeEnd(s){this._shakeEnd=s}GetShakeEnd(){return this._shakeEnd}SetShakeMode(m){this._shakeMode=m}GetShakeMode(){return this._shakeMode}}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.scrollto.Type=class ScrollToType extends C3.SDKBehaviorTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}};
+
+
+'use strict';{const C3=self.C3;const ENABLE=0;C3.Behaviors.scrollto.Instance=class ScrollToInstance extends C3.SDKBehaviorInstanceBase{constructor(inst,properties){super(inst);this._isEnabled=true;if(properties)this._isEnabled=properties[ENABLE];if(this._isEnabled)this._StartTicking2()}Release(){super.Release()}SaveToJson(){const behavior=this.GetBehavior();return{"e":this._isEnabled,"smg":behavior.GetShakeMagnitude(),"ss":behavior.GetShakeStart(),"se":behavior.GetShakeEnd(),"smd":behavior.GetShakeMode()}}LoadFromJson(o){const behavior=
+this.GetBehavior();behavior.SetShakeMagnitude(o["smg"]);behavior.SetShakeStart(o["ss"]);behavior.SetShakeEnd(o["se"]);behavior.SetShakeMode(o["smd"]);this._isEnabled=o["e"];if(this._isEnabled)this._StartTicking2();else this._StopTicking2()}IsEnabled(){return this._isEnabled}Tick2(){if(!this.IsEnabled())return;const dt=this._runtime.GetDt(this._inst);const behavior=this.GetBehavior();const allInstances=behavior.GetInstances();let sumX=0;let sumY=0;let count=0;for(const inst of allInstances){const behInst=
+inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.GetSdkInstance().IsEnabled())continue;const wi=inst.GetWorldInfo();sumX+=wi.GetX();sumY+=wi.GetY();++count}const layout=this._inst.GetWorldInfo().GetLayout();const now=this._runtime.GetGameTime();let offX=0;let offY=0;if(now>=behavior.GetShakeStart()&&now<behavior.GetShakeEnd()){let mag=behavior.GetShakeMagnitude()*Math.min(this._runtime.GetTimeScale(),1);if(behavior.GetShakeMode()===0)mag*=1-(now-behavior.GetShakeStart())/
+(behavior.GetShakeEnd()-behavior.GetShakeStart());const a=this._runtime.Random()*Math.PI*2;const d=this._runtime.Random()*mag;offX=Math.cos(a)*d;offY=Math.sin(a)*d}layout.SetScrollX(sumX/count+offX);layout.SetScrollY(sumY/count+offY)}GetPropertyValueByIndex(index){switch(index){case ENABLE:return this._isEnabled}}SetPropertyValueByIndex(index,value){switch(index){case ENABLE:this._isEnabled=!!value;this._isEnabled?this._StartTicking2():this._StopTicking2();break}}}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.scrollto.Cnds={IsEnabled(){return this._isEnabled}}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.scrollto.Acts={Shake(mag,dur,mode){const behavior=this.GetBehavior();behavior.SetShakeMagnitude(mag);behavior.SetShakeStart(this._runtime.GetGameTime());behavior.SetShakeEnd(this._runtime.GetGameTime()+dur);behavior.SetShakeMode(mode)},SetEnabled(e){this._isEnabled=e!==0;if(this._isEnabled)this._StartTicking2();else this._StopTicking2()}}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.scrollto.Exps={}};
+
+
 
 {
 	const C3 = self.C3;
@@ -4447,6 +4468,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		C3.Plugins.TiledBg,
 		C3.Behaviors.Pin,
 		C3.Plugins.ValerypopoffTouchPlusPlugin,
+		C3.Behaviors.scrollto,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Sprite.Acts.StopAnim,
 		C3.Plugins.AJAX.Acts.RequestFile,
@@ -4687,6 +4709,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Plugins.System.Exps.originalviewportwidth,
 		C3.Behaviors.EightDir.Acts.SimulateControl,
+		C3.Behaviors.scrollto.Acts.Shake,
 		C3.Plugins.Sprite.Exps.ImagePointCount,
 		C3.Behaviors.Timer.Acts.StopTimer,
 		C3.Plugins.Sprite.Acts.SetScale,
@@ -4703,7 +4726,8 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		C3.Plugins.Sprite.Exps.ImageWidth,
 		C3.Plugins.NinePatch.Acts.SetInstanceVar,
 		C3.Behaviors.Rotate.Acts.SetSpeed,
-		C3.Plugins.Sprite.Acts.SetZElevation
+		C3.Plugins.Sprite.Acts.SetZElevation,
+		C3.Plugins.System.Exps.projectversion
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -4936,7 +4960,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		{UpParts: 0},
 		{ShipDetailsInfo: 0},
 		{VillageBird: 0},
-		{Text: 0},
+		{MenuHeader: 0},
 		{TreeCoinIcon: 0},
 		{MenuText: 0},
 		{MenuTrash: 0},
@@ -4957,6 +4981,10 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		{Inv_PhysicsItem: 0},
 		{Button: 0},
 		{debugBtnsText: 0},
+		{ScrollTo: 0},
+		{BossCumera: 0},
+		{BossFireRageEffect: 0},
+		{MenuVerText: 0},
 		{TabSprites: 0},
 		{TabTexts: 0},
 		{Tab9patches: 0},
@@ -5305,16 +5333,20 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		() => 16,
 		() => 17,
 		() => 18,
+		() => 18.5,
 		() => 20,
 		() => 20.5,
 		() => 21,
 		() => 22,
+		() => 22.5,
+		() => 23,
 		() => -1,
 		() => 28,
 		() => "oak_logs",
 		() => "trader",
 		() => "smith",
-		() => 50,
+		() => 150,
+		() => 5000,
 		() => "Joystick",
 		p => {
 			const n0 = p._GetNode(0);
@@ -5481,6 +5513,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		() => -56078515778559,
 		() => -253178005055487,
 		() => "grayscale",
+		() => 50,
 		() => "Character",
 		() => "Movement",
 		() => "Chopping",
@@ -5754,7 +5787,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		() => "trader_oak_a",
 		p => {
 			const n0 = p._GetNode(0);
-			return () => multiply(10, n0.ExpObject("oak_logs"));
+			return () => multiply(5, n0.ExpObject("oak_logs"));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -5769,7 +5802,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		() => "trader_birch_a",
 		p => {
 			const n0 = p._GetNode(0);
-			return () => multiply(50, n0.ExpObject("birch_logs"));
+			return () => multiply(20, n0.ExpObject("birch_logs"));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -5781,11 +5814,11 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		},
 		() => "trader_pine_1",
 		() => "pine_logs",
-		() => 200,
+		() => 80,
 		() => "trader_pine_a",
 		p => {
 			const n0 = p._GetNode(0);
-			return () => multiply(200, n0.ExpObject("pine_logs"));
+			return () => multiply(80, n0.ExpObject("pine_logs"));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -5812,7 +5845,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		},
 		() => "cur_gun",
 		() => "smith_shovel",
-		() => -50,
+		() => -150,
 		() => "cur_slime",
 		() => "H_witch",
 		() => "cur_health",
@@ -6060,7 +6093,6 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 			const v0 = p._GetNode(0).GetVar();
 			return () => (240 * (v0.GetValue() / 10000));
 		},
-		() => 5000,
 		() => "spec",
 		() => "bd",
 		p => {
@@ -6085,6 +6117,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		() => 0.25,
 		() => "bo",
 		() => 220,
+		() => 200,
 		() => 640,
 		() => 1060,
 		() => "d",
@@ -6125,6 +6158,7 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(100, 200);
 		},
+		() => 4.8,
 		() => "Asteroids",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -6175,6 +6209,8 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 		},
 		() => "def",
 		() => "rev",
+		() => "credits_rate",
+		() => "credits_menu",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() + 3);
