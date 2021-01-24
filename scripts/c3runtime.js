@@ -4557,6 +4557,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.System.Cnds.CompareBetween,
 		C3.Plugins.Arr.Exps.Width,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
+		C3.Plugins.Audio.Acts.StopAll,
 		C3.Plugins.Sprite.Acts.Destroy,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.Sprite.Acts.SetSize,
@@ -5424,6 +5425,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => 15,
 		() => 16,
 		() => 17,
+		() => 17.5,
 		() => 18,
 		() => 18.5,
 		() => 20,
@@ -5432,6 +5434,10 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => 22,
 		() => 22.5,
 		() => 23,
+		() => 23.5,
+		() => 24.5,
+		() => 25,
+		() => 26,
 		() => -1,
 		() => 28,
 		() => "oak_logs",
@@ -5439,6 +5445,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "smith",
 		() => 150,
 		() => 5000,
+		() => "fuel",
 		() => "Audio",
 		() => "back",
 		() => "zomb_br",
@@ -5800,7 +5807,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			return () => f0((v1.GetValue() + v2.GetValue()), 10);
 		},
 		() => "fuel_inj",
-		() => "fuel",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
@@ -6131,11 +6137,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 50, 50, 1000);
+			return () => f0(100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 500, 500, 10000);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 100);
+			return () => f0(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 10);
 		},
 		() => -281480127631359,
 		p => {
