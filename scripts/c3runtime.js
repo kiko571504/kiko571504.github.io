@@ -3998,6 +3998,33 @@ RestorePurchases(){if(this.registrationState===REGISTERED)this.PostToDOM("restor
 ""}}};
 
 
+'use strict';{const C3=self.C3;const DOM_COMPONENT_ID="text-input";C3.Plugins.TextBox=class TextInputPlugin extends C3.SDKDOMPluginBase{constructor(opts){super(opts,DOM_COMPONENT_ID);this.AddElementMessageHandler("click",(sdkInst,e)=>sdkInst._OnClick(e));this.AddElementMessageHandler("dblclick",(sdkInst,e)=>sdkInst._OnDoubleClick(e));this.AddElementMessageHandler("change",(sdkInst,e)=>sdkInst._OnChange(e))}Release(){super.Release()}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TextBox.Type=class TextInputType extends C3.SDKTypeBase{constructor(objectClass){super(objectClass)}Release(){super.Release()}OnCreate(){}}};
+
+
+'use strict';{const C3=self.C3;const TEXT=0;const PLACEHOLDER=1;const TOOLTIP=2;const INITIALLY_VISIBLE=3;const ENABLE=4;const READ_ONLY=5;const SPELL_CHECK=6;const TYPE=7;const AUTO_FONT_SIZE=8;const ID=9;const DOM_COMPONENT_ID="text-input";const elemTypes=["text","password","email","number","tel","url","textarea","search"];C3.Plugins.TextBox.Instance=class TextInputInstance extends C3.SDKDOMInstanceBase{constructor(inst,properties){super(inst,DOM_COMPONENT_ID);this._text="";this._placeholder="";
+this._title="";this._isEnabled=true;this._isReadOnly=false;this._spellCheck=false;this._type="text";this._autoFontSize=true;this._maxLength=-1;this._id="";if(properties){this._text=properties[TEXT];this._placeholder=properties[PLACEHOLDER];this._title=properties[TOOLTIP];this.GetWorldInfo().SetVisible(properties[INITIALLY_VISIBLE]);this._isEnabled=properties[ENABLE];this._isReadOnly=properties[READ_ONLY];this._spellCheck=properties[SPELL_CHECK];this._type=elemTypes[properties[TYPE]];this._autoFontSize=
+properties[AUTO_FONT_SIZE];this._id=properties[ID]}this.CreateElement({"type":this._type,"id":this._id})}Release(){super.Release()}GetElementState(){return{"text":this._text,"placeholder":this._placeholder,"title":this._title,"isEnabled":this._isEnabled,"isReadOnly":this._isReadOnly,"spellCheck":this._spellCheck,"maxLength":this._maxLength}}async _OnClick(e){this.GetScriptInterface().dispatchEvent(C3.New(C3.Event,"click",true));await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnClicked)}async _OnDoubleClick(e){this.GetScriptInterface().dispatchEvent(C3.New(C3.Event,
+"dblclick",true));await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnDoubleClicked)}async _OnChange(e){this._text=e["text"];this.GetScriptInterface().dispatchEvent(C3.New(C3.Event,"change",true));await this.TriggerAsync(C3.Plugins.TextBox.Cnds.OnTextChanged)}_SetText(text){if(this._text===text)return;this._text=text;this.UpdateElementState()}_GetText(){return this._text}_SetPlaceholder(placeholder){if(this._placeholder===placeholder)return;this._placeholder=placeholder;this.UpdateElementState()}_GetPlaceholder(){return this._placeholder}_SetTooltip(title){if(this._title===
+title)return;this._title=title;this.UpdateElementState()}_GetTooltip(){return this._title}_SetEnabled(e){e=!!e;if(this._isEnabled===e)return;this._isEnabled=e;this.UpdateElementState()}_IsEnabled(){return this._isEnabled}_SetReadOnly(r){r=!!r;if(this._isReadOnly===r)return;this._isReadOnly=r;this.UpdateElementState()}_IsReadOnly(){return this._isReadOnly}_SetMaxLength(l){l=Math.max(+l,-1);if(this._maxLength===l)return;this._maxLength=l;this.UpdateElementState()}_GetMaxLength(){return this._maxLength}_ScrollToBottom(){Promise.resolve().then(()=>
+this.PostToDOMElement("scroll-to-bottom"))}Draw(renderer){}SaveToJson(){return{"t":this._text,"p":this._placeholder,"ti":this._title,"e":this._isEnabled,"r":this._isReadOnly,"sp":this._spellCheck,"ml":this._maxLength,"type":this._type,"id":this._id}}LoadFromJson(o){this._text=o["t"];this._placeholder=o["p"];this._title=o["ti"];this._isEnabled=o["e"];this._isReadOnly=o["r"];this._spellCheck=o["sp"];this._maxLength=o.hasOwnProperty("ml")?o["ml"]:-1;this._type=o["type"];this._id=o["id"];this.UpdateElementState()}GetPropertyValueByIndex(index){switch(index){case TEXT:return this._text;
+case PLACEHOLDER:return this._placeholder;case TOOLTIP:return this._title;case ENABLE:return this._isEnabled;case READ_ONLY:return this._isReadOnly;case SPELL_CHECK:return this._spellCheck;case AUTO_FONT_SIZE:return this._autoFontSize;case ID:return this._id}}SetPropertyValueByIndex(index,value){switch(index){case TEXT:if(this._text===value)return;this._text=value;this.UpdateElementState();break;case PLACEHOLDER:if(this._placeholder===value)return;this._placeholder=value;this.UpdateElementState();
+break;case TOOLTIP:if(this._title===value)return;this._title=value;this.UpdateElementState();break;case ENABLE:if(this._isEnabled===!!value)return;this._isEnabled=!!value;this.UpdateElementState();break;case READ_ONLY:if(this._isReadOnly===!!value)return;this._isReadOnly=!!value;this.UpdateElementState();break;case SPELL_CHECK:if(this._spellCheck===!!value)return;this._spellCheck=!!value;this.UpdateElementState();break;case AUTO_FONT_SIZE:this._autoFontSize=!!value;break;case ID:if(this._id===value)return;
+this._id=value;this.UpdateElementState();break}}GetDebuggerProperties(){const Acts=C3.Plugins.TextBox.Acts;const prefix="plugins.textbox";return[{title:prefix+".name",properties:[{name:prefix+".properties.text.name",value:this._text,onedit:v=>this.CallAction(Acts.SetText,v)},{name:prefix+".properties.enabled.name",value:this._isEnabled,onedit:v=>this.CallAction(Acts.SetEnabled,v)},{name:prefix+".properties.read-only.name",value:this._isReadOnly,onedit:v=>this.CallAction(Acts.SetReadOnly,v)}]}]}GetScriptInterfaceClass(){return self.ITextInputInstance}};
+const map=new WeakMap;self.ITextInputInstance=class ITextInputInstance extends self.IDOMInstance{constructor(){super();map.set(this,self.IInstance._GetInitInst().GetSdkInstance())}set text(str){map.get(this)._SetText(str)}get text(){return map.get(this)._GetText()}set placeholder(str){map.get(this)._SetPlaceholder(str)}get placeholder(){return map.get(this)._GetPlaceholder()}set tooltip(str){map.get(this)._SetTooltip(str)}get tooltip(){return map.get(this)._GetTooltip()}set isEnabled(e){map.get(this)._SetEnabled(e)}get isEnabled(){return map.get(this)._IsEnabled()}set isReadOnly(r){map.get(this)._SetReadOnly(r)}get isReadOnly(){return map.get(this)._IsReadOnly()}set maxLength(l){map.get(this)._SetMaxLength(l)}get maxLength(){return map.get(this)._GetMaxLength()}scrollToBottom(){map.get(this)._ScrollToBottom()}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TextBox.Cnds={CompareText(text,case_){if(case_===0)return C3.equalsNoCase(this._text,text);else return this._text===text},OnTextChanged(){return true},OnClicked(){return true},OnDoubleClicked(){return true}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TextBox.Acts={SetText(param){this._SetText(param.toString())},AppendText(param){if(param==="")return;this._SetText(this._GetText()+param)},SetPlaceholder(placeholder){this._SetPlaceholder(placeholder)},SetTooltip(title){this._SetTooltip(title)},SetReadOnly(r){this._SetReadOnly(r===0)},ScrollToBottom(){this._ScrollToBottom()},SetMaxLength(l){this._SetMaxLength(l)}}};
+
+
+'use strict';{const C3=self.C3;C3.Plugins.TextBox.Exps={Text(){return this._GetText()},MaxLength(){return this._GetMaxLength()}}};
+
+
 'use strict';{const C3=self.C3;C3.Behaviors.Fade=class FadeBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}};
 
 
@@ -4530,8 +4557,10 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Behaviors.scrollto,
 		C3.Plugins.advert,
 		C3.Plugins.CORDOVAIAP,
+		C3.Plugins.TextBox,
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Sprite.Acts.StopAnim,
+		C3.Plugins.Particles.Acts.SetSpraying,
 		C3.Plugins.AJAX.Acts.RequestFile,
 		C3.Plugins.Audio.Acts.Play,
 		C3.Plugins.System.Acts.Wait,
@@ -4550,6 +4579,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.Arr.Exps.At,
 		C3.Plugins.System.Exps.len,
 		C3.Plugins.System.Acts.AddVar,
+		C3.Plugins.Sprite.Acts.Destroy,
 		C3.Plugins.Sprite.Acts.StartAnim,
 		C3.Plugins.System.Acts.WaitForSignal,
 		C3.Plugins.System.Acts.GoToLayout,
@@ -4557,8 +4587,10 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.System.Cnds.CompareBetween,
 		C3.Plugins.Arr.Exps.Width,
 		C3.Plugins.Touch.Cnds.OnTouchObject,
-		C3.Plugins.Audio.Acts.StopAll,
-		C3.Plugins.Sprite.Acts.Destroy,
+		C3.Plugins.Audio.Acts.Stop,
+		C3.Plugins.Text.Cnds.IsRunningTypewriterText,
+		C3.Plugins.Audio.Cnds.IsTagPlaying,
+		C3.Plugins.Text.Cnds.OnTypewriterTextFinished,
 		C3.Plugins.Sprite.Acts.SetInstanceVar,
 		C3.Plugins.Sprite.Acts.SetSize,
 		C3.Plugins.System.Exps.viewportwidth,
@@ -4585,11 +4617,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.LocalStorage.Acts.ClearStorage,
 		C3.Plugins.LocalStorage.Cnds.OnCleared,
 		C3.Plugins.Browser.Acts.Reload,
-		C3.Plugins.System.Cnds.EveryTick,
-		C3.Plugins.Dictionary.Cnds.ForEachKey,
-		C3.Plugins.Text.Acts.AppendText,
-		C3.Plugins.Dictionary.Exps.CurrentKey,
-		C3.Plugins.Dictionary.Exps.CurrentValue,
 		C3.Plugins.System.Acts.Signal,
 		C3.Plugins.Tilemap.Acts.EraseTileRange,
 		C3.Plugins.Tilemap.Acts.Destroy,
@@ -4606,6 +4633,8 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.Sprite.Acts.SetAnimFrame,
 		C3.Plugins.System.Exps.max,
 		C3.Plugins.System.Cnds.CompareBoolVar,
+		C3.Plugins.Audio.Acts.PlayByName,
+		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Sprite.Acts.SetMirrored,
 		C3.Plugins.System.Acts.CreateObject,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
@@ -4623,6 +4652,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.Sprite.Exps.Height,
 		C3.Plugins.System.Cnds.Repeat,
 		C3.Plugins.System.Exps.loopindex,
+		C3.Plugins.System.Cnds.EveryTick,
 		C3.Plugins.Sprite.Exps.AnimationFrame,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Cnds.For,
@@ -4638,7 +4668,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.System.Cnds.TriggerOnce,
 		C3.Plugins.Sprite.Cnds.IsAnimPlaying,
 		C3.Plugins.Sprite.Cnds.CompareOpacity,
-		C3.Plugins.Audio.Acts.Stop,
 		C3.Plugins.Audio.Acts.Seek,
 		C3.Plugins.System.Exps.random,
 		C3.Plugins.System.Acts.SetBoolVar,
@@ -4648,6 +4677,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.Touch.Exps.YForID,
 		C3.Plugins.System.Exps.min,
 		C3.Plugins.System.Acts.Scroll,
+		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Plugins.System.Acts.GoToLayoutByName,
 		C3.Plugins.Sprite.Exps.AnimationName,
 		C3.Plugins.Touch.Cnds.IsTouchingObject,
@@ -4685,8 +4715,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Behaviors.Platform.Cnds.IsFalling,
 		C3.Behaviors.Platform.Cnds.IsByWall,
 		C3.Plugins.Timeline.Cnds.OnTimelineStartedByTags,
-		C3.Plugins.Audio.Acts.PlayByName,
-		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Sprite.Cnds.CompareX,
 		C3.Plugins.Sprite.Cnds.IsMirrored,
 		C3.Plugins.Timeline.Acts.SetInstance,
@@ -4698,7 +4726,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Behaviors.Physics.Acts.ApplyTorque,
 		C3.Behaviors.Bullet.Acts.SetAngleOfMotion,
 		C3.Plugins.Sprite.Acts.SetWidth,
-		C3.Plugins.Sprite.Exps.AnimationFrameCount,
 		C3.Behaviors.Timer.Acts.StartTimer,
 		C3.Behaviors.Timer.Cnds.OnTimer,
 		C3.Plugins.Arr.Cnds.CompareSize,
@@ -4722,10 +4749,13 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Behaviors.Platform.Cnds.OnJump,
 		C3.Behaviors.Platform.Cnds.OnLand,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
+		C3.Plugins.Dictionary.Cnds.ForEachKey,
 		C3.Plugins.Dictionary.Cnds.CompareCurrentValue,
+		C3.Plugins.Dictionary.Exps.CurrentKey,
 		C3.Plugins.Particles.Cnds.CompareInstanceVar,
 		C3.Plugins.Particles.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.Spawn,
+		C3.Plugins.Dictionary.Exps.CurrentValue,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
 		C3.Behaviors.MoveTo.Acts.SetMaxSpeed,
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
@@ -4733,10 +4763,9 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.Sprite.Cnds.IsOnScreen,
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.NinePatch.Acts.SetEffectParam,
-		C3.Plugins.Button.Cnds.OnClicked,
+		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.System.Cnds.PickNth,
 		C3.Plugins.Sprite.Acts.RotateClockwise,
-		C3.Plugins.Audio.Cnds.IsTagPlaying,
 		C3.Plugins.System.Exps.layoutwidth,
 		C3.Plugins.Tilemap.Exps.Y,
 		C3.Behaviors.Timer.Cnds.IsTimerRunning,
@@ -4752,7 +4781,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.Sprite.Acts.SetY,
 		C3.Plugins.System.Cnds.PickRandom,
 		C3.Plugins.Date.Exps.Now,
-		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.Date.Exps.ToTimerHours,
 		C3.Plugins.TiledBg.Acts.SetVisible,
 		C3.Plugins.TiledBg.Exps.X,
@@ -4768,12 +4796,13 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.CORDOVAIAP.Acts.CompleteRegistration,
 		C3.Plugins.LocalStorage.Acts.CheckItemExists,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
+		C3.Plugins.Text.Acts.AppendText,
 		C3.Plugins.Dictionary.Cnds.IsEmpty,
 		C3.Plugins.Dictionary.Acts.JSONLoad,
 		C3.Plugins.LocalStorage.Cnds.OnItemMissing,
+		C3.Plugins.LocalStorage.Cnds.OnItemGet,
 		C3.Plugins.LocalStorage.Cnds.OnItemExists,
 		C3.Plugins.LocalStorage.Acts.GetItem,
-		C3.Plugins.LocalStorage.Cnds.OnItemGet,
 		C3.Plugins.LocalStorage.Exps.ItemValue,
 		C3.Plugins.Date.Exps.ToTotalSeconds,
 		C3.Plugins.Dictionary.Acts.AddKey,
@@ -4811,7 +4840,9 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.NinePatch.Acts.SetInstanceVar,
 		C3.Behaviors.Rotate.Acts.SetSpeed,
 		C3.Plugins.Sprite.Acts.SetZElevation,
-		C3.Plugins.System.Exps.projectversion
+		C3.Plugins.System.Exps.projectversion,
+		C3.Plugins.TextBox.Acts.SetCSSStyle,
+		C3.Plugins.TextBox.Cnds.CompareText
 		];
 	};
 	self.C3_JsPropNameTable = [
@@ -5074,6 +5105,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		{ShopPriceText: 0},
 		{MobileIAP: 0},
 		{LoadingCircle: 0},
+		{TextInput: 0},
+		{StaticText: 0},
+		{CastleBack: 0},
+		{TraderTimerText: 0},
+		{GrassDark: 0},
 		{TabSprites: 0},
 		{TabTexts: 0},
 		{Tab9patches: 0},
@@ -5124,6 +5160,10 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		{FuelInjected: 0},
 		{value: 0},
 		{s: 0},
+		{TraderGive: 0},
+		{TraderGet: 0},
+		{TRADER_DEFAULT_TIMER: 0},
+		{TraderTimer: 0},
 		{r: 0},
 		{START_ZOMBIE_DELAY: 0},
 		{ZombieDelay: 0},
@@ -5139,6 +5179,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		{BossHealth: 0},
 		{BOSS_ENEMIES_TOTAL_COUNT: 0},
 		{ZeroProgress: 0},
+		{PromoUsed: 0},
 		{in: 0},
 		{duration: 0},
 		{mir: 0}
@@ -5245,17 +5286,17 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 	self.C3_ExpressionFuncs = [
 		() => "dialog",
 		() => 0,
-		() => "",
+		() => "prolog",
 		() => 8,
 		() => 100,
 		() => "SPACEJACK",
 		() => 24,
 		() => "Somewhere in the galaxy...",
-		() => "- I would destroy them!",
-		() => "- A little bit left",
-		() => "- Monopoly should not exist",
+		() => "I'll do it alone",
+		() => "Some ships in the distance",
+		() => "Oh no... pirates...",
 		() => 10,
-		() => 1,
+		() => 2,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
@@ -5283,6 +5324,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const v2 = p._GetNode(2).GetVar();
 			return () => (f0(n1.ExpObject(v2.GetValue(), 1)) / 20);
 		},
+		() => 1,
 		() => 3,
 		() => "te",
 		p => {
@@ -5293,6 +5335,8 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
 		},
+		() => "text",
+		() => -5,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0("ui") + 20);
@@ -5304,29 +5348,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "shot",
 		() => "axe",
 		() => "shovel",
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			const v1 = p._GetNode(1).GetVar();
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			return () => and((and((((((and("coins: ", v0.GetValue()) + "\n") + "selected tool: ") + v1.GetValue()) + "\n") + "health: "), n2.ExpInstVar()) + "/"), n3.ExpInstVar());
-		},
-		() => "Inventory: \n",
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => ((n0.ExpInstVar() + " -> ") + n1.ExpInstVar());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => (and((n0.ExpInstVar() + " x1 for "), n1.ExpInstVar()) + " coin(s)");
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => (and((n0.ExpObject() + " - "), n1.ExpObject()) + "\n");
-		},
 		() => "H_inventory",
 		() => 1000,
 		() => "rew",
@@ -5358,6 +5379,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const v2 = p._GetNode(2).GetVar();
 			return () => f0(0, (v1.GetValue() + v2.GetValue()));
 		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => and("coin_money_", f0(1, 2, 3, 4));
+		},
+		() => "",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (30 - (60 * v0.GetValue()));
@@ -5413,7 +5439,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		},
 		() => "tutstep",
 		() => "Forest",
-		() => 2,
 		() => 4,
 		() => 7,
 		() => "Village",
@@ -5425,7 +5450,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => 15,
 		() => 16,
 		() => 17,
-		() => 17.5,
 		() => 18,
 		() => 18.5,
 		() => 20,
@@ -5434,10 +5458,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => 22,
 		() => 22.5,
 		() => 23,
-		() => 23.5,
-		() => 24.5,
-		() => 25,
-		() => 26,
 		() => -1,
 		() => 28,
 		() => "oak_logs",
@@ -5445,7 +5465,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "smith",
 		() => 150,
 		() => 5000,
-		() => "fuel",
 		() => "Audio",
 		() => "back",
 		() => "zomb_br",
@@ -5518,6 +5537,10 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 1);
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -5641,9 +5664,8 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "steps",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0("axe1", "axe2", "axe3");
+			return () => and("chop_", f0(1, 2, 3, 4));
 		},
-		() => -5,
 		() => "Movement",
 		() => "Chopping",
 		() => "TreeM",
@@ -5807,6 +5829,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			return () => f0((v1.GetValue() + v2.GetValue()), 10);
 		},
 		() => "fuel_inj",
+		() => "fuel",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
@@ -5893,10 +5916,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		},
 		() => "slime",
 		() => "health",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 1);
-		},
 		() => "smith_axe",
 		() => "smith_gun",
 		() => "witch_slime",
@@ -5913,14 +5932,28 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("glass", "scheme", "details");
 		},
-		() => "trader_trade",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0("oak_logs", 1);
+			const v1 = p._GetNode(1).GetVar();
+			return () => f0(v1.GetValue(), 1);
 		},
-		() => "H_trader",
+		() => "trader_trade",
 		() => "trader_oak_1",
 		() => "trader_oak_a",
+		() => "trader_birch_1",
+		() => "trader_birch_a",
+		() => "birch_logs",
+		() => "trader_pine_1",
+		() => "trader_pine_a",
+		() => "pine_logs",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => (and((and(Math.floor((v0.GetValue() / 60)), "m:") + (((((v1.GetValue() % 60)) < (10) ? 1 : 0)) ? ("0") : (""))), (v2.GetValue() % 60)) + "s");
+		},
+		() => 400,
+		() => "H_trader",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => multiply(5, n0.ExpObject("oak_logs"));
@@ -5933,9 +5966,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject("oak_logs");
 		},
-		() => "trader_birch_1",
-		() => "birch_logs",
-		() => "trader_birch_a",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => multiply(20, n0.ExpObject("birch_logs"));
@@ -5948,10 +5978,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject("birch_logs");
 		},
-		() => "trader_pine_1",
-		() => "pine_logs",
 		() => 80,
-		() => "trader_pine_a",
 		p => {
 			const n0 = p._GetNode(0);
 			return () => multiply(80, n0.ExpObject("pine_logs"));
@@ -5997,7 +6024,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() + 1);
+			return () => (v0.GetValue() - 1);
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -6015,6 +6042,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const n1 = p._GetNode(1);
 			return () => (242 * (n0.ExpInstVar() / n1.ExpInstVar()));
 		},
+		() => -7,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(0, 1);
@@ -6103,6 +6131,16 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("oak_logs", "birch_logs", "pine_logs", "iron", "gold", "copper");
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => ((n0.ExpObject() - f1()) + 640);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => ((n0.ExpObject() - f1()) + 360);
+		},
 		() => 120,
 		() => "Chest",
 		() => "Gift",
@@ -6137,11 +6175,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 500, 500, 10000);
+			return () => f0(10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 50, 50, 1000);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 10);
+			return () => f0(1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 5, 5, 100);
 		},
 		() => -281480127631359,
 		p => {
@@ -6151,7 +6189,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const f3 = p._GetNode(3).GetBoundMethod();
 			return () => (n0.ExpObject() - ((1000 * (n1.ExpBehavior("a") - n2.ExpBehavior("a"))) * f3()));
 		},
-		() => 0.7,
+		() => 1.7,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() * 2);
@@ -6172,6 +6210,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "u_slime",
 		() => "u_health",
 		() => "zero_progress",
+		() => "promo",
 		() => "\nwait 3 seconds",
 		() => "inv",
 		() => "sdet_def",
@@ -6214,7 +6253,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const n0 = p._GetNode(0);
 			return () => (0.6 - (0.5 * n0.ExpInstVar()));
 		},
-		() => -7,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0() + 1);
@@ -6395,12 +6433,35 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("idle", "run");
 		},
+		() => "Confirm",
+		() => "Promo",
 		() => "menu_play",
 		() => "menu_back",
 		() => "menu_reset",
 		() => "menu_credits",
+		() => "menu_promo",
 		() => "https://play.google.com/store/apps/details?id=com.contemplatestudio.feller",
-		() => "https://play.google.com/store/apps/details?id=com.contemplatestudio.cube.jump.dash.jelly.physics.geometry"
+		() => "https://play.google.com/store/apps/details?id=com.contemplatestudio.cube.jump.dash.jelly.physics.geometry",
+		() => "border",
+		() => "5px solid white",
+		() => "border-radius",
+		() => "20px",
+		() => "outline",
+		() => "none",
+		() => "background",
+		() => "color",
+		() => "font-size",
+		() => "80px",
+		() => "font-weight",
+		() => "600",
+		() => "text-align",
+		() => "center",
+		() => "reset_yes",
+		() => "reset_no",
+		() => "promo_conf",
+		() => "1099",
+		() => 250,
+		() => "promo_back"
 	];
 }
 
