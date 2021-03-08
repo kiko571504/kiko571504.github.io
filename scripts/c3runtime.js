@@ -4210,6 +4210,26 @@ timer)}this._UpdateTickState()}Tick(){const dt=this._runtime.GetDt(this._inst);f
 'use strict';{const C3=self.C3;C3.Behaviors.Timer.Exps={CurrentTime(name){const timer=this._timers.get(name.toLowerCase());if(!timer)return 0;return timer.GetCurrentTime()},TotalTime(name){const timer=this._timers.get(name.toLowerCase());if(!timer)return 0;return timer.GetTotalTime()},Duration(name){const timer=this._timers.get(name.toLowerCase());if(!timer)return 0;return timer.GetDuration()}}};
 
 
+'use strict';{const C3=self.C3;C3.Behaviors.bound=class BoundBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.bound.Type=class BoundType extends C3.SDKBehaviorTypeBase{constructor(behaviorType){super(behaviorType)}Release(){super.Release()}OnCreate(){}}};
+
+
+'use strict';{const C3=self.C3;const MODE=0;C3.Behaviors.bound.Instance=class BoundInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);this._mode=0;if(properties)this._mode=properties[MODE];this._StartTicking2()}Release(){super.Release()}SaveToJson(){return{"m":this._mode}}LoadFromJson(o){this._mode=o["m"]}Tick2(){const wi=this._inst.GetWorldInfo();const bbox=wi.GetBoundingBox();const layout=wi.GetLayout();let isChanged=false;if(this._mode===0){if(wi.GetX()<
+0){wi.SetX(0);isChanged=true}if(wi.GetY()<0){wi.SetY(0);isChanged=true}if(wi.GetX()>layout.GetWidth()){wi.SetX(layout.GetWidth());isChanged=true}if(wi.GetY()>layout.GetHeight()){wi.SetY(layout.GetHeight());isChanged=true}}else{if(bbox.getLeft()<0){wi.OffsetX(-bbox.getLeft());isChanged=true}if(bbox.getTop()<0){wi.OffsetY(-bbox.getTop());isChanged=true}if(bbox.getRight()>layout.GetWidth()){wi.OffsetX(-(bbox.getRight()-layout.GetWidth()));isChanged=true}if(bbox.getBottom()>layout.GetHeight()){wi.OffsetY(-(bbox.getBottom()-
+layout.GetHeight()));isChanged=true}}if(isChanged)wi.SetBboxChanged()}GetPropertyValueByIndex(index){switch(index){case MODE:return this._mode}}SetPropertyValueByIndex(index,value){switch(index){case MODE:this._mode=value;break}}}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.bound.Cnds={}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.bound.Acts={}};
+
+
+'use strict';{const C3=self.C3;C3.Behaviors.bound.Exps={}};
+
+
 'use strict';{const C3=self.C3;C3.Behaviors.solid=class SolidBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts)}Release(){super.Release()}}};
 
 
@@ -4531,6 +4551,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Behaviors.MoveTo,
 		C3.Behaviors.Platform,
 		C3.Behaviors.Timer,
+		C3.Behaviors.bound,
 		C3.Plugins.Button,
 		C3.Plugins.Audio,
 		C3.Plugins.Browser,
@@ -4624,6 +4645,9 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.LocalStorage.Acts.SetItem,
 		C3.Plugins.System.Cnds.LayerVisible,
 		C3.Plugins.NinePatch.Cnds.CompareInstanceVar,
+		C3.Plugins.Dictionary.Cnds.ForEachKey,
+		C3.Plugins.Dictionary.Acts.SetKey,
+		C3.Plugins.Dictionary.Exps.CurrentKey,
 		C3.Plugins.Sprite.Cnds.CompareFrame,
 		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.Timeline.Acts.StopTimelineByTags,
@@ -4703,7 +4727,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.CORDOVAIAP.Cnds.OnPurchaseSuccess,
 		C3.Plugins.CORDOVAIAP.Exps.ProductPrice,
 		C3.Plugins.advert.Cnds.OnVideoCancelled,
-		C3.Plugins.Dictionary.Acts.SetKey,
 		C3.Plugins.Dictionary.Exps.Get,
 		C3.Plugins.Dictionary.Exps.AsJSON,
 		C3.Plugins.Dictionary.Cnds.HasKey,
@@ -4749,13 +4772,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Behaviors.Platform.Cnds.OnJump,
 		C3.Behaviors.Platform.Cnds.OnLand,
 		C3.Plugins.Sprite.Acts.SetPosToObject,
-		C3.Plugins.Dictionary.Cnds.ForEachKey,
 		C3.Plugins.Dictionary.Cnds.CompareCurrentValue,
-		C3.Plugins.Dictionary.Exps.CurrentKey,
 		C3.Plugins.Particles.Cnds.CompareInstanceVar,
 		C3.Plugins.Particles.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.Spawn,
-		C3.Plugins.Dictionary.Exps.CurrentValue,
+		C3.Plugins.System.Acts.StopLoop,
 		C3.Behaviors.MoveTo.Acts.MoveToPosition,
 		C3.Behaviors.MoveTo.Acts.SetMaxSpeed,
 		C3.Behaviors.MoveTo.Cnds.OnArrived,
@@ -4765,6 +4786,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		C3.Plugins.NinePatch.Acts.SetEffectParam,
 		C3.Plugins.System.Acts.SubVar,
 		C3.Plugins.System.Cnds.PickNth,
+		C3.Plugins.Dictionary.Exps.CurrentValue,
 		C3.Plugins.Sprite.Acts.RotateClockwise,
 		C3.Plugins.System.Exps.layoutwidth,
 		C3.Plugins.Tilemap.Exps.Y,
@@ -4873,6 +4895,7 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		{gun_power: 0},
 		{Platform: 0},
 		{Timer: 0},
+		{BoundToLayout: 0},
 		{CharacterCollision: 0},
 		{debug_tradeBtn: 0},
 		{debug_tradeBtnTradeUpdate: 0},
@@ -5158,8 +5181,8 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		{CurrentShipDetailsCount: 0},
 		{ShipStage: 0},
 		{FuelInjected: 0},
+		{empty: 0},
 		{value: 0},
-		{s: 0},
 		{TraderGive: 0},
 		{TraderGet: 0},
 		{TRADER_DEFAULT_TIMER: 0},
@@ -5359,11 +5382,29 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "debug_100",
 		() => "debug_1000",
 		() => "debug_r1",
+		() => "debug_r10",
+		() => "debug_wood",
+		() => "oak_logs",
+		() => "birch_logs",
+		() => "pine_logs",
+		() => "dark_logs",
+		() => "debug_metal",
+		() => "copper",
+		() => "iron",
+		() => "gold",
+		() => "debug_parts",
+		() => "glass",
+		() => "details",
+		() => "scheme",
+		() => "debug_fuel",
+		() => "fuel",
+		() => "debug_all",
 		() => "debug_set0",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (-v0.GetValue());
 		},
+		() => "debug_clear_inv",
 		() => 5,
 		() => "Functions",
 		() => "chop",
@@ -5460,7 +5501,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => 23,
 		() => -1,
 		() => 28,
-		() => "oak_logs",
 		() => "trader",
 		() => "smith",
 		() => 150,
@@ -5820,16 +5860,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "Ship",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0("fuel", 1);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
 			const v2 = p._GetNode(2).GetVar();
 			return () => f0((v1.GetValue() + v2.GetValue()), 10);
 		},
 		() => "fuel_inj",
-		() => "fuel",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
@@ -5847,6 +5882,10 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
 			return () => (Math.floor(((n0.ExpObject() - 1) * (v1.GetValue() / 52))) - 1);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("fuel", 1);
 		},
 		() => "All parts are complete",
 		() => -140746078815231,
@@ -5874,17 +5913,14 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(1, 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 8);
 		},
-		() => "gold",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => Math.ceil(f0(250, 500));
 		},
-		() => "iron",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => Math.ceil(f0(70, 200));
 		},
-		() => "copper",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => Math.ceil(f0(20, 80));
@@ -5942,10 +5978,8 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "trader_oak_a",
 		() => "trader_birch_1",
 		() => "trader_birch_a",
-		() => "birch_logs",
 		() => "trader_pine_1",
 		() => "trader_pine_a",
-		() => "pine_logs",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
@@ -6015,7 +6049,6 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0("dark_logs", 10);
 		},
-		() => "dark_logs",
 		() => "Fuel",
 		() => "H_diplomat",
 		p => {
@@ -6328,6 +6361,11 @@ inst.GetBehaviorInstanceFromCtor(C3.Behaviors.scrollto);if(!behInst||!behInst.Ge
 		() => "blue",
 		() => "Enemies",
 		() => -8,
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => (n0.ExpObject() + f1((-10), 10));
+		},
 		() => "EnemyShips",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
