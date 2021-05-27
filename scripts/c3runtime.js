@@ -3257,6 +3257,8 @@ const map=new WeakMap;self.IBulletBehaviorInstance=class IBulletBehaviorInstance
 		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.NinePatch.Acts.AddChild,
 		C3.Plugins.Arr.Exps.At,
+		C3.Plugins.Touch.Cnds.OnDoubleTapGestureObject,
+		C3.Plugins.System.Exps.projectversion,
 		C3.Plugins.LocalStorage.Acts.CheckItemExists,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.System.Acts.GoToLayout,
@@ -3325,6 +3327,8 @@ const map=new WeakMap;self.IBulletBehaviorInstance=class IBulletBehaviorInstance
 		{CustomPopColors: 0},
 		{OpenedPopColors: 0},
 		{StaticText: 0},
+		{VerText: 0},
+		{CheatButton: 0},
 		{ScaleEffect: 0},
 		{CurrentPopit: 0},
 		{Coins: 0},
@@ -3600,11 +3604,15 @@ const map=new WeakMap;self.IBulletBehaviorInstance=class IBulletBehaviorInstance
 			const n1 = p._GetNode(1);
 			return () => n0.ExpObject(n1.ExpInstVar());
 		},
-		() => "def",
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(7, 13, 21, 52);
+		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0();
-		}
+		},
+		() => "def"
 	];
 }
 
