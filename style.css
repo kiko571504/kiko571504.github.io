@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #000000;
+	background: #00c785;
 	color: white;
 }
 
@@ -40,5 +40,10 @@ html, body, canvas {
 @font-face {
 	font-family: 'comix';
 	src: url('fonts/comix.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'montserrat';
+	src: url('fonts/montserrat.ttf') format('truetype');
 }
 

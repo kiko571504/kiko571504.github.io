@@ -1,11 +1,11 @@
 {
-	"name": "Pop it",
-	"short_name": "Pop it",
+	"name": "SIMPLE DIMPLE",
+	"short_name": "SIMPLE DIMPLE",
 	"description": "Pop it simple dimple antistress",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",
-	"background_color": "#000000",
+	"background_color": "#00c785",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",
