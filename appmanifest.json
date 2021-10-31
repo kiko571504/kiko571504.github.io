@@ -1,11 +1,11 @@
 {
-	"name": "Pop it",
-	"short_name": "Pop it",
-	"description": "Pop it simple dimple antistress",
+	"name": "Covid Defender",
+	"short_name": "Covid Defender",
+	"description": "Lockdown coronavirus mask virus QR pandemic epidemy",
 	"start_url": "index.html",
 	"display": "fullscreen",
 	"orientation": "portrait",
-	"background_color": "#000000",
+	"background_color": "#0063c7",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",

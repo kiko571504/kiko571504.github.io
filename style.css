@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #000000;
+	background: #0063c7;
 	color: white;
 }
 
@@ -38,7 +38,37 @@ html, body, canvas {
 
 
 @font-face {
-	font-family: 'comix';
-	src: url('fonts/comix.otf') format('opentype');
+	font-family: 'kanit-bold';
+	src: url('fonts/kanit-bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'kanit-extrabold';
+	src: url('fonts/kanit-extrabold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'kanit-regular';
+	src: url('fonts/kanit-regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'montserrat-bold';
+	src: url('fonts/montserrat-bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'montserrat-extrabold';
+	src: url('fonts/montserrat-extrabold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'montserrat-medium';
+	src: url('fonts/montserrat-medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'montserrat-regular';
+	src: url('fonts/montserrat-regular.ttf') format('truetype');
 }
 
