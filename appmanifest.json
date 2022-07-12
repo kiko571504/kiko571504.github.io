@@ -1,11 +1,11 @@
 {
-	"name": "Covid Defender",
-	"short_name": "Covid Defender",
-	"description": "Lockdown coronavirus mask virus QR pandemic epidemy",
+	"name": "Noobdom",
+	"short_name": "Noobdom",
+	"description": "noobdom",
 	"start_url": "index.html",
 	"display": "fullscreen",
-	"orientation": "portrait",
-	"background_color": "#0063c7",
+	"orientation": "landscape",
+	"background_color": "#000000",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",

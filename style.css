@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #0063c7;
+	background: #000000;
 	color: white;
 }
 
@@ -36,39 +36,39 @@ html, body, canvas {
 	color: #888;
 }
 
+/* bbcode styles */
+.bbCodeH1 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.bbCodeH2 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.bbCodeH3 {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.bbCodeH4 {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.bbCodeItem::before {
+	content: " • ";
+}
+
 
 @font-face {
-	font-family: 'kanit-bold';
-	src: url('fonts/kanit-bold.ttf') format('truetype');
+	font-family: 'fredokaone-regular';
+	src: url('fonts/fredokaone-regular.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'kanit-extrabold';
-	src: url('fonts/kanit-extrabold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'kanit-regular';
-	src: url('fonts/kanit-regular.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'montserrat-bold';
-	src: url('fonts/montserrat-bold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'montserrat-extrabold';
-	src: url('fonts/montserrat-extrabold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'montserrat-medium';
-	src: url('fonts/montserrat-medium.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'montserrat-regular';
-	src: url('fonts/montserrat-regular.ttf') format('truetype');
+	font-family: 'caveat-variablefont_wght';
+	src: url('fonts/caveat-variablefont_wght.ttf') format('truetype');
 }
 
