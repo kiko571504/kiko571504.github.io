@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #00c785;
+	background: #000000;
 	color: white;
 }
 
@@ -36,14 +36,49 @@ html, body, canvas {
 	color: #888;
 }
 
+/* bbcode styles */
+.bbCodeH1 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.bbCodeH2 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.bbCodeH3 {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.bbCodeH4 {
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+.bbCodeItem::before {
+	content: " • ";
+}
+
 
 @font-face {
-	font-family: 'comix';
-	src: url('fonts/comix.otf') format('opentype');
+	font-family: 'fredokaone-regular';
+	src: url('fonts/fredokaone-regular.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'montserrat';
-	src: url('fonts/montserrat.ttf') format('truetype');
+	font-family: 'caveat-variablefont_wght';
+	src: url('fonts/caveat-variablefont_wght.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'cubicpixel';
+	src: url('fonts/cubicpixel.otf') format('opentype');
+}
+
+@font-face {
+	font-family: 'rubikwetpaint-regular';
+	src: url('fonts/rubikwetpaint-regular.ttf') format('truetype');
 }
 
