@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
 	"name": "Noob vs Pro Castle Defence",
 	"short_name": "Noob vs Pro Castle Defence",
-=======
-	"name": "Noobdom",
-	"short_name": "Noobdom",
->>>>>>> d06e1ebe69ab6ca89414920ee64d29c50037401c
 	"description": "noobdom",
 	"start_url": "index.html",
 	"display": "fullscreen",
