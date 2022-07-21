@@ -4373,11 +4373,11 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetLayerScale,
 		C3.Plugins.NinePatch.Cnds.IsOnLayer,
 		C3.Plugins.System.Exps.tokenat,
+		C3.Behaviors.Platform.Acts.SetMaxSpeed,
 		C3.Plugins.Text.Cnds.CompareInstanceVar,
 		C3.Plugins.NinePatch.Acts.Destroy,
 		C3.Plugins.Sprite.Cnds.IsOnLayer,
 		C3.Plugins.Sprite.Acts.AddInstanceVar,
-		C3.Behaviors.Platform.Acts.SetMaxSpeed,
 		C3.Behaviors.Platform.Acts.SetAcceleration,
 		C3.Behaviors.Platform.Acts.SetDeceleration,
 		C3.Behaviors.Platform.Exps.Acceleration,
@@ -4429,6 +4429,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Timeline.Acts.SetInstance,
 		C3.Plugins.System.Exps.layoutwidth,
 		C3.Plugins.System.Acts.StopLoop,
+		C3.Plugins.Audio.Acts.SetPaused,
 		C3.Plugins.System.Acts.WaitForSignal,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.Audio.Acts.Stop,
@@ -4954,6 +4955,10 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const n0 = p._GetNode(0);
+			return () => (400 + (100 * n0.ExpInstVar()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
 			return () => Math.pow(2, n0.ExpInstVar());
 		},
 		p => {
@@ -4965,10 +4970,6 @@ self.C3_ExpressionFuncs = [
 			return () => ("baseboost_button_" + n0.ExpInstVar());
 		},
 		() => "horse",
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (500 + (150 * n0.ExpInstVar()));
-		},
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (1500 + (500 * n0.ExpInstVar()));
@@ -5368,6 +5369,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "Pause",
 		() => "pause",
+		() => "gallop",
 		() => "pause_resume",
 		() => "pause_menu",
 		() => "fi_finished",
@@ -5377,7 +5379,6 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => and("gallop", Math.floor(f0(1, 3)));
 		},
-		() => "gallop",
 		() => "Ads",
 		() => "sounds",
 		() => "...LOADING...",
