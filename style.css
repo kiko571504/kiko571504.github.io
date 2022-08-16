@@ -3,7 +3,7 @@ html, body {
 	margin: 0;
 	overflow: hidden;
 	
-	background: #000000;
+	background: #0063c7;
 	color: white;
 }
 
@@ -63,22 +63,17 @@ html, body, canvas {
 
 
 @font-face {
-	font-family: 'fredokaone-regular';
-	src: url('fonts/fredokaone-regular.ttf') format('truetype');
+	font-family: 'comix';
+	src: url('fonts/comix.otf') format('opentype');
 }
 
 @font-face {
-	font-family: 'caveat-variablefont_wght';
-	src: url('fonts/caveat-variablefont_wght.ttf') format('truetype');
+	font-family: 'montserrat';
+	src: url('fonts/montserrat.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'cubicpixel';
-	src: url('fonts/cubicpixel.otf') format('opentype');
-}
-
-@font-face {
-	font-family: 'rubikwetpaint-regular';
-	src: url('fonts/rubikwetpaint-regular.ttf') format('truetype');
+	font-family: 'retronomeregular';
+	src: url('fonts/retronomeregular.otf') format('opentype');
 }
 

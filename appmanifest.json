@@ -1,11 +1,11 @@
 {
-	"name": "Noob vs Pro Castle Defence",
-	"short_name": "Noob vs Pro Castle Defence",
-	"description": "noobdom",
+	"name": "POP IT",
+	"short_name": "POP IT",
+	"description": "Pop it simple dimple antistress",
 	"start_url": "index.html",
 	"display": "fullscreen",
-	"orientation": "any",
-	"background_color": "#000000",
+	"orientation": "portrait",
+	"background_color": "#0063c7",
 	"icons": [
 		{
 			"src": "icons/icon-16.png",
