@@ -3978,201 +3978,6 @@ objectClass)}}}{const C3=self.C3;C3.Plugins.Shape3D.Cnds={CompareShape(s){return
 }
 
 {
-const C3 = self.C3;
-C3.Plugins.EZ_GameDev = class EZ_GameDevPlugin extends C3.SDKPluginBase
-{
-	constructor(opts)
-	{
-		super(opts);
-	}
-	Release()
-	{
-		super.Release();
-	}
-};
-}
-
-{
-const C3 = self.C3;
-C3.Plugins.EZ_GameDev.Type = class EZ_GameDevType extends C3.SDKTypeBase
-{
-	constructor(objectClass)
-	{
-		super(objectClass);
-	}
-	Release()
-	{
-		super.Release();
-	}
-	OnCreate() {}
-};
-}
-
-{
-const C3 = self.C3;
-C3.Plugins.EZ_GameDev.Instance = class EZ_GameDevInstance extends C3.SDKInstanceBase
-{
-	constructor(inst, properties)
-	{
-		super(inst);
-		this._gameID = "";
-		this._sdkReady = false;
-		this._adPlaying = false;
-		this._adViewed = false;
-		this._giveReward = false;
-		this._preloadedAd = false;
-		// this._available_adtypes = ["interstitial", "rewarded"];
-		
-		if (properties)
-		{
-			this._gameID = properties[0];
-		}
-		
-		window["GD_OPTIONS"] = {
-			gameId: this._gameID,
-			advertisementSettings: {},
-			onEvent: event => {
-				switch (event.name) {
-					case "SDK_GAME_START":
-						this._adPlaying = false;
-						console.log("SDK_GAME_START | " + "this._adPlaying = false");
-						break;
-					case "SDK_GAME_PAUSE":
-						this._adPlaying = true;
-						console.log("SDK_GAME_PAUSE | " + "this._adPlaying = true");
-						break;
-					case "SDK_GDPR_TRACKING":
-						console.log("SDK_GDPR_TRACKING");
-						break;
-					case "SDK_GDPR_TARGETING":
-						console.log("SDK_GDPR_TARGETING");
-						break;
-					case "SDK_REWARDED_WATCH_COMPLETE":
-						this._giveReward = true;
-						console.log("SDK_REWARDED_WATCH_COMPLETE | " + "this._giveReward = true");
-						this.Trigger(C3.Plugins.EZ_GameDev.Cnds.RewardPlayer2, null);
-						setTimeout(() => {
-							this._giveReward = false;
-							console.log("SDK_REWARDED_WATCH_COMPLETE | " + "this._giveReward = false");
-						}, 5000);
-						break;
-					case "COMPLETE":
-						this._adViewed = true;
-						console.log("COMPLETE | " + "this._adViewed = true");
-						setTimeout(() => {
-							this._adViewed = false;
-							console.log("COMPLETE | " + "this._adViewed = false");
-						}, 5000);
-						break;
-					case "SDK_READY":
-						this._sdkReady = true;
-						console.log("SDK_READY | " + "this._sdkReady = true");
-						break;
-				}
-			}
-		};
-		
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) return;
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//html5.api.gamedistribution.com/main.min.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		})(document, "script", "gamedistribution-jssdk");
-	}
-	Release()
-	{
-		super.Release();
-	}
-	PreloadRewardedAd()
-	{
-		this._preloadedAd = false;
-		console.log("this._preloadedAd = false");
-		var gdsdk = window["gdsdk"];
-		if (gdsdk !== "undefined" && gdsdk.preloadAd !== "undefined")
-		{
-			gdsdk
-			  .preloadAd("rewarded")
-			  .then(() => {
-				this._preloadedAd = true;
-				console.log("this._preloadedAd = true");
-			  })
-			  .catch(error => {
-				this._preloadedAd = false;
-				console.log("this._preloadedAd = false");
-			  });
-		}
-	}
-	ShowAd(adType)
-	{
-		var gdsdk = window["gdsdk"];
-		if (gdsdk !== "undefined" && gdsdk.showAd !== "undefined")
-		{
-			gdsdk.showAd(adType);
-			if (adType === "rewarded")
-			{
-				this._preloadedAd = false;
-				console.log("this._preloadedAd = false");
-			}
-		}
-    }
-};
-}
-
-{
-self.C3.Plugins.EZ_GameDev.Cnds =
-{
-	ResumeGame()
-	{
-		return !this._adPlaying;
-	},
-	PauseGame()
-	{
-		return this._adPlaying;
-	},
-	PreloadedAd()
-	{
-		return this._preloadedAd;
-	},
-	AdViewed()
-	{
-		return this._adViewed;
-	},
-	RewardPlayer()
-	{
-		return this._giveReward;
-	},
-	RewardPlayer2()
-	{
-		return true;
-	}
-};
-}
-
-{
-self.C3.Plugins.EZ_GameDev.Acts =
-{
-	ShowAd()
-	{
-		this.ShowAd();
-	},
-	ShowRewardedAd()
-	{
-		this.ShowAd("rewarded");
-	},
-	PreloadRewardedAd()
-	{
-		this.PreloadRewardedAd();
-	}
-};
-}
-
-{
-self.C3.Plugins.EZ_GameDev.Exps = {};
-}
-
-{
 "use strict";
 {
     C3.Plugins.Eponesh_YandexSDK = class YandexSDKPlugin extends C3.SDKDOMPluginBase {
@@ -5230,6 +5035,21 @@ d},Unpin(){this._SetPinInst(null);this._mode="";this._propSet.clear();this._pinI
 }
 
 {
+'use strict';{const C3=self.C3;C3.Behaviors.DragnDrop=class DragnDropBehavior extends C3.SDKBehaviorBase{constructor(opts){super(opts);const rt=this._runtime.Dispatcher();this._disposables=new C3.CompositeDisposable(C3.Disposable.From(rt,"pointerdown",e=>this._OnPointerDown(e.data)),C3.Disposable.From(rt,"pointermove",e=>this._OnPointerMove(e.data)),C3.Disposable.From(rt,"pointerup",e=>this._OnPointerUp(e.data,false)),C3.Disposable.From(rt,"pointercancel",e=>this._OnPointerUp(e.data,true)))}Release(){this._disposables.Release();
+this._disposables=null;super.Release()}_OnPointerDown(e){if(e["pointerType"]==="mouse"&&e["button"]!==0)return;this._OnInputDown(e["pointerId"].toString(),e["pageX"]-this._runtime.GetCanvasClientX(),e["pageY"]-this._runtime.GetCanvasClientY())}_OnPointerMove(e){if((e["lastButtons"]&1)!==0&&(e["buttons"]&1)===0)this._OnInputUp(e["pointerId"].toString());else this._OnInputMove(e["pointerId"].toString(),e["pageX"]-this._runtime.GetCanvasClientX(),e["pageY"]-this._runtime.GetCanvasClientY())}_OnPointerUp(e,
+isCancel){if(e["pointerType"]==="mouse"&&e["button"]!==0)return;this._OnInputUp(e["pointerId"].toString())}async _OnInputDown(src,clientX,clientY){const myInstances=this.GetInstances();let topMost=null;let topBehInst=null;let topX=0;let topY=0;for(const inst of myInstances){const behInst=inst.GetBehaviorSdkInstanceFromCtor(C3.Behaviors.DragnDrop);if(!behInst.IsEnabled()||behInst.IsDragging()||inst.IsDestroyed())continue;const wi=inst.GetWorldInfo();const layer=wi.GetLayer();const [lx,ly]=layer.CanvasCssToLayer(clientX,
+clientY,wi.GetTotalZElevation());if(!layer.IsSelfAndParentsInteractive()||!wi.ContainsPoint(lx,ly))continue;if(!topMost){topMost=inst;topBehInst=behInst;topX=lx;topY=ly;continue}const topWi=topMost.GetWorldInfo();if(layer.GetIndex()>topWi.GetLayer().GetIndex()||layer.GetIndex()===topWi.GetLayer().GetIndex()&&wi.GetZIndex()>topWi.GetZIndex()){topMost=inst;topBehInst=behInst;topX=lx;topY=ly}}if(topMost)await topBehInst._OnDown(src,topX,topY)}_OnInputMove(src,clientX,clientY){const myInstances=this.GetInstances();
+for(const inst of myInstances){const behInst=inst.GetBehaviorSdkInstanceFromCtor(C3.Behaviors.DragnDrop);if(!behInst.IsEnabled()||!behInst.IsDragging()||behInst.IsDragging()&&behInst.GetDragSource()!==src)continue;const wi=inst.GetWorldInfo();const layer=wi.GetLayer();const [lx,ly]=layer.CanvasCssToLayer(clientX,clientY,wi.GetTotalZElevation());behInst._OnMove(lx,ly)}}async _OnInputUp(src){const myInstances=this.GetInstances();for(const inst of myInstances){const behInst=inst.GetBehaviorSdkInstanceFromCtor(C3.Behaviors.DragnDrop);
+if(behInst.IsDragging()&&behInst.GetDragSource()===src)await behInst._OnUp()}}}}{const C3=self.C3;C3.Behaviors.DragnDrop.Type=class DragnDropType extends C3.SDKBehaviorTypeBase{constructor(behaviorType){super(behaviorType)}Release(){super.Release()}OnCreate(){}}}
+{const C3=self.C3;const AXES=0;const ENABLE=1;C3.Behaviors.DragnDrop.Instance=class DragnDropInstance extends C3.SDKBehaviorInstanceBase{constructor(behInst,properties){super(behInst);this._isDragging=false;this._dx=0;this._dy=0;this._dragSource="<none>";this._axes=0;this._isEnabled=true;if(properties){this._axes=properties[AXES];this._isEnabled=properties[ENABLE]}}Release(){super.Release()}SaveToJson(){return{"a":this._axes,"e":this._isEnabled}}LoadFromJson(o){this._axes=o["a"];this._isEnabled=o["e"];
+this._isDragging=false}IsEnabled(){return this._isEnabled}IsDragging(){return this._isDragging}GetDragSource(){return this._dragSource}async _OnDown(src,x,y){const wi=this.GetWorldInfo();this._dx=x-wi.GetX();this._dy=y-wi.GetY();this._isDragging=true;this._dragSource=src;await this.TriggerAsync(C3.Behaviors.DragnDrop.Cnds.OnDragStart)}_OnMove(x,y){const wi=this.GetWorldInfo();const newX=x-this._dx;const newY=y-this._dy;if(this._axes===0){if(wi.GetX()!==newX||wi.GetY()!==newY){wi.SetXY(newX,newY);
+wi.SetBboxChanged()}}else if(this._axes===1){if(wi.GetX()!==newX){wi.SetX(newX);wi.SetBboxChanged()}}else if(this._axes===2)if(wi.GetY()!==newY){wi.SetY(newY);wi.SetBboxChanged()}}async _OnUp(){this._isDragging=false;await this.TriggerAsync(C3.Behaviors.DragnDrop.Cnds.OnDrop)}GetPropertyValueByIndex(index){switch(index){case AXES:return this._axes;case ENABLE:return this._isEnabled}}SetPropertyValueByIndex(index,value){switch(index){case AXES:this._axes=value;break;case ENABLE:this._isEnabled=!!value;
+break}}GetDebuggerProperties(){const prefix="behaviors.dragndrop";return[{title:"$"+this.GetBehaviorType().GetName(),properties:[{name:prefix+".debugger.is-dragging",value:this._isDragging},{name:prefix+".properties.enabled.name",value:this._isEnabled,onedit:v=>this._isEnabled=v}]}]}}}{const C3=self.C3;C3.Behaviors.DragnDrop.Cnds={IsDragging(){return this._isDragging},OnDragStart(){return true},OnDrop(){return true},IsEnabled(){return this._isEnabled}}}
+{const C3=self.C3;C3.Behaviors.DragnDrop.Acts={SetEnabled(e){this._isEnabled=!!e;if(!this._isEnabled)this._isDragging=false},SetAxes(a){this._axes=a},Drop(){if(this._isDragging)this._OnUp()}}}{const C3=self.C3;C3.Behaviors.DragnDrop.Exps={}};
+
+}
+
+{
 const C3 = self.C3;
 self.C3_GetObjectRefTable = function () {
 	return [
@@ -5254,8 +5074,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Physics,
 		C3.Behaviors.Timer,
 		C3.Behaviors.Pin,
-		C3.Plugins.EZ_GameDev,
 		C3.Plugins.Eponesh_YandexSDK,
+		C3.Behaviors.DragnDrop,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.System.Exps.max,
 		C3.Plugins.LocalStorage.Acts.SetItem,
@@ -5265,6 +5085,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.layerindex,
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Exps.loopindex,
+		C3.Plugins.System.Acts.SetLayerInteractive,
 		C3.Plugins.System.Cnds.Else,
 		C3.Plugins.Shape3D.Acts.Destroy,
 		C3.Plugins.LocalStorage.Cnds.OnCleared,
@@ -5365,13 +5186,29 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.Sprite.Acts.SetVisible,
 		C3.Plugins.Sprite.Acts.SetDefaultColor,
+		C3.Plugins.Text.Acts.SetVisible,
+		C3.Plugins.Sprite.Cnds.IsOnLayer,
+		C3.Plugins.Arr.Acts.Push,
+		C3.Plugins.Arr.Acts.SetXY,
+		C3.Plugins.Arr.Exps.IndexOf,
+		C3.Behaviors.DragnDrop.Cnds.OnDrop,
+		C3.Plugins.Arr.Acts.Delete,
+		C3.Plugins.Sprite.Cnds.OnCollision,
+		C3.Behaviors.DragnDrop.Cnds.IsDragging,
+		C3.Plugins.System.Cnds.TriggerOnce,
+		C3.Behaviors.DragnDrop.Acts.SetEnabled,
+		C3.Plugins.Arr.Cnds.ArrForEach,
+		C3.Plugins.Arr.Exps.CurValue,
+		C3.Plugins.Arr.Exps.At,
+		C3.Plugins.Arr.Exps.CurX,
+		C3.Plugins.Sprite.Exps.AnimationFrame,
+		C3.Plugins.TiledBg.Acts.MoveToTop,
+		C3.Plugins.System.Acts.SetLayerOpacity,
 		C3.Plugins.NinePatch.Acts.SetSize,
 		C3.Plugins.NinePatch.Exps.X,
 		C3.Plugins.NinePatch.Exps.Y,
 		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.NinePatch.Acts.AddChild,
-		C3.Plugins.Arr.Exps.At,
-		C3.Plugins.Text.Acts.SetVisible,
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.Shape3D.Acts.SetInstanceVar,
 		C3.Plugins.Shape3D.Exps.X,
@@ -5509,9 +5346,21 @@ self.C3_JsPropNameTable = [
 	{LoadLogoAdBox: 0},
 	{"9patch": 0},
 	{AdBoxSmile: 0},
-	{EZ_GameDev: 0},
 	{YandexSDK: 0},
 	{SpaceUpdateSprite: 0},
+	{UIElement: 0},
+	{StickersBtn: 0},
+	{used: 0},
+	{DragDrop: 0},
+	{Sticker: 0},
+	{StickersControlTrash: 0},
+	{StickersControlPlusBtn: 0},
+	{StickersDoneBtn: 0},
+	{OpenedStickers: 0},
+	{Stickers: 0},
+	{StickerLocker: 0},
+	{NewStickerCloud: 0},
+	{NewStickerText: 0},
 	{ScaleEffect: 0},
 	{CurrentPopit: 0},
 	{Coins: 0},
@@ -5535,14 +5384,17 @@ self.C3_JsPropNameTable = [
 	{DarkMode: 0},
 	{CurrentBackColor: 0},
 	{PaintMode: 0},
+	{frame: 0},
+	{draggable: 0},
+	{x: 0},
+	{y: 0},
+	{on: 0},
 	{MPTryUsed: 0},
 	{Multiplyer: 0},
 	{Multiplyer_Timer: 0},
 	{duration_sec: 0},
 	{sound: 0},
 	{CurrentRewardValue: 0},
-	{x: 0},
-	{y: 0},
 	{show: 0},
 	{Language: 0}
 ];
@@ -5656,10 +5508,6 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => v0.GetValue();
 		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => and(v0.GetValue(), "+");
-		},
 		() => "",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5674,6 +5522,7 @@ self.C3_ExpressionFuncs = [
 			return () => f0();
 		},
 		() => "H_black",
+		() => "UI",
 		() => "def",
 		() => "Popits",
 		() => 0,
@@ -5823,6 +5672,7 @@ self.C3_ExpressionFuncs = [
 		},
 		() => "opened_popits",
 		() => -10,
+		() => "star",
 		() => "presets",
 		() => "Customs_Colors",
 		() => "Customs_Presets",
@@ -5854,9 +5704,36 @@ self.C3_ExpressionFuncs = [
 		() => "Custom_Colors_Select",
 		() => "cur_backcolor",
 		() => "opened_backcolors",
+		() => "spray",
 		() => "opened_popcolors",
 		() => 100,
 		() => "popcolors",
+		() => "Stickers",
+		() => 640,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => n0.ExpObject(n1.ExpInstVar());
+		},
+		() => "stickers",
+		() => 60,
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => n0.ExpObject(n1.ExpObject(), 1);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => n0.ExpObject(n1.ExpObject(), 2);
+		},
+		() => "Back",
+		() => 40,
+		() => 50,
+		() => "Pops",
+		() => 25,
+		() => "StickersControl",
+		() => "opened_stickers",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => ((100 * v0.GetValue()) + 100);
@@ -5888,11 +5765,6 @@ self.C3_ExpressionFuncs = [
 			const f2 = p._GetNode(2).GetBoundMethod();
 			return () => ((((f0("rows") - 1) * v1.GetValue()) + f2("cols")) - 1);
 		},
-		p => {
-			const n0 = p._GetNode(0);
-			const n1 = p._GetNode(1);
-			return () => n0.ExpObject(n1.ExpInstVar());
-		},
 		() => "Multiplyer",
 		() => "mult",
 		() => "mult_timer",
@@ -5906,7 +5778,6 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => f0(0, (v1.GetValue() - 1));
 		},
-		() => 60,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and(v0.GetValue(), " s");
@@ -5919,6 +5790,10 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 220);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => and(v0.GetValue(), "+");
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5944,12 +5819,15 @@ self.C3_ExpressionFuncs = [
 		() => "Localization",
 		() => "ru",
 		() => "Редактор\nпоп-итов",
+		() => "Открыт новый\nстикер",
 		() => 145,
 		() => "Размеры:",
 		() => 146,
 		() => "Цвет фона",
 		() => 147,
 		() => "Цвет пупырок",
+		() => 345,
+		() => "Наклейки",
 		() => "mp_try_used",
 		() => "quest",
 		() => "quest_rew",
